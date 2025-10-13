@@ -49,6 +49,35 @@
   background: var(--secondary-color);
 }
 
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lang-switcher button {
+  background: none;
+  border: none;
+  color: var(--text-dark);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+  transition: color 0.3s;
+}
+
+.lang-switcher button:hover {
+  color: var(--primary-color);
+}
+
+.lang-switcher button.active {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.lang-switcher span {
+  color: var(--text-light);
+}
+
 @media (max-width: 768px) {
   .nav-menu {
     gap: 1rem;
