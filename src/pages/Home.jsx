@@ -8,7 +8,6 @@ export default function Home() {
         <div className="hero-content">
           <h1>Professional Therapy Services</h1>
           <p>Supporting your mental health journey with compassionate, evidence-based care</p>
-          <Link to="/appointment" className="cta-button">Book Your Session</Link>
         </div>
       </section>
 
