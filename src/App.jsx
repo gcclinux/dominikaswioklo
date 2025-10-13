@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Prices from './pages/Prices';
@@ -8,7 +8,7 @@ import Appointment from './pages/Appointment';
 
 export default function App() {
   return (
-    <Router basename={import.meta.env.BASE_URL}>
+    <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
