@@ -1,6 +1,10 @@
+import { useState } from 'react';
+import CalendarModal from '../components/booking/CalendarModal';
 import './Prices.css';
 
 export default function Prices() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const services = [
     {
       title: "Individual Therapy Session",
@@ -68,7 +72,7 @@ export default function Prices() {
                   <li key={idx}>{feature}</li>
                 ))}
               </ul>
-              <button className="book-button">Book Now</button>
+              <button className="book-button" onClick={() => setIsModalOpen(true)}>Book Now</button>
             </div>
           ))}
         </div>
@@ -78,6 +82,7 @@ export default function Prices() {
           <p>We accept most major insurance plans. Please contact us to verify your coverage. Self-pay options and sliding scale fees available upon request.</p>
         </div>
       </div>
+      <CalendarModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }

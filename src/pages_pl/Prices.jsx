@@ -1,6 +1,10 @@
+import { useState } from 'react';
+import CalendarModal from '../components/booking/CalendarModal';
 import './Prices.css';
 
 export default function Prices() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   const services = [
     {
       title: "Terapia NDT Bobath",
@@ -68,7 +72,7 @@ export default function Prices() {
                   <li key={idx}>{feature}</li>
                 ))}
               </ul>
-              <button className="book-button">Umów Wizytę</button>
+              <button className="book-button" onClick={() => setIsModalOpen(true)}>Umów Wizytę</button>
             </div>
           ))}
         </div>
@@ -78,6 +82,7 @@ export default function Prices() {
           <p>Akceptujemy większość głównych planów ubezpieczeniowych. Skontaktuj się z nami, aby zweryfikować swoje ubezpieczenie. Dostępne opcje płatności prywatnej i ruchoma skala opłat na życzenie.</p>
         </div>
       </div>
+      <CalendarModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 }

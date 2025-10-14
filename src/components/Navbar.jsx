@@ -31,7 +31,7 @@ export default function Navbar() {
           <li><Link to="/prices">{text[language].prices}</Link></li>
           <li><Link to="/about">{text[language].about}</Link></li>
           <li><Link to="/contact">{text[language].contact}</Link></li>
-          <li><Link to="/appointment" className="nav-cta">{text[language].appointment}</Link></li>
+          <li><Link to="/prices" className="nav-cta">{text[language].appointment}</Link></li>
           <li className="lang-switcher">
             <button 
               onClick={() => toggleLanguage('en')} 
