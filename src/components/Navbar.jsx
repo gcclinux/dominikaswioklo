@@ -9,7 +9,6 @@ export default function Navbar() {
     en: {
       home: 'Home',
       prices: 'Prices',
-      carousel: 'Carousel',
       about: 'About',
       contact: 'Contact',
       appointment: 'Book Appointment'
@@ -17,7 +16,6 @@ export default function Navbar() {
     pl: {
       home: 'Strona Główna',
       prices: 'Cennik',
-      carousel: 'Karuzela',
       about: 'O Mnie',
       contact: 'Kontakt',
       appointment: 'Umów Wizytę'
@@ -31,7 +29,6 @@ export default function Navbar() {
         <ul className="nav-menu">
           <li><Link to="/">{text[language].home}</Link></li>
           <li><Link to="/prices">{text[language].prices}</Link></li>
-          <li><strong><Link to="/carousel">{text[language].carousel}</Link></strong></li>
           <li><Link to="/about">{text[language].about}</Link></li>
           <li><Link to="/contact">{text[language].contact}</Link></li>
           <li><Link to="/prices" className="nav-cta">{text[language].appointment}</Link></li>
