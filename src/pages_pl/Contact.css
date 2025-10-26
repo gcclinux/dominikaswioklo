@@ -149,6 +149,28 @@
   background: var(--secondary-color);
 }
 
+.contact-form-section button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+}
+
+.submit-status {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.submit-status.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.submit-status.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
 @media (max-width: 768px) {
   .contact-header h1 {
     font-size: 2rem;

@@ -1,6 +1,41 @@
+import { useState } from 'react';
 import './Contact.css';
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: 'Wiadomość wysłana pomyślnie!' });
+        e.target.reset();
+      } else {
+        setSubmitStatus({ type: 'error', message: 'Nie udało się wysłać wiadomości. Spróbuj ponownie.' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Nie udało się wysłać wiadomości. Spróbuj ponownie.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="contact-page">
       <div className="contact-header">
@@ -47,11 +82,14 @@ export default function Contact() {
 
           <div className="contact-form-section">
             <h2>Wyślij Wiadomość</h2>
-            <form action="https://formspree.io/f/xnnbeyqn" method="POST">
+            <form onSubmit={handleSubmit}>
               <input type="text" name="name" placeholder="Twoje imię i nazwisko" required />
               <input type="email" name="email" placeholder="Twój adres e-mail" required />
               <textarea name="message" rows="5" placeholder="Twoja wiadomość" required></textarea>
-              <button type="submit">Wyślij Wiadomość</button>
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Wysyłanie...' : 'Wyślij Wiadomość'}
+              </button>
+              {submitStatus && <p className={`submit-status ${submitStatus.type}`}>{submitStatus.message}</p>}
             </form>
           </div>
         </div>

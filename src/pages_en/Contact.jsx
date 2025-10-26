@@ -1,6 +1,41 @@
+import { useState } from 'react';
 import './Contact.css';
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    const formData = new FormData(e.target);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('http://localhost:3001/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: 'Message sent successfully!' });
+        e.target.reset();
+      } else {
+        setSubmitStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+      }
+    } catch (error) {
+      setSubmitStatus({ type: 'error', message: 'Failed to send message. Please try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div className="contact-page">
       <div className="contact-header">
@@ -47,11 +82,14 @@ export default function Contact() {
 
           <div className="contact-form-section">
             <h2>Send a Message</h2>
-            <form action="https://formspree.io/f/xnnbeyqn" method="POST">
+            <form onSubmit={handleSubmit}>
               <input type="text" name="name" placeholder="Your name" required />
               <input type="email" name="email" placeholder="Your email address" required />
               <textarea name="message" rows="5" placeholder="Your message" required></textarea>
-              <button type="submit">Send Message</button>
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </button>
+              {submitStatus && <p className={`submit-status ${submitStatus.type}`}>{submitStatus.message}</p>}
             </form>
           </div>
         </div>
