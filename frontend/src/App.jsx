@@ -16,6 +16,21 @@ import WeeklyScheduler from './components/WeeklyScheduler';
 import { useState, useEffect } from 'react';
 import { API } from './config/api';
 
+// Update document title from settings
+const updateDocumentTitle = async () => {
+  try {
+    const response = await fetch(`${API}/settings`);
+    const data = await response.json();
+    if (data.success && data.data.headerMessage) {
+      document.title = data.data.headerMessage;
+    }
+  } catch (error) {
+    console.error('Error fetching site title:', error);
+  }
+};
+
+updateDocumentTitle();
+
 function SchedulerPage() {
   const [appointmentType, setAppointmentType] = useState(null);
 
