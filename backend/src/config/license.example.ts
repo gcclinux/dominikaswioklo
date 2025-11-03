@@ -17,7 +17,7 @@ const LICENSE_NAME = '';
 const LICENSE_EMAIL = '';
 
 // Secret key for license generation (keep this private!)
-const LICENSE_SECRET = '78090092f200960d38cf461d1025f56c8155d63ac5d4eed0c6839a5c5245d7e0';
+const LICENSE_SECRET = process.env.PREMIUM_FEATURES_ENCRYPTION;
 
 // Generate license key from name and email
 export const generateLicenseKey = (name: string, email: string): string => {
