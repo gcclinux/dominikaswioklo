@@ -248,7 +248,7 @@ async function migrateMongoToSqlite() {
         s.maxAppWeek ?? 4,
         s.startHour ?? 9,
         s.endHour ?? 17,
-        s.headerMessage ?? 'Select Your Appointment Time',
+        s.headerMessage ?? 'Update default header in settings',
         s.displayAvailability ?? 4,
         s.pastAppointmentsDays ?? 7,
         s.futureAppointmentsDays ?? 14,

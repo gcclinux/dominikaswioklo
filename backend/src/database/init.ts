@@ -86,7 +86,7 @@ export const initializeDatabase = (): Promise<void> => {
           maxAppWeek INTEGER DEFAULT 4,
           startHour INTEGER DEFAULT 9,
            endHour INTEGER DEFAULT 17,
-           headerMessage TEXT DEFAULT 'Select Your Appointment Time',
+           headerMessage TEXT DEFAULT '',
            displayAvailability INTEGER DEFAULT 4,
           pastAppointmentsDays INTEGER DEFAULT 7,
           futureAppointmentsDays INTEGER DEFAULT 14,
@@ -315,7 +315,7 @@ export const initializeDatabase = (): Promise<void> => {
           alters.push(`ALTER TABLE settings ADD COLUMN displayAvailability INTEGER DEFAULT 4`);
         }
         if (!cols.includes('headerMessage')) {
-          alters.push(`ALTER TABLE settings ADD COLUMN headerMessage TEXT DEFAULT 'Select Your Appointment Time'`);
+          alters.push(`ALTER TABLE settings ADD COLUMN headerMessage TEXT DEFAULT 'Update default header in settings'`);
         }
         if (!cols.includes('pastAppointmentsDays')) {
           alters.push(`ALTER TABLE settings ADD COLUMN pastAppointmentsDays INTEGER DEFAULT 30`);
@@ -339,7 +339,7 @@ export const initializeDatabase = (): Promise<void> => {
           alters.push(`ALTER TABLE settings ADD COLUMN appointmentCurrency TEXT DEFAULT 'USD'`);
         }
         if (!cols.includes('siteTheme')) {
-          alters.push(`ALTER TABLE settings ADD COLUMN siteTheme TEXT DEFAULT 'purple'`);
+          alters.push(`ALTER TABLE settings ADD COLUMN siteTheme TEXT DEFAULT 'green'`);
         }
 
         const runInSeries = (arr: string[], idx: number, cb: () => void) => {
@@ -356,7 +356,7 @@ export const initializeDatabase = (): Promise<void> => {
           // Insert default settings if not exists (includes new columns)
           db.run(`
             INSERT OR IGNORE INTO settings (sid, maxApp, maxAppWeek, startHour, endHour, headerMessage, displayAvailability, pastAppointmentsDays, futureAppointmentsDays, availabilityLocked, availabilityLockedUntil, includeWeekend, allow30Min) 
-              VALUES (1, 2, 4, 9, 17, 'Select Your Appointment Time', 4, 7, 14, 0, NULL, 0, 0)
+              VALUES (1, 2, 4, 9, 17, 'Update default header in settings', 4, 7, 14, 0, NULL, 0, 0)
           `, (insertErr) => {
             if (insertErr) {
               console.warn('Failed to insert default settings:', insertErr.message);
@@ -378,7 +378,7 @@ export const initializeDatabase = (): Promise<void> => {
                 maxAppWeek = COALESCE(maxAppWeek, 4),
                 startHour = COALESCE(startHour, 9),
                 endHour = COALESCE(endHour, 17),
-                headerMessage = COALESCE(headerMessage, 'Select Your Appointment Time'),
+                headerMessage = COALESCE(headerMessage, 'Update default header in settings'),
                 displayAvailability = COALESCE(displayAvailability, 4),
                 pastAppointmentsDays = COALESCE(pastAppointmentsDays, 7),
                 futureAppointmentsDays = COALESCE(futureAppointmentsDays, 14),

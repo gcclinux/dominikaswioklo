@@ -521,7 +521,7 @@ const DesktopScheduler = ({
               : (availabilityLocked || (availabilityLockedUntil && new Date(availabilityLockedUntil) >= new Date()));
 
             const hasCustomHeader = headerMessage && headerMessage.toString().trim().length > 0;
-            const defaultAvailableMsg = 'Select Your Appointment Time';
+            const defaultAvailableMsg = 'Update default header in settings';
             const defaultBookedMsg = 'We are currently fully booked';
             const displayText = hasCustomHeader ? headerMessage : (isWeekLocked ? defaultBookedMsg : defaultAvailableMsg);
 

@@ -31,3 +31,4 @@ dist-ssr
 # License configuration (contains premium credentials)
 backend/src/config/license.ts
 backend/database/scheduler.db
+database/scheduler.db

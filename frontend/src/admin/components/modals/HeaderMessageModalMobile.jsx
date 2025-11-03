@@ -3,7 +3,7 @@ import HeaderMessageEditor from '../HeaderMessageEditor';
 
 function HeaderMessageModalMobile({ isOpen, onClose, settings, onSave }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="💬 Header Message" maxWidth="100%">
+    <Modal isOpen={isOpen} onClose={onClose} title="💬 Header Message" maxWidth="100%" closeOnOverlayClick={false}>
       {settings && (
         <HeaderMessageEditor
           currentValue={settings.headerMessage}

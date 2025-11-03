@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './NumberSettingEditor.css';
 
 function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }) {
-  const DEFAULT_HEADER = 'Select Your Appointment Time';
+  const DEFAULT_HEADER = 'Update default header in settings';
   const [value, setValue] = useState(currentValue || '');
   const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
