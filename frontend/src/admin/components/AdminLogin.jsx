@@ -55,7 +55,7 @@ function AdminLogin({ onLoginSuccess }) {
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'var(--primary-gradient)',
       padding: '1rem'
     }}>
       <div style={{
@@ -110,7 +110,7 @@ function AdminLogin({ onLoginSuccess }) {
                 transition: 'border-color 0.2s ease',
                 outline: 'none'
               }}
-              onFocus={(e) => e.target.style.borderColor = '#667eea'}
+              onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
               onBlur={(e) => e.target.style.borderColor = '#e1e8ed'}
               placeholder="Enter your login username"
               disabled={loading}
@@ -142,7 +142,7 @@ function AdminLogin({ onLoginSuccess }) {
                 transition: 'border-color 0.2s ease',
                 outline: 'none'
               }}
-              onFocus={(e) => e.target.style.borderColor = '#667eea'}
+              onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
               onBlur={(e) => e.target.style.borderColor = '#e1e8ed'}
               placeholder="Enter your password"
               disabled={loading}
@@ -169,7 +169,7 @@ function AdminLogin({ onLoginSuccess }) {
             style={{
               width: '100%',
               padding: '0.75rem',
-              background: loading ? '#bdc3c7' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: loading ? '#bdc3c7' : 'var(--primary-gradient)',
               color: 'white',
               border: 'none',
               borderRadius: '8px',

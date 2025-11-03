@@ -22,8 +22,8 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
     <div style={{ padding: '1rem', maxWidth: '550px', margin: '0 auto' }}>
       {/* Current Status Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-        border: '2px solid rgba(102,126,234,0.3)',
+        background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
+        border: '2px solid var(--primary-border)',
         borderRadius: '10px',
         padding: '0.75rem 1rem',
         marginBottom: '1rem',
@@ -59,9 +59,9 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
                 width: '40px',
                 height: '40px',
                 borderRadius: '10px',
-                border: '2px solid #667eea',
+                border: '2px solid var(--primary-color)',
                 background: value <= min || isSaving ? '#f0f0f0' : 'white',
-                color: value <= min || isSaving ? '#ccc' : '#667eea',
+                color: value <= min || isSaving ? '#ccc' : 'var(--primary-color)',
                 fontSize: '1.3rem',
                 fontWeight: 700,
                 cursor: value <= min || isSaving ? 'not-allowed' : 'pointer',
@@ -73,10 +73,10 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
             <div style={{
               fontSize: '2.5rem',
               fontWeight: 700,
-              color: '#667eea',
+              color: 'var(--primary-color)',
               minWidth: '100px',
               textAlign: 'center',
-              background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
+              background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
               borderRadius: '12px',
               padding: '0.5rem'
             }}>
@@ -89,9 +89,9 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
                 width: '40px',
                 height: '40px',
                 borderRadius: '10px',
-                border: '2px solid #667eea',
+                border: '2px solid var(--primary-color)',
                 background: value >= max || isSaving ? '#f0f0f0' : 'white',
-                color: value >= max || isSaving ? '#ccc' : '#667eea',
+                color: value >= max || isSaving ? '#ccc' : 'var(--primary-color)',
                 fontSize: '1.3rem',
                 fontWeight: 700,
                 cursor: value >= max || isSaving ? 'not-allowed' : 'pointer',
@@ -141,12 +141,12 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
       {/* Preview Box */}
       {previewText && hasChanged && (
         <div style={{
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'var(--primary-gradient)',
           borderRadius: '10px',
           padding: '1rem',
           marginBottom: '1rem',
           color: 'white',
-          boxShadow: '0 4px 12px rgba(102,126,234,0.3)'
+          boxShadow: '0 4px 12px var(--primary-border)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{ fontSize: '1.5rem' }}>✓</div>
@@ -201,7 +201,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
             padding: '0.75rem 2rem',
             borderRadius: '10px',
             border: 'none',
-            background: !hasChanged || !!error || isSaving ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: !hasChanged || !!error || isSaving ? '#ccc' : 'var(--primary-gradient)',
             color: 'white',
             fontSize: '1rem',
             fontWeight: 600,

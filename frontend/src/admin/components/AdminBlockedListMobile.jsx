@@ -85,7 +85,7 @@ function AdminBlockedListMobile({ isOpen, onClose }) {
               background: selectedIds.has(row.bid) 
                 ? 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)' 
                 : 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-              border: selectedIds.has(row.bid) ? '2px solid #667eea' : '1px solid #e0e0e0',
+              border: selectedIds.has(row.bid) ? '2px solid var(--primary-color)' : '1px solid #e0e0e0',
               borderRadius: '12px',
               padding: '1rem',
               boxShadow: selectedIds.has(row.bid) 
@@ -105,7 +105,7 @@ function AdminBlockedListMobile({ isOpen, onClose }) {
                     cursor: 'pointer', 
                     width: '20px', 
                     height: '20px',
-                    accentColor: '#667eea'
+                    accentColor: 'var(--primary-color)'
                   }}
                 />
               </div>

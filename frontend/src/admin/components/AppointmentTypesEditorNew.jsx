@@ -252,7 +252,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
             style={{
               padding: '0.75rem 1.5rem',
               border: 'none',
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'var(--primary-gradient)',
               color: 'white',
               borderRadius: '8px',
               cursor: 'pointer',
@@ -398,7 +398,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
                   onClick={() => handleEdit(appointment)}
                   style={{
                     padding: '0.5rem 1rem',
-                    background: '#667eea',
+                    background: 'var(--primary-color)',
                     color: 'white',
                     border: 'none',
                     borderRadius: '6px',
@@ -435,8 +435,8 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
           width: '100%',
           padding: '1rem',
           background: 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)',
-          color: '#667eea',
-          border: '2px dashed #667eea',
+          color: 'var(--primary-color)',
+          border: '2px dashed var(--primary-color)',
           borderRadius: '10px',
           cursor: 'pointer',
           fontSize: '1rem',

@@ -238,7 +238,7 @@ function AdminApp() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+        background: 'var(--primary-gradient)'
       }}>
         <div style={{ color: 'white', fontSize: '1.2rem' }}>
           <span style={{

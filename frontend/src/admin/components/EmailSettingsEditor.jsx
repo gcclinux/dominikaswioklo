@@ -25,8 +25,8 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
     <div style={{ padding: '0.1rem 1rem 1rem 1rem', maxWidth: '750px', margin: '0 auto' }}>
       {/* Info Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-        border: '2px solid rgba(102,126,234,0.3)',
+        background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
+        border: '2px solid var(--primary-border)',
         borderRadius: '10px',
         padding: '0.75rem 1rem',
         marginBottom: '1rem',
@@ -210,7 +210,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
             padding: '0.75rem 2rem',
             borderRadius: '10px',
             border: 'none',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'var(--primary-gradient)',
             color: 'white',
             fontSize: '1rem',
             fontWeight: 600,

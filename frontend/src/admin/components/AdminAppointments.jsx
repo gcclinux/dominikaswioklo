@@ -315,7 +315,7 @@ function AdminAppointments({ isOpen, onClose }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.25rem',
-                  color: sortBy === 'date' ? '#667eea' : 'inherit'
+                  color: sortBy === 'date' ? 'var(--primary-color)' : 'inherit'
                 }}
                 onClick={() => handleSort('date')}
                 title="Click to sort by date"
@@ -331,7 +331,7 @@ function AdminAppointments({ isOpen, onClose }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.25rem',
-                  color: sortBy === 'status' ? '#667eea' : 'inherit'
+                  color: sortBy === 'status' ? 'var(--primary-color)' : 'inherit'
                 }}
                 onClick={() => handleSort('status')}
                 title="Click to sort by status"
@@ -347,7 +347,7 @@ function AdminAppointments({ isOpen, onClose }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.25rem',
-                  color: sortBy === 'client' ? '#667eea' : 'inherit'
+                  color: sortBy === 'client' ? 'var(--primary-color)' : 'inherit'
                 }}
                 onClick={() => handleSort('client')}
                 title="Click to sort by client name"
@@ -363,7 +363,7 @@ function AdminAppointments({ isOpen, onClose }) {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.25rem',
-                  color: sortBy === 'phone' ? '#667eea' : 'inherit'
+                  color: sortBy === 'phone' ? 'var(--primary-color)' : 'inherit'
                 }}
                 onClick={() => handleSort('phone')}
                 title="Click to sort by phone"
@@ -511,8 +511,8 @@ function AdminAppointments({ isOpen, onClose }) {
               alignItems: 'center', 
               gap: '0.5rem', 
               padding: '0.5rem 0.75rem',
-              background: hideBlocked ? 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)' : 'white',
-              border: hideBlocked ? '2px solid #667eea' : '2px solid #ddd',
+              background: hideBlocked ? 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)' : 'white',
+              border: hideBlocked ? '2px solid var(--primary-color)' : '2px solid #ddd',
               borderRadius: '8px',
               fontSize: '0.9rem',
               fontWeight: 600,
@@ -524,7 +524,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 type="checkbox" 
                 checked={hideBlocked} 
                 onChange={(e) => setHideBlocked(e.target.checked)}
-                style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#667eea' }}
+                style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
               />
               🚫 Hide blocked users
             </label>
@@ -533,8 +533,8 @@ function AdminAppointments({ isOpen, onClose }) {
               alignItems: 'center', 
               gap: '0.5rem', 
               padding: '0.5rem 0.75rem',
-              background: hidePast ? 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)' : 'white',
-              border: hidePast ? '2px solid #667eea' : '2px solid #ddd',
+              background: hidePast ? 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)' : 'white',
+              border: hidePast ? '2px solid var(--primary-color)' : '2px solid #ddd',
               borderRadius: '8px',
               fontSize: '0.9rem',
               fontWeight: 600,
@@ -546,7 +546,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 type="checkbox" 
                 checked={hidePast} 
                 onChange={(e) => setHidePast(e.target.checked)}
-                style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#667eea' }}
+                style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
               />
               📅 Hide past
             </label>
@@ -573,14 +573,14 @@ function AdminAppointments({ isOpen, onClose }) {
               onClick={() => setShowPendingOnly(false)}
               style={{ 
                 padding: '0.5rem 1.5rem',
-                background: !showPendingOnly ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' : 'white',
+                background: !showPendingOnly ? 'var(--primary-gradient)' : 'white',
                 color: !showPendingOnly ? 'white' : '#2c3e50',
                 border: !showPendingOnly ? 'none' : '2px solid #ddd',
                 borderRadius: '8px',
                 cursor: 'pointer',
                 fontWeight: 600,
                 fontSize: '0.9rem',
-                boxShadow: !showPendingOnly ? '0 4px 12px rgba(102,126,234,0.3)' : 'none',
+                boxShadow: !showPendingOnly ? '0 4px 12px var(--primary-border)' : 'none',
                 transition: 'all 0.2s ease'
               }}
             >

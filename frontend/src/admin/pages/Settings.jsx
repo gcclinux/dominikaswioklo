@@ -177,10 +177,8 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
   const handleSaveAvailabilityLock = async (payload) => updateSetting(payload);
   const handleSaveHeaderMessage = async (payload) => updateSetting(payload);
   const handleSaveTheme = async (payload) => {
-    console.log('handleSaveTheme called with:', payload);
     await updateSetting(payload);
-    console.log('Theme saved successfully!');
-    // window.location.reload();
+    window.location.reload();
   };
   const handleSaveCustomerLimits = async ({ maxApp, maxAppWeek }) => updateSetting({ maxApp, maxAppWeek });
   const handleSaveAppointmentsFilter = async ({ pastAppointmentsDays, futureAppointmentsDays }) => updateSetting({ pastAppointmentsDays, futureAppointmentsDays });

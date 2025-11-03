@@ -68,11 +68,11 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div style={{
           padding: '1rem',
-          background: 'linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1))',
+          background: 'linear-gradient(135deg, var(--primary-light), rgba(118,75,162,0.1))',
           borderRadius: '8px',
-          border: '1px solid rgba(102,126,234,0.3)'
+          border: '1px solid var(--primary-border)'
         }}>
-          <h4 style={{ margin: '0 0 0.5rem 0', color: '#667eea' }}>Premium Features</h4>
+          <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary-color)' }}>Premium Features</h4>
           <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.9rem', color: '#555' }}>
             <li>Remove all branding</li>
             <li>Email notifications enabled</li>
@@ -186,7 +186,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
               className="nav-button"
               disabled={working || success}
               style={{
-                background: success ? '#27ae60' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                background: success ? '#27ae60' : 'var(--primary-gradient)'
               }}
             >
               {working ? 'Activating...' : success ? 'Activated!' : 'Activate License'}
@@ -202,7 +202,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
           color: '#666',
           textAlign: 'center'
         }}>
-          Don't have a license? <a href="https://gumroad.com/your-product" target="_blank" rel="noopener noreferrer" style={{ color: '#667eea', textDecoration: 'none', fontWeight: 500 }}>Purchase Premium</a>
+          Don't have a license? <a href="https://gumroad.com/your-product" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 500 }}>Purchase Premium</a>
         </div>
       </div>
     </Modal>

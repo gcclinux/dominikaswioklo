@@ -6,7 +6,7 @@
 }
 
 .mobile-hours-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   border-radius: 20px;
   padding: 1.5rem;
   color: white;
@@ -94,7 +94,7 @@
   font-size: 1.75rem;
   font-weight: 700;
   background: white;
-  color: #667eea;
+  color: var(--primary-color);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -175,7 +175,7 @@
 }
 
 .toggle-switch.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
 }
 
 .toggle-knob {
@@ -212,7 +212,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   border-radius: 12px;
   color: white;
 }
@@ -225,7 +225,7 @@
 }
 
 .mobile-preview strong {
-  color: #667eea;
+  color: var(--primary-color);
   font-weight: 700;
   font-size: 1.1rem;
 }
@@ -258,7 +258,7 @@
 }
 
 .mobile-btn.save {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white;
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 }

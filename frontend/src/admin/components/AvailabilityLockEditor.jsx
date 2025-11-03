@@ -168,12 +168,12 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
 
       {/* Info Box */}
       <div style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'var(--primary-gradient)',
         borderRadius: '10px',
         padding: '1rem',
         marginBottom: '1rem',
         color: 'white',
-        boxShadow: '0 4px 12px rgba(102,126,234,0.3)'
+        boxShadow: '0 4px 12px var(--primary-border)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ fontSize: '1.5rem' }}>ℹ️</div>
@@ -209,7 +209,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
             padding: '0.75rem 2rem',
             borderRadius: '10px',
             border: 'none',
-            background: isSaving || !!error ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: isSaving || !!error ? '#ccc' : 'var(--primary-gradient)',
             color: 'white',
             fontSize: '1rem',
             fontWeight: 600,

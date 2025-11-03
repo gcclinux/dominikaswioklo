@@ -93,7 +93,7 @@ function FirstTimeSetup({ onAdminCreated }) {
       justifyContent: 'center',
       alignItems: 'center',
       minHeight: '100vh',
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'var(--primary-gradient)',
       padding: '2rem'
     }}>
       <div style={{
@@ -249,7 +249,7 @@ function FirstTimeSetup({ onAdminCreated }) {
             disabled={working}
             style={{
               padding: '0.75rem',
-              background: working ? '#95a5a6' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: working ? '#95a5a6' : 'var(--primary-gradient)',
               color: 'white',
               border: 'none',
               borderRadius: '6px',

@@ -187,7 +187,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
                   background: selectedIds.has(row.aid) 
                     ? 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)' 
                     : 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-                  border: selectedIds.has(row.aid) ? '2px solid #667eea' : '1px solid #e0e0e0',
+                  border: selectedIds.has(row.aid) ? '2px solid var(--primary-color)' : '1px solid #e0e0e0',
                   borderRadius: '12px',
                   padding: '1rem',
                   boxShadow: selectedIds.has(row.aid) 
@@ -209,7 +209,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
                         cursor: isCurrentAdmin ? 'not-allowed' : 'pointer', 
                         width: '20px', 
                         height: '20px',
-                        accentColor: '#667eea',
+                        accentColor: 'var(--primary-color)',
                         opacity: isCurrentAdmin ? 0.5 : 1
                       }}
                     />
@@ -246,7 +246,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
                       style={{
                         flex: 1,
                         padding: '0.6rem',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: 'var(--primary-gradient)',
                         color: 'white',
                         border: 'none',
                         borderRadius: '8px',
@@ -265,7 +265,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
                       style={{
                         flex: 1,
                         padding: '0.6rem',
-                        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        background: 'var(--primary-gradient)',
                         color: 'white',
                         border: 'none',
                         borderRadius: '8px',
@@ -423,7 +423,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
               style={{
                 flex: 1,
                 padding: '0.75rem',
-                background: working ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: working ? '#ccc' : 'var(--primary-gradient)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -506,7 +506,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
               style={{
                 flex: 1,
                 padding: '0.75rem',
-                background: working ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: working ? '#ccc' : 'var(--primary-gradient)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',
@@ -655,7 +655,7 @@ function AdminAccessMobile({ isOpen, onClose, currentAdmin }) {
               style={{
                 flex: 1,
                 padding: '0.75rem',
-                background: working ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: working ? '#ccc' : 'var(--primary-gradient)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '8px',

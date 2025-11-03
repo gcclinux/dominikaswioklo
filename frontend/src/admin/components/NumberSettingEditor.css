@@ -2,17 +2,17 @@
 .number-setting-editor { display: flex; flex-direction: column; gap: 1.5rem; }
 .current-value-section { text-align: center; padding: 1rem; background: linear-gradient(135deg, rgba(102,126,234,0.05) 0%, rgba(118,75,162,0.05) 100%); border-radius: 12px; }
 .current-label { display: block; font-size: 0.85rem; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; font-weight: 600; }
-.current-value { font-size: 1.4rem; font-weight: 700; color: #667eea; font-family: 'SF Mono','Monaco','Consolas',monospace; line-height: 1; }
+.current-value { font-size: 1.4rem; font-weight: 700; color: var(--primary-color); font-family: 'SF Mono','Monaco','Consolas',monospace; line-height: 1; }
 .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent); margin: 0.5rem 0; }
 .new-value-section { display: flex; flex-direction: column; gap: 0.75rem; }
 .input-label { font-size: 0.95rem; color: #2c3e50; font-weight: 600; text-align: center; }
 .number-input-group { display: flex; gap: 0.5rem; align-items: center; }
-.stepper-button { width: 48px; height: 48px; border: 2px solid #667eea; background: white; color: #667eea; font-size: 1.5rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.stepper-button:hover:not(:disabled) { background: #667eea; color: white; transform: scale(1.05); }
+.stepper-button { width: 48px; height: 48px; border: 2px solid var(--primary-color); background: white; color: var(--primary-color); font-size: 1.5rem; font-weight: 600; border-radius: 12px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.stepper-button:hover:not(:disabled) { background: var(--primary-color); color: white; transform: scale(1.05); }
 .stepper-button:active:not(:disabled) { transform: scale(0.95); }
 .stepper-button:disabled { opacity: 0.3; cursor: not-allowed; }
 .number-input { flex: 1; height: 56px; padding: 0 1.5rem; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 1.5rem; font-weight: 600; text-align: center; color: #2c3e50; transition: all 0.2s ease; font-family: 'SF Mono','Monaco','Consolas',monospace; }
-.number-input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102,126,234,0.1); }
+.number-input:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px var(--primary-light); }
 .number-input:disabled { background: #f5f5f5; cursor: not-allowed; }
 .number-input::-webkit-inner-spin-button, .number-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
 .number-input[type=number] { appearance: textfield; -moz-appearance: textfield; }
@@ -21,20 +21,20 @@
 .info-icon { font-size: 1.5rem; flex-shrink: 0; }
 .info-text { color: #7f8c8d; font-size: 0.9rem; line-height: 1.5; }
 .preview-box { padding: 1.25rem; background: linear-gradient(135deg, rgba(102,126,234,0.08) 0%, rgba(118,75,162,0.08) 100%); border-radius: 12px; border: 1px solid rgba(102,126,234,0.2); }
-.preview-title { font-size: 0.9rem; color: #667eea; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; font-weight: 600; }
+.preview-title { font-size: 0.9rem; color: var(--primary-color); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; font-weight: 600; }
 .preview-text { color: #2c3e50; font-size: 0.95rem; line-height: 1.6; margin: 0; }
 .help-text { color: #95a5a6; font-size: 0.85rem; line-height: 1.5; font-style: italic; }
 .action-buttons { display: flex; gap: 1rem; margin-top: 0.5rem; }
 .cancel-button, .save-button { flex: 1; padding: 0.875rem 1.5rem; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 .cancel-button { background: #ecf0f1; color: #7f8c8d; }
 .cancel-button:hover:not(:disabled) { background: #d5dbdb; }
-.save-button { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
-.save-button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(102,126,234,0.3); }
+.save-button { background: var(--primary-gradient); color: white; }
+.save-button:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 16px var(--primary-border); }
 
 /* smaller Close variant used in user modal to match primary buttons */
 .small-close-button { padding: 0.5rem 0.75rem; font-size: 0.95rem; border-radius: 8px; }
 .small-close-button:hover:not(:disabled) {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: var(--primary-gradient);
 	color: white;
 	box-shadow: 0 6px 14px rgba(102,126,234,0.25);
 	transform: translateY(-1px);
@@ -51,7 +51,7 @@
 	transition: all 0.18s ease;
 }
 .hover-gradient-button:hover:not(:disabled) {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: var(--primary-gradient);
 	color: white;
 	box-shadow: 0 6px 14px rgba(102,126,234,0.25);
 	transform: translateY(-1px);
@@ -81,9 +81,9 @@
 
 /* Keep selected preset/toggle buttons highlighted until saved */
 .stepper-button[aria-pressed="true"] {
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: var(--primary-gradient);
 	color: #fff;
-	border-color: #667eea;
+	border-color: var(--primary-color);
 	box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 .stepper-button[aria-pressed="true"]:hover {

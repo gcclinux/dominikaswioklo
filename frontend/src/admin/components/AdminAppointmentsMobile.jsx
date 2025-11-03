@@ -42,7 +42,7 @@ function AdminAppointmentsMobile({ sorted, confirmAppt, cancelAppt, blockUser, a
             background: selectedIds.has(row.id) 
               ? 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)' 
               : 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-            border: selectedIds.has(row.id) ? '2px solid #667eea' : '1px solid #e0e0e0',
+            border: selectedIds.has(row.id) ? '2px solid var(--primary-color)' : '1px solid #e0e0e0',
             borderRadius: '12px',
             padding: '1rem',
             boxShadow: selectedIds.has(row.id) 
@@ -86,7 +86,7 @@ function AdminAppointmentsMobile({ sorted, confirmAppt, cancelAppt, blockUser, a
                   cursor: 'pointer', 
                   width: '20px', 
                   height: '20px',
-                  accentColor: '#667eea'
+                  accentColor: 'var(--primary-color)'
                 }}
               />
             </div>
@@ -105,10 +105,10 @@ function AdminAppointmentsMobile({ sorted, confirmAppt, cancelAppt, blockUser, a
             {appointmentType && (
               <div style={{ 
                 fontSize: '0.85rem', 
-                color: '#667eea', 
+                color: 'var(--primary-color)', 
                 marginBottom: '0.75rem',
                 fontWeight: 600,
-                background: 'rgba(102,126,234,0.1)',
+                background: 'var(--primary-light)',
                 padding: '0.3rem 0.6rem',
                 borderRadius: '6px',
                 display: 'inline-block'

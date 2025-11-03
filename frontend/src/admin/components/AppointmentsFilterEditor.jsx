@@ -36,8 +36,8 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
     <div style={{ padding: '1rem', maxWidth: '650px', margin: '0 auto' }}>
       {/* Current Status Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-        border: '2px solid rgba(102,126,234,0.3)',
+        background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
+        border: '2px solid var(--primary-border)',
         borderRadius: '10px',
         padding: '0.75rem 1rem',
         marginBottom: '1rem',
@@ -77,9 +77,9 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
                 style={{
                   padding: '0.6rem',
                   borderRadius: '8px',
-                  border: past === v ? '2px solid #667eea' : '2px solid #ddd',
+                  border: past === v ? '2px solid var(--primary-color)' : '2px solid #ddd',
                   background: past === v ? 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)' : 'white',
-                  color: past === v ? '#667eea' : '#666',
+                  color: past === v ? 'var(--primary-color)' : '#666',
                   fontSize: '0.9rem',
                   fontWeight: 600,
                   cursor: isSaving ? 'not-allowed' : 'pointer',
@@ -113,9 +113,9 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
                 style={{
                   padding: '0.6rem',
                   borderRadius: '8px',
-                  border: future === v ? '2px solid #764ba2' : '2px solid #ddd',
+                  border: future === v ? '2px solid var(--secondary-color)' : '2px solid #ddd',
                   background: future === v ? 'linear-gradient(135deg, rgba(118,75,162,0.15) 0%, rgba(102,126,234,0.15) 100%)' : 'white',
-                  color: future === v ? '#764ba2' : '#666',
+                  color: future === v ? 'var(--secondary-color)' : '#666',
                   fontSize: '0.9rem',
                   fontWeight: 600,
                   cursor: isSaving ? 'not-allowed' : 'pointer',
@@ -151,12 +151,12 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
 
       {/* Preview Box */}
       <div style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'var(--primary-gradient)',
         borderRadius: '10px',
         padding: '1rem',
         marginBottom: '1rem',
         color: 'white',
-        boxShadow: '0 4px 12px rgba(102,126,234,0.3)'
+        boxShadow: '0 4px 12px var(--primary-border)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ fontSize: '1.5rem' }}>✓</div>
@@ -195,7 +195,7 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
             padding: '0.75rem 2rem',
             borderRadius: '10px',
             border: 'none',
-            background: !hasChanged || !!error || isSaving ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: !hasChanged || !!error || isSaving ? '#ccc' : 'var(--primary-gradient)',
             color: 'white',
             fontSize: '1rem',
             fontWeight: 600,

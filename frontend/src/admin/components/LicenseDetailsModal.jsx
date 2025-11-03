@@ -46,17 +46,17 @@ function LicenseDetailsModal({ isOpen, onClose }) {
               padding: '1rem',
               background: licenseInfo?.isPremium && licenseInfo?.isValid 
                 ? 'linear-gradient(135deg, rgba(39,174,96,0.1), rgba(46,204,113,0.1))'
-                : 'linear-gradient(135deg, rgba(102,126,234,0.1), rgba(118,75,162,0.1))',
+                : 'linear-gradient(135deg, var(--primary-light), rgba(118,75,162,0.1))',
               borderRadius: '8px',
               border: licenseInfo?.isPremium && licenseInfo?.isValid
                 ? '1px solid rgba(39,174,96,0.3)'
-                : '1px solid rgba(102,126,234,0.3)'
+                : '1px solid var(--primary-border)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
                 <span style={{ fontSize: '1.5rem' }}>
                   {licenseInfo?.isPremium && licenseInfo?.isValid ? '✅' : '🔒'}
                 </span>
-                <h3 style={{ margin: 0, color: licenseInfo?.isPremium && licenseInfo?.isValid ? '#27ae60' : '#667eea' }}>
+                <h3 style={{ margin: 0, color: licenseInfo?.isPremium && licenseInfo?.isValid ? '#27ae60' : 'var(--primary-color)' }}>
                   {licenseInfo?.isPremium && licenseInfo?.isValid ? 'Premium Active' : 'Free Tier'}
                 </h3>
               </div>

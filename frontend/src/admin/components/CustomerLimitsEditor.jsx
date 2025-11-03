@@ -21,8 +21,8 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
     <div style={{ padding: '1.5rem', maxWidth: '700px', margin: '0 auto' }}>
       {/* Current Status Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-        border: '2px solid rgba(102,126,234,0.3)',
+        background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
+        border: '2px solid var(--primary-border)',
         borderRadius: '12px',
         padding: '1rem 1.5rem',
         marginBottom: '1.5rem',
@@ -64,9 +64,9 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
                 width: '48px',
                 height: '48px',
                 borderRadius: '12px',
-                border: '2px solid #667eea',
+                border: '2px solid var(--primary-color)',
                 background: isSaving || dailyLimit <= 1 ? '#f0f0f0' : 'white',
-                color: isSaving || dailyLimit <= 1 ? '#ccc' : '#667eea',
+                color: isSaving || dailyLimit <= 1 ? '#ccc' : 'var(--primary-color)',
                 fontSize: '1.5rem',
                 fontWeight: 700,
                 cursor: isSaving || dailyLimit <= 1 ? 'not-allowed' : 'pointer',
@@ -78,10 +78,10 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             <div style={{
               fontSize: '2.5rem',
               fontWeight: 700,
-              color: '#667eea',
+              color: 'var(--primary-color)',
               minWidth: '80px',
               textAlign: 'center',
-              background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
+              background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
               borderRadius: '12px',
               padding: '0.5rem'
             }}>
@@ -94,9 +94,9 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
                 width: '48px',
                 height: '48px',
                 borderRadius: '12px',
-                border: '2px solid #667eea',
+                border: '2px solid var(--primary-color)',
                 background: isSaving || dailyLimit >= 10 ? '#f0f0f0' : 'white',
-                color: isSaving || dailyLimit >= 10 ? '#ccc' : '#667eea',
+                color: isSaving || dailyLimit >= 10 ? '#ccc' : 'var(--primary-color)',
                 fontSize: '1.5rem',
                 fontWeight: 700,
                 cursor: isSaving || dailyLimit >= 10 ? 'not-allowed' : 'pointer',
@@ -143,9 +143,9 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
                 width: '48px',
                 height: '48px',
                 borderRadius: '12px',
-                border: '2px solid #764ba2',
+                border: '2px solid var(--secondary-color)',
                 background: isSaving || weeklyLimit <= 1 ? '#f0f0f0' : 'white',
-                color: isSaving || weeklyLimit <= 1 ? '#ccc' : '#764ba2',
+                color: isSaving || weeklyLimit <= 1 ? '#ccc' : 'var(--secondary-color)',
                 fontSize: '1.5rem',
                 fontWeight: 700,
                 cursor: isSaving || weeklyLimit <= 1 ? 'not-allowed' : 'pointer',
@@ -157,10 +157,10 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             <div style={{
               fontSize: '2.5rem',
               fontWeight: 700,
-              color: '#764ba2',
+              color: 'var(--secondary-color)',
               minWidth: '80px',
               textAlign: 'center',
-              background: 'linear-gradient(135deg, rgba(118,75,162,0.1) 0%, rgba(102,126,234,0.1) 100%)',
+              background: 'linear-gradient(135deg, rgba(118,75,162,0.1) 0%, var(--primary-light) 100%)',
               borderRadius: '12px',
               padding: '0.5rem'
             }}>
@@ -173,9 +173,9 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
                 width: '48px',
                 height: '48px',
                 borderRadius: '12px',
-                border: '2px solid #764ba2',
+                border: '2px solid var(--secondary-color)',
                 background: isSaving || weeklyLimit >= 20 ? '#f0f0f0' : 'white',
-                color: isSaving || weeklyLimit >= 20 ? '#ccc' : '#764ba2',
+                color: isSaving || weeklyLimit >= 20 ? '#ccc' : 'var(--secondary-color)',
                 fontSize: '1.5rem',
                 fontWeight: 700,
                 cursor: isSaving || weeklyLimit >= 20 ? 'not-allowed' : 'pointer',
@@ -202,12 +202,12 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
 
       {/* Preview Box */}
       <div style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'var(--primary-gradient)',
         borderRadius: '12px',
         padding: '1.5rem',
         marginBottom: '1.5rem',
         color: 'white',
-        boxShadow: '0 6px 20px rgba(102,126,234,0.3)'
+        boxShadow: '0 6px 20px var(--primary-border)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ fontSize: '2rem' }}>✓</div>
@@ -246,7 +246,7 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             padding: '0.75rem 2rem',
             borderRadius: '10px',
             border: 'none',
-            background: !hasChanged || isSaving ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: !hasChanged || isSaving ? '#ccc' : 'var(--primary-gradient)',
             color: 'white',
             fontSize: '1rem',
             fontWeight: 600,

@@ -48,8 +48,8 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
     <div style={{ padding: '1rem', maxWidth: '650px', margin: '0 auto' }}>
       {/* Current Status Banner */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
-        border: '2px solid rgba(102,126,234,0.3)',
+        background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
+        border: '2px solid var(--primary-border)',
         borderRadius: '10px',
         padding: '0.75rem 1rem',
         marginBottom: '1rem',
@@ -88,9 +88,9 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
                   width: '36px',
                   height: '36px',
                   borderRadius: '8px',
-                  border: '2px solid #667eea',
+                  border: '2px solid var(--primary-color)',
                   background: isSaving || start <= 0 ? '#f0f0f0' : 'white',
-                  color: isSaving || start <= 0 ? '#ccc' : '#667eea',
+                  color: isSaving || start <= 0 ? '#ccc' : 'var(--primary-color)',
                   fontSize: '1.2rem',
                   fontWeight: 700,
                   cursor: isSaving || start <= 0 ? 'not-allowed' : 'pointer'
@@ -101,10 +101,10 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
               <div style={{
                 fontSize: '1.8rem',
                 fontWeight: 700,
-                color: '#667eea',
+                color: 'var(--primary-color)',
                 minWidth: '70px',
                 textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
+                background: 'linear-gradient(135deg, var(--primary-light) 0%, rgba(118,75,162,0.1) 100%)',
                 borderRadius: '8px',
                 padding: '0.25rem'
               }}>
@@ -117,9 +117,9 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
                   width: '36px',
                   height: '36px',
                   borderRadius: '8px',
-                  border: '2px solid #667eea',
+                  border: '2px solid var(--primary-color)',
                   background: isSaving || start >= 23 ? '#f0f0f0' : 'white',
-                  color: isSaving || start >= 23 ? '#ccc' : '#667eea',
+                  color: isSaving || start >= 23 ? '#ccc' : 'var(--primary-color)',
                   fontSize: '1.2rem',
                   fontWeight: 700,
                   cursor: isSaving || start >= 23 ? 'not-allowed' : 'pointer'
@@ -144,9 +144,9 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
                   width: '36px',
                   height: '36px',
                   borderRadius: '8px',
-                  border: '2px solid #764ba2',
+                  border: '2px solid var(--secondary-color)',
                   background: isSaving || end <= 1 ? '#f0f0f0' : 'white',
-                  color: isSaving || end <= 1 ? '#ccc' : '#764ba2',
+                  color: isSaving || end <= 1 ? '#ccc' : 'var(--secondary-color)',
                   fontSize: '1.2rem',
                   fontWeight: 700,
                   cursor: isSaving || end <= 1 ? 'not-allowed' : 'pointer'
@@ -157,10 +157,10 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
               <div style={{
                 fontSize: '1.8rem',
                 fontWeight: 700,
-                color: '#764ba2',
+                color: 'var(--secondary-color)',
                 minWidth: '70px',
                 textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(118,75,162,0.1) 0%, rgba(102,126,234,0.1) 100%)',
+                background: 'linear-gradient(135deg, rgba(118,75,162,0.1) 0%, var(--primary-light) 100%)',
                 borderRadius: '8px',
                 padding: '0.25rem'
               }}>
@@ -173,9 +173,9 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
                   width: '36px',
                   height: '36px',
                   borderRadius: '8px',
-                  border: '2px solid #764ba2',
+                  border: '2px solid var(--secondary-color)',
                   background: isSaving || end >= 24 ? '#f0f0f0' : 'white',
-                  color: isSaving || end >= 24 ? '#ccc' : '#764ba2',
+                  color: isSaving || end >= 24 ? '#ccc' : 'var(--secondary-color)',
                   fontSize: '1.2rem',
                   fontWeight: 700,
                   cursor: isSaving || end >= 24 ? 'not-allowed' : 'pointer'
@@ -261,12 +261,12 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
 
       {/* Preview Box */}
       <div style={{
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'var(--primary-gradient)',
         borderRadius: '10px',
         padding: '1rem',
         marginBottom: '1rem',
         color: 'white',
-        boxShadow: '0 4px 12px rgba(102,126,234,0.3)'
+        boxShadow: '0 4px 12px var(--primary-border)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ fontSize: '1.5rem' }}>✓</div>
@@ -305,7 +305,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
             padding: '0.75rem 2rem',
             borderRadius: '10px',
             border: 'none',
-            background: !hasChanged || !!error || isSaving ? '#ccc' : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: !hasChanged || !!error || isSaving ? '#ccc' : 'var(--primary-gradient)',
             color: 'white',
             fontSize: '1rem',
             fontWeight: 600,
