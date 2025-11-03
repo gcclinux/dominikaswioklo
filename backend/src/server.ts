@@ -25,7 +25,12 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const DB_TYPE = (process.env.DB_TYPE || 'sqlite').toLowerCase();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
@@ -142,7 +147,7 @@ const startServer = async () => {
         console.log(`📦 Serving frontend static files`);
         console.log(`🌐 Application available at: http://localhost:${PORT}`);
       } else {
-        console.log(`🔧 Development mode - Frontend runs separately on port 3000`);
+        console.log(`🔧 Development mode - Frontend runs separately on port 5173`);
       }
       
       console.log(`📅 API Endpoints:`);

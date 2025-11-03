@@ -5,11 +5,38 @@ A modern, responsive therapy practice website with appointment scheduling built 
 ## Project Structure
 
 ```
-├── frontend/          # Main website (port 5173)
-│   ├── src/          # Main site source code
-│   │   └── admin/    # Admin panel (integrated)
-│   └── admin/        # Legacy admin (deprecated)
-└── backend/          # API server (port 5000)
+├── frontend/                    # Main website (port 5173)
+│   ├── src/                    # Main site source code
+│   │   ├── admin/              # Admin panel (integrated)
+│   │   │   ├── components/     # Admin UI components
+│   │   │   ├── pages/          # Settings, Documentation
+│   │   │   └── utils/          # API helpers
+│   │   ├── components/         # Shared components (Navbar, Scheduler)
+│   │   ├── pages_en/           # English pages
+│   │   ├── pages_pl/           # Polish pages
+│   │   ├── context/            # React context (Language)
+│   │   └── config/             # API configuration
+│   ├── admin/                  # Legacy admin (deprecated)
+│   ├── public/                 # Static assets
+│   ├── index.html              # HTML entry point
+│   ├── package.json            # Frontend dependencies
+│   └── vite.config.js          # Vite configuration
+├── backend/                     # API server (port 5000)
+│   ├── src/
+│   │   ├── database/           # Database queries and init
+│   │   ├── routes/             # API endpoints
+│   │   ├── middleware/         # Auth, rate limiting
+│   │   ├── services/           # Business logic
+│   │   ├── types/              # TypeScript types
+│   │   └── server.ts           # Express server
+│   ├── database/
+│   │   └── scheduler.db        # SQLite database (created on init)
+│   ├── package.json            # Backend dependencies
+│   └── tsconfig.json           # TypeScript configuration
+├── .env                         # Environment variables (create from .env.example)
+├── .env.example                # Example environment configuration
+├── package.json                # Root scripts
+└── README.md                   # This file
 ```
 
 ## Prerequisites
@@ -46,31 +73,117 @@ nvm use 20
 ## Local Development Setup
 
 ### 1. Clone the repository
+
+**Clone the easyscheduler branch:**
+
 ```bash
-git clone https://github.com/gcclinux/dominikaswioklo.git
+git clone -b easyscheduler https://github.com/gcclinux/dominikaswioklo.git
 cd dominikaswioklo
 ```
 
-### 2. Install all dependencies
+**Or clone and switch to the branch:**
+
+```bash
+git clone https://github.com/gcclinux/dominikaswioklo.git
+cd dominikaswioklo
+git checkout easyscheduler
+```
+
+### 2. Configure Environment Variables
+
+Copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and configure the following:
+
+```bash
+# Server Configuration
+PORT=5000
+NODE_ENV=development
+
+# API Base URL
+API_BASE_URL=http://localhost:5000
+
+# Database
+DB_PATH=./backend/database/scheduler.db
+DB_TYPE=sqlite
+
+# Security (CHANGE IN PRODUCTION!)
+JWT_SECRET=change-this-to-a-strong-random-secret-in-production
+
+# Admin Dev Mode (bypass authentication)
+VITE_ADMIN_DEV_MODE=false
+
+# Premium Features
+PREMIUM_FEATURES_PURCHASE_URL=https://gumroad.com/easyscheduler
+PREMIUM_FEATURES_ENCRYPTION=easyscheduler-has-additional-key
+
+# MongoDB (only if DB_TYPE=mongodb)
+MONGODB_URI=mongodb://admin_user:user_password@host_id:27017
+MONGO_DB_NAME=easyscheduler
+```
+
+### 3. Install all dependencies
 ```bash
 npm run install:all
 ```
 
-### 3. Initialize database (first time only)
+This installs dependencies for root, frontend, and backend.
+
+### 4. Initialize database (first time only)
 ```bash
 npm run db:init
 ```
 
-### 4. Start all development servers
+This creates the SQLite database with all required tables.
+
+### 5. Start all development servers
 ```bash
 npm run dev
 ```
 
 This will start:
-- Frontend: `http://localhost:5173`
-- Admin Panel: `http://localhost:5173/#/admin`
-- Scheduler: `http://localhost:5173/#/easyscheduler`
-- Backend API: `http://localhost:5000`
+- **Frontend**: `http://localhost:5173`
+- **Admin Panel**: `http://localhost:5173/#/admin`
+- **Scheduler**: `http://localhost:5173/#/easyscheduler`
+- **Backend API**: `http://localhost:5000`
+
+### 6. First Time Admin Setup
+
+Navigate to: `http://localhost:5173/#/admin`
+
+You'll be prompted to create the first admin account:
+- First Name
+- Last Name  
+- Email
+- Username
+- Password
+
+### 7. Configure Your Site
+
+After logging in, configure:
+
+**Settings → Header Message**
+- Set your site title/name (appears in navbar and browser tab)
+
+**Settings → Site Theme**
+- Choose between Purple Gradient or Dark Green theme
+
+**Settings → Appointment Details**
+- Create appointment types with:
+  - Name, Duration, Price, Currency
+  - Language (EN/PL)
+  - Description and Features
+- These automatically appear on the Prices page
+
+**Settings → Working Days & Hours**
+- Configure business hours and weekend availability
+
+**Settings → Customer Booking Limits**
+- Set daily and weekly appointment limits
 
 ## Routing Structure
 
