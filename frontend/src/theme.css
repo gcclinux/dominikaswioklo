@@ -15,11 +15,11 @@
   --primary-border: rgba(45,80,22,0.3);
 }
 
-/* Default to purple if no theme set */
+/* Default to green if no theme set */
 :root {
-  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  --primary-color: #667eea;
-  --secondary-color: #764ba2;
-  --primary-light: rgba(102,126,234,0.1);
-  --primary-border: rgba(102,126,234,0.3);
+  --primary-gradient: linear-gradient(135deg, #2d5016 0%, #1a3d0a 100%);
+  --primary-color: #2d5016;
+  --secondary-color: #1a3d0a;
+  --primary-light: rgba(45,80,22,0.1);
+  --primary-border: rgba(45,80,22,0.3);
 }
