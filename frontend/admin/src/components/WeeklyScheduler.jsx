@@ -509,7 +509,7 @@ const DesktopScheduler = ({
     <div className="scheduler-overlay">
       <div className="scheduler-container">
         <div className="scheduler-header">
-          <button className="close-button" onClick={onClose}>✕</button>
+          <button className="close-button" onClick={() => window.location.hash = '/'}>✕</button>
           <button 
             className="mobile-view-toggle" 
             onClick={() => setUseMobileView(true)}

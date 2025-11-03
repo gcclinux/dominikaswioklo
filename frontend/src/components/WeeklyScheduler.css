@@ -95,10 +95,10 @@
   display: inline-block;
   padding: 0.5rem 1rem;
   border-radius: 999px;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%);
+  background: var(--primary-light);
   color: #2c3e50;
-  border: 1px solid rgba(102, 126, 234, 0.35);
-  box-shadow: 0 6px 18px rgba(102, 126, 234, 0.12);
+  border: 1px solid var(--primary-border);
+  box-shadow: 0 6px 18px var(--primary-light);
   font-weight: 500;
 }
 
@@ -120,14 +120,14 @@
 }
 .duration-toggle-group {
   display: inline-flex;
-  background: #f8f9ff;
-  border: 1px solid rgba(102, 126, 234, 0.3);
+  background: var(--primary-light);
+  border: 1px solid var(--primary-border);
   border-radius: 999px;
   padding: 2px;
 }
 .duration-toggle {
   background: transparent;
-  color: #667eea;
+  color: var(--primary-color);
   border: none;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
@@ -137,13 +137,13 @@
   transition: all 0.15s ease;
 }
 .duration-toggle:hover {
-  background: rgba(102, 126, 234, 0.08);
+  background: var(--primary-light);
 }
 .duration-toggle.active,
 .duration-toggle[aria-pressed="true"] {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white;
-  box-shadow: 0 4px 10px rgba(102,126,234,0.25);
+  box-shadow: 0 4px 10px var(--primary-light);
 }
 
 /* consolidated nav button styles moved below with gradient theme */
@@ -237,20 +237,20 @@
 }
 
 .time-slot.available:hover {
-  background: #f8f9ff;
+  background: var(--primary-light);
   transform: scale(1.02);
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+  box-shadow: 0 2px 8px var(--primary-light);
 }
 
 /* Selected slot */
 .time-slot.selected {
-  background: #667eea;
+  background: var(--primary-color);
   color: white;
   cursor: pointer;
 }
 
 .time-slot.selected:hover {
-  background: #5a6fd8;
+  background: var(--secondary-color);
 }
 
 /* Booked slots */
@@ -336,7 +336,7 @@
 }
 
 .legend-color.selected {
-  background: #667eea;
+  background: var(--primary-color);
 }
 
 .selected-info {
@@ -363,7 +363,7 @@
 
 .selected-time {
   margin: 0 0 1.5rem 0;
-  color: #667eea;
+  color: var(--primary-color);
   font-weight: 500;
   font-size: 1rem;
 }
@@ -397,8 +397,8 @@
 
 .form-group input:focus {
   outline: none;
-  border-color: #667eea;
-  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-light);
 }
 
 .form-actions {
@@ -428,7 +428,7 @@
 }
 
 .nav-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-gradient);
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
@@ -436,11 +436,11 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 10px rgba(102,126,234,0.25);
+  box-shadow: 0 4px 10px var(--primary-light);
 }
 .nav-button:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(102,126,234,0.3);
+  box-shadow: 0 6px 14px var(--primary-light);
 }
 .nav-button:disabled {
   background: #6c757d;

@@ -509,7 +509,7 @@ const DesktopScheduler = ({
     <div className="scheduler-overlay">
       <div className="scheduler-container">
         <div className="scheduler-header">
-          <button className="close-button" onClick={onClose}>✕</button>
+          <button className="close-button" onClick={() => window.location.hash = '/'}>✕</button>
           <button 
             className="mobile-view-toggle" 
             onClick={() => setUseMobileView(true)}
@@ -532,7 +532,7 @@ const DesktopScheduler = ({
                     <h2 className="header-title" style={{ marginBottom: '0.5rem' }}>
                       <span className="header-message-badge">{appointmentType.name}</span>
                     </h2>
-                    <div style={{ fontSize: '0.9rem', color: '#fff', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', padding: '0.4rem 1rem', borderRadius: '20px', display: 'inline-block' }}>
+                    <div style={{ fontSize: '0.9rem', color: '#fff', background: 'var(--primary-gradient)', padding: '0.4rem 1rem', borderRadius: '20px', display: 'inline-block' }}>
                       Price: {appointmentType.price} {appointmentType.currency}
                     </div>
                   </>
