@@ -1,0 +1,119 @@
+/* Modern styles for Documentation page and modal */
+.docs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.docs-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.docs-search input[type="search"] {
+  width: min(420px, 36vw);
+  padding: 0.6rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  outline: none;
+}
+.docs-search input::placeholder { color: rgba(255,255,255,0.85); }
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.doc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, #fff 100%);
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  border: 1px solid rgba(0,0,0,0.06);
+  transition: transform .12s ease, box-shadow .12s ease;
+  min-height: 180px;
+}
+.doc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+.doc-card-top { display: flex; align-items: flex-start; gap: 0.75rem; }
+.doc-card-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.doc-card-body { flex: 1; }
+.doc-card-title { margin: 0; font-size: 1.05rem; color: #213547; }
+.doc-card-desc { margin: 0.25rem 0 0.5rem; color: #4b5563; font-size: .92rem; }
+.doc-card-tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.doc-tag { font-size: .75rem; padding: .15rem .4rem; background: rgba(0,0,0,0.06); border-radius: 6px; color: #374151; }
+.doc-card-footer { margin-top: auto; padding-top: .5rem; display: flex; justify-content: flex-end; border-top: 1px solid rgba(0,0,0,0.06); }
+.doc-card-cta { font-weight: 700; color: var(--doc-color, #6366f1); }
+
+/* Modal two-column layout */
+.doc-modal {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 1rem;
+  max-height: 75vh;
+}
+.doc-toc {
+  padding: 1rem;
+  border-right: 1px solid #e5e7eb;
+}
+.doc-toc h4 { margin: 0 0 .5rem; color: #111827; }
+.doc-toc-list { list-style: none; padding: 0; margin: 0; }
+.toc-item { margin: 0; }
+.toc-item button {
+  background: none; border: none; color: #374151; cursor: pointer; padding: .25rem 0; text-align: left; width: 100%;
+}
+.toc-item.level-1 button { font-weight: 700; color: #111827; }
+.toc-item.level-2 button { padding-left: .5rem; }
+.toc-item.level-3 button { padding-left: 1rem; font-size: .95em; }
+
+.doc-article {
+  overflow: auto;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+  border-radius: 8px;
+}
+.doc-content { padding: 1.25rem 1.5rem; color: #1f2937; }
+
+/* Typography */
+.doc-h { margin: 1.1rem 0 .6rem; }
+.doc-h1 { font-size: 1.8rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.doc-h2 { font-size: 1.35rem; color: #4f46e5; border-bottom: 2px solid #e5e7eb; padding-bottom: .35rem; }
+.doc-h3 { font-size: 1.1rem; color: #7c3aed; }
+.doc-p { margin: .6rem 0; line-height: 1.75; }
+.doc-quote { margin: .75rem 0; padding: .6rem .8rem; background: #f3f4f6; border-left: 4px solid #6366f1; border-radius: 6px; color: #374151; }
+.doc-inline-code { background: #eef2ff; color: #b91c1c; padding: .15rem .35rem; border-radius: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.doc-ul, .doc-ol { margin: .5rem 0 .5rem 1.25rem; }
+.doc-ul li { margin: .35rem 0; }
+.doc-ol li { margin: .35rem 0; }
+.doc-spacer { height: .4rem; }
+
+/* Code block */
+.code-block { position: relative; background: #0b1220; color: #e2e8f0; border-radius: 8px; overflow: auto; box-shadow: 0 2px 8px rgba(0,0,0,.08); margin: .75rem 0; }
+.code-block pre { margin: 0; padding: 1rem 1.25rem; font-size: .9rem; }
+.code-copy { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.25); padding: .25rem .5rem; border-radius: 6px; cursor: pointer; font-size: .8rem; }
+.code-copy:hover { background: rgba(255,255,255,.18); }
+
+/* Links and strong */
+.doc-link { color: #2563eb; text-decoration: underline; }
+.doc-strong { color: #4f46e5; }
+
+/* Footer */
+.doc-footer { margin-top: 1.5rem; padding-top: .75rem; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: .9rem; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .doc-modal { grid-template-columns: 1fr; }
+  .doc-toc { display: none; }
+  .docs-search input[type="search"] { width: 58vw; }
+}

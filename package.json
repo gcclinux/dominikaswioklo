@@ -4,15 +4,21 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite --host\" \"npm run backend\"",
-    "backend": "cd backend && npm start",
-    "build": "vite build",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm start",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "vite build && touch dist/.nojekyll"
+    "start": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "start:prod": "NODE_ENV=production cd backend && npm start",
+    "db:init": "cd backend && npm run db:init",
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && npm install"
   },
   "dependencies": {
     "react": "^19.1.1",
+    "dotenv": "^17.2.3",
+    "sqlite3": "^5.1.7",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4"
   },

@@ -27,3 +27,7 @@ dist-ssr
 /test/
 /backend/.env
 /.env
+
+# License configuration (contains premium credentials)
+backend/src/config/license.ts
+backend/database/scheduler.db

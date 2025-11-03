@@ -1,6 +1,16 @@
 # Therapy Site
 
-A modern, responsive therapy practice website built with React, Vite, and React Router.
+A modern, responsive therapy practice website with appointment scheduling built with React, Vite, and React Router.
+
+## Project Structure
+
+```
+├── frontend/          # Main website (port 5173)
+│   ├── src/          # Main site source code
+│   │   └── admin/    # Admin panel (integrated)
+│   └── admin/        # Legacy admin (deprecated)
+└── backend/          # API server (port 5000)
+```
 
 ## Prerequisites
 
@@ -41,23 +51,52 @@ git clone https://github.com/gcclinux/dominikaswioklo.git
 cd dominikaswioklo
 ```
 
-### 2. Install dependencies
+### 2. Install all dependencies
 ```bash
-npm install
+npm run install:all
 ```
 
-### 3. Start development server
+### 3. Initialize database (first time only)
+```bash
+npm run db:init
+```
+
+### 4. Start all development servers
 ```bash
 npm run dev
 ```
 
-The site will be available at `http://localhost:5173/dominikaswioklo/`
+This will start:
+- Frontend: `http://localhost:5173`
+- Admin Panel: `http://localhost:5173/#/admin`
+- Scheduler: `http://localhost:5173/#/easyscheduler`
+- Backend API: `http://localhost:5000`
+
+## Routing Structure
+
+### Main Site (with Navbar)
+- Home: `http://localhost:5173/#/`
+- Prices: `http://localhost:5173/#/prices`
+- About: `http://localhost:5173/#/about`
+- Contact: `http://localhost:5173/#/contact`
+- Appointment: `http://localhost:5173/#/appointment`
+
+### Admin Panel (no Navbar)
+- Dashboard: `http://localhost:5173/#/admin` → `frontend/src/admin/AdminApp.jsx`
+- Settings: `http://localhost:5173/#/admin/settings` → `frontend/src/admin/pages/Settings.jsx`
+- Documentation: `http://localhost:5173/#/admin/documentation` → `frontend/src/admin/pages/Documentation.jsx`
+
+### Scheduler (no Navbar)
+- Scheduler: `http://localhost:5173/#/easyscheduler` → `frontend/src/components/WeeklyScheduler.jsx`
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build locally
+- `npm run dev` - Start all servers (frontend + backend)
+- `npm run dev:frontend` - Start frontend only
+- `npm run dev:backend` - Start backend only
+- `npm run build` - Build frontend for production
+- `npm run db:init` - Initialize database
+- `npm run install:all` - Install dependencies for all projects
 - `npm run lint` - Run ESLint
 
 ## Deployment
@@ -68,7 +107,18 @@ Live site: [https://gcclinux.github.io/dominikaswioklo/](https://gcclinux.github
 
 ## Tech Stack
 
+### Frontend
 - React 19
 - Vite 7
 - React Router 7
-- GitHub Pages
+
+### Backend
+- Node.js
+- Express
+- SQLite
+- TypeScript
+
+### Admin Panel
+- React 18
+- Vite 5
+- React Router 6

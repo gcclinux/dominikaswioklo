@@ -1,0 +1,630 @@
+.mobile-scheduler-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.mobile-scheduler-container {
+  background: white;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.mobile-scheduler-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 80px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.mobile-close-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.desktop-view-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 4rem;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.desktop-view-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mobile-back-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-right: 1rem;
+}
+
+.mobile-back-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mobile-header-content {
+  flex: 1;
+  text-align: center;
+  margin: 0 60px; /* Account for buttons on both sides */
+}
+
+.mobile-header-title {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.mobile-price-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+.mobile-header-duration {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.8rem;
+}
+
+.mobile-header-duration-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.mobile-header-duration-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.mobile-header-duration-btn.active {
+  background: rgba(255, 255, 255, 0.9);
+  color: #667eea;
+  border-color: rgba(255, 255, 255, 0.9);
+}
+
+.mobile-scheduler-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Calendar Styles */
+.mobile-calendar {
+  max-width: 100%;
+}
+
+.mobile-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.mobile-calendar-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.mobile-nav-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.mobile-nav-button:hover {
+  transform: scale(1.1);
+}
+
+.mobile-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-day-header {
+  background: #f8f9fa;
+  padding: 0.8rem 0.5rem;
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.mobile-calendar-day {
+  background: white;
+  border: none;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.mobile-calendar-day.available:hover {
+  background: #f0f4ff;
+  transform: scale(1.05);
+}
+
+.mobile-calendar-day.available:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+.mobile-calendar-day.available.today {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+}
+
+.mobile-calendar-day.unavailable {
+  background: #f8f9fa;
+  color: #adb5bd;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.mobile-calendar-day.other-month {
+  color: #ced4da;
+  background: #f8f9fa;
+}
+
+/* Time Picker Styles */
+.mobile-time-picker {
+  max-width: 100%;
+}
+
+.mobile-selected-date {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-date-back-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.mobile-date-back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.mobile-date-back-button:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+.mobile-change-date-button {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.mobile-change-date-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+}
+
+.mobile-change-date-button:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+
+
+.mobile-time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.8rem;
+}
+
+.mobile-loading {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+  font-size: 1rem;
+}
+
+.mobile-time-slot {
+  background: white;
+  border: 2px solid #e9ecef;
+  color: #495057;
+  padding: 1rem 0.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-time-slot.available:hover {
+  border-color: #667eea;
+  background: #f0f4ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.mobile-time-slot.available:active {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+.mobile-time-slot.unavailable {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Booking Form Styles */
+.mobile-booking-form {
+  max-width: 100%;
+}
+
+.mobile-appointment-summary {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.32rem 0;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.mobile-summary-item:last-child {
+  border-bottom: none;
+}
+
+.mobile-summary-label {
+  font-weight: 600;
+  color: #495057;
+}
+
+.mobile-summary-value {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.mobile-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.mobile-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-form-group label {
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.mobile-form-group input {
+  padding: 0.64rem;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+  background: white;
+}
+
+.mobile-form-group input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.mobile-submit-button {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.mobile-submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.4);
+}
+
+.mobile-submit-button:active:not(:disabled) {
+  transform: translateY(0);
+  transition: transform 0.1s ease;
+}
+
+.mobile-submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Success Modal Styles */
+.mobile-success-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 1rem;
+}
+
+.mobile-success-modal {
+  background: white;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.mobile-success-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  padding: 2rem 1.5rem 1.5rem;
+  text-align: center;
+}
+
+.mobile-success-icon {
+  width: 60px;
+  height: 60px;
+  background: white;
+  color: #10b981;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0 auto 1rem;
+}
+
+.mobile-success-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.mobile-success-body {
+  padding: 1.5rem;
+}
+
+.mobile-success-body p {
+  text-align: center;
+  color: #374151;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+}
+
+.mobile-success-details {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.mobile-success-row {
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.mobile-success-note {
+  font-size: 0.9rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.mobile-success-button {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin: 1rem 0 0 0;
+  transition: background 0.2s ease;
+}
+
+.mobile-success-button:hover {
+  background: #059669;
+}
+
+/* Hide desktop toggle on small screens */
+@media (max-width: 480px) {
+  .desktop-view-toggle {
+    display: none;
+  }
+}
+
+/* Responsive adjustments for larger mobile screens */
+@media (min-width: 480px) {
+  .mobile-scheduler-overlay {
+    padding: 1rem;
+    align-items: center;
+  }
+  
+  .mobile-scheduler-container {
+    border-radius: 15px;
+    min-height: auto;
+    max-height: 90vh;
+    overflow: hidden;
+  }
+  
+  .mobile-calendar-day {
+    min-height: 55px;
+  }
+  
+  .mobile-time-slots {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) {
+  .mobile-scheduler-container {
+    max-width: 600px;
+  }
+  
+  .mobile-time-slots {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+  
+  .mobile-form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .mobile-form-group:nth-child(3),
+  .mobile-form-group:nth-child(4) {
+    grid-column: span 1;
+  }
+}

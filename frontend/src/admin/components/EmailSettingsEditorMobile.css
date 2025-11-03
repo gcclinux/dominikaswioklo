@@ -1,0 +1,107 @@
+.mobile-email-editor {
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mobile-email-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-email-field label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+}
+
+.mobile-email-field input[type="text"],
+.mobile-email-field input[type="email"],
+.mobile-email-field input[type="password"],
+.mobile-email-field input[type="number"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: rgba(102, 126, 234, 0.05);
+  transition: all 0.2s ease;
+}
+
+.mobile-email-field input:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.mobile-email-field small {
+  color: #7f8c8d;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.mobile-email-field small a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.mobile-email-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mobile-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.8rem;
+  cursor: pointer;
+}
+
+.mobile-checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.mobile-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.mobile-btn {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-btn.cancel {
+  background: #ecf0f1;
+  color: #7f8c8d;
+}
+
+.mobile-btn.cancel:active {
+  background: #d5dbdb;
+  transform: scale(0.97);
+}
+
+.mobile-btn.save {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.mobile-btn.save:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
