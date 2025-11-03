@@ -1,15 +1,10 @@
 import Modal from '../Modal';
-import AppointmentTypesEditor from '../AppointmentTypesEditor';
+import AppointmentTypesEditorNew from '../AppointmentTypesEditorNew';
 
-function AppointmentDetailsModalDesktop({ isOpen, onClose, appointmentTypes, currency, onSave }) {
+function AppointmentDetailsModalDesktop({ isOpen, onClose }) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="📋 Appointment Details" maxWidth="715px">
-      <AppointmentTypesEditor
-        appointmentTypes={appointmentTypes}
-        currency={currency}
-        onSave={onSave}
-        onCancel={onClose}
-      />
+    <Modal isOpen={isOpen} onClose={onClose} title="📋 Appointment Details" maxWidth="950px">
+      <AppointmentTypesEditorNew onCancel={onClose} />
     </Modal>
   );
 }

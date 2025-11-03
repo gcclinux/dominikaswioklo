@@ -134,7 +134,11 @@ export const initializeDatabase = (): Promise<void> => {
           appName TEXT NOT NULL,
           appTag TEXT NOT NULL,
           appPrice REAL,
+          appDuration TEXT DEFAULT '50',
           appCurrency TEXT DEFAULT 'USD',
+          appLanguage TEXT DEFAULT 'en',
+          appDescription TEXT,
+          appFeatures TEXT,
           createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
           updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
         )
@@ -248,6 +252,30 @@ export const initializeDatabase = (): Promise<void> => {
             db.run(`ALTER TABLE appointment_types ADD COLUMN appCurrency TEXT DEFAULT 'USD'`, (alterErr) => {
               if (alterErr) console.warn('Could not add appCurrency column:', alterErr.message);
               else console.log('✅ Added appCurrency column to appointment_types table');
+            });
+          }
+          if (!atCols.includes('appDuration')) {
+            db.run(`ALTER TABLE appointment_types ADD COLUMN appDuration TEXT DEFAULT '50'`, (alterErr) => {
+              if (alterErr) console.warn('Could not add appDuration column:', alterErr.message);
+              else console.log('✅ Added appDuration column to appointment_types table');
+            });
+          }
+          if (!atCols.includes('appDescription')) {
+            db.run(`ALTER TABLE appointment_types ADD COLUMN appDescription TEXT`, (alterErr) => {
+              if (alterErr) console.warn('Could not add appDescription column:', alterErr.message);
+              else console.log('✅ Added appDescription column to appointment_types table');
+            });
+          }
+          if (!atCols.includes('appFeatures')) {
+            db.run(`ALTER TABLE appointment_types ADD COLUMN appFeatures TEXT`, (alterErr) => {
+              if (alterErr) console.warn('Could not add appFeatures column:', alterErr.message);
+              else console.log('✅ Added appFeatures column to appointment_types table');
+            });
+          }
+          if (!atCols.includes('appLanguage')) {
+            db.run(`ALTER TABLE appointment_types ADD COLUMN appLanguage TEXT DEFAULT 'en'`, (alterErr) => {
+              if (alterErr) console.warn('Could not add appLanguage column:', alterErr.message);
+              else console.log('✅ Added appLanguage column to appointment_types table');
             });
           }
         }

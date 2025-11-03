@@ -397,11 +397,85 @@ export class DatabaseQueries {
   }
 
   // APPOINTMENT TYPES
-  static getAppointmentTypes(): Promise<any[]> {
+  static getAppointmentTypes(language?: string): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      db.all(`SELECT atid, appName, appTag, appPrice, appCurrency FROM appointment_types ORDER BY appName`, (err, rows) => {
+      let query = `SELECT atid, appName, appTag, appPrice, appDuration, appCurrency, appLanguage, appDescription, appFeatures FROM appointment_types`;
+      let params: any[] = [];
+      
+      if (language) {
+        query += ` WHERE appLanguage = ?`;
+        params.push(language);
+      }
+      
+      query += ` ORDER BY appName`;
+      
+      db.all(query, params, (err, rows) => {
         if (err) reject(err);
         else resolve(rows as any[]);
+      });
+    });
+  }
+
+  static getAppointmentTypeById(atid: number): Promise<any | null> {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM appointment_types WHERE atid = ?`, [atid], (err, row) => {
+        if (err) reject(err);
+        else resolve(row || null);
+      });
+    });
+  }
+
+  static createAppointmentType(type: any): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const stmt = db.prepare(`
+        INSERT INTO appointment_types (appName, appTag, appPrice, appDuration, appCurrency, appLanguage, appDescription, appFeatures)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `);
+      stmt.run([
+        type.appName,
+        type.appTag,
+        type.appPrice || null,
+        type.appDuration || '50',
+        type.appCurrency || 'USD',
+        type.appLanguage || 'en',
+        type.appDescription || null,
+        type.appFeatures || null
+      ], function(err) {
+        if (err) reject(err);
+        else resolve(this.lastID);
+      });
+      stmt.finalize();
+    });
+  }
+
+  static updateAppointmentType(atid: number, type: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      db.run(`
+        UPDATE appointment_types
+        SET appName = ?, appTag = ?, appPrice = ?, appDuration = ?, appCurrency = ?, appLanguage = ?, appDescription = ?, appFeatures = ?, updatedAt = CURRENT_TIMESTAMP
+        WHERE atid = ?
+      `, [
+        type.appName,
+        type.appTag,
+        type.appPrice || null,
+        type.appDuration || '50',
+        type.appCurrency || 'USD',
+        type.appLanguage || 'en',
+        type.appDescription || null,
+        type.appFeatures || null,
+        atid
+      ], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
+  static deleteAppointmentType(atid: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      db.run(`DELETE FROM appointment_types WHERE atid = ?`, [atid], (err) => {
+        if (err) reject(err);
+        else resolve();
       });
     });
   }

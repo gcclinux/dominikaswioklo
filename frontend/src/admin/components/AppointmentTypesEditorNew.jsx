@@ -1,0 +1,479 @@
+import React, { useState, useEffect } from 'react';
+import { API } from '../../config/api';
+import { authenticatedFetch } from '../utils/apiHelper';
+
+const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
+  const [formData, setFormData] = useState({
+    appName: '',
+    appPrice: '',
+    appDuration: '50',
+    appCurrency: 'USD',
+    appLanguage: 'en',
+    appDescription: '',
+    appFeatures: ''
+  });
+
+  const currencies = [
+    { code: 'USD', name: 'US Dollar ($)' },
+    { code: 'EUR', name: 'Euro (€)' },
+    { code: 'GBP', name: 'British Pound (£)' },
+    { code: 'PLN', name: 'Polish Złoty (zł)' },
+    { code: 'BRL', name: 'Brazilian Real (R$)' },
+    { code: 'JPY', name: 'Japanese Yen (¥)' },
+    { code: 'CAD', name: 'Canadian Dollar (C$)' },
+    { code: 'AUD', name: 'Australian Dollar (A$)' },
+  ];
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'pl', name: 'Polski' },
+  ];
+
+  useEffect(() => {
+    if (appointment) {
+      setFormData({
+        appName: appointment.appName || '',
+        appPrice: appointment.appPrice || '',
+        appDuration: appointment.appDuration || '50',
+        appCurrency: appointment.appCurrency || 'USD',
+        appLanguage: appointment.appLanguage || 'en',
+        appDescription: appointment.appDescription || '',
+        appFeatures: appointment.appFeatures || ''
+      });
+    }
+  }, [appointment]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = () => {
+    if (!formData.appName.trim()) {
+      alert('Name is required');
+      return;
+    }
+    onSave(formData);
+  };
+
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(0,0,0,0.5)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      zIndex: 1000
+    }}>
+      <div style={{
+        background: 'white',
+        borderRadius: '12px',
+        padding: '2rem',
+        maxWidth: '600px',
+        width: '90%',
+        maxHeight: '90vh',
+        overflow: 'auto'
+      }} onClick={(e) => e.stopPropagation()}>
+        <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: '#2c3e50' }}>
+          {appointment ? 'Edit Appointment Type' : 'New Appointment Type'}
+        </h2>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+                Name *
+              </label>
+              <input
+                type="text"
+                value={formData.appName}
+                onChange={(e) => setFormData({ ...formData, appName: e.target.value })}
+                placeholder="e.g., Individual Therapy Session"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '2px solid #ddd',
+                  borderRadius: '8px',
+                  fontSize: '1rem'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+                Language *
+              </label>
+              <select
+                value={formData.appLanguage}
+                onChange={(e) => setFormData({ ...formData, appLanguage: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '2px solid #ddd',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  cursor: 'pointer'
+                }}
+              >
+                {languages.map(lang => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+                Price
+              </label>
+              <input
+                type="number"
+                value={formData.appPrice}
+                onChange={(e) => setFormData({ ...formData, appPrice: e.target.value })}
+                placeholder="120"
+                step="0.01"
+                min="0"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '2px solid #ddd',
+                  borderRadius: '8px',
+                  fontSize: '1rem'
+                }}
+              />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+                Currency
+              </label>
+              <select
+                value={formData.appCurrency}
+                onChange={(e) => setFormData({ ...formData, appCurrency: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '2px solid #ddd',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  cursor: 'pointer'
+                }}
+              >
+                {currencies.map(curr => (
+                  <option key={curr.code} value={curr.code}>
+                    {curr.code}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+                Duration (minutes)
+              </label>
+              <input
+                type="text"
+                value={formData.appDuration}
+                onChange={(e) => setFormData({ ...formData, appDuration: e.target.value })}
+                placeholder="50"
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  border: '2px solid #ddd',
+                  borderRadius: '8px',
+                  fontSize: '1rem'
+                }}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+              Description
+            </label>
+            <textarea
+              value={formData.appDescription}
+              onChange={(e) => setFormData({ ...formData, appDescription: e.target.value })}
+              placeholder="Brief description of this appointment type..."
+              rows="3"
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '2px solid #ddd',
+                borderRadius: '8px',
+                fontSize: '1rem',
+                resize: 'vertical'
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
+              Features (one per line)
+            </label>
+            <textarea
+              value={formData.appFeatures}
+              onChange={(e) => setFormData({ ...formData, appFeatures: e.target.value })}
+              placeholder="Personalized treatment plan&#10;Confidential environment&#10;Evidence-based techniques"
+              rows="4"
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '2px solid #ddd',
+                borderRadius: '8px',
+                fontSize: '1rem',
+                resize: 'vertical'
+              }}
+            />
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem', justifyContent: 'flex-end' }}>
+          <button
+            onClick={onClose}
+            style={{
+              padding: '0.75rem 1.5rem',
+              border: '2px solid #ddd',
+              background: 'white',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '1rem'
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            style={{
+              padding: '0.75rem 1.5rem',
+              border: 'none',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 600,
+              fontSize: '1rem'
+            }}
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AppointmentTypesEditorNew = ({ onCancel }) => {
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, []);
+
+  const fetchAppointments = async () => {
+    try {
+      const response = await fetch(`${API}/appointment-types`);
+      const data = await response.json();
+      if (data.success) {
+        setAppointments(data.data.types || []);
+      }
+    } catch (error) {
+      console.error('Error fetching appointments:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAddNew = () => {
+    setSelectedAppointment(null);
+    setShowDetailsModal(true);
+  };
+
+  const handleEdit = (appointment) => {
+    setSelectedAppointment(appointment);
+    setShowDetailsModal(true);
+  };
+
+  const handleSave = async (formData) => {
+    try {
+      if (selectedAppointment) {
+        // Update existing
+        const response = await authenticatedFetch(`${API}/appointment-types/${selectedAppointment.atid}`, {
+          method: 'PUT',
+          body: JSON.stringify(formData)
+        });
+        const data = await response.json();
+        if (data.success) {
+          await fetchAppointments();
+          setShowDetailsModal(false);
+        }
+      } else {
+        // Create new
+        const response = await authenticatedFetch(`${API}/appointment-types`, {
+          method: 'POST',
+          body: JSON.stringify(formData)
+        });
+        const data = await response.json();
+        if (data.success) {
+          await fetchAppointments();
+          setShowDetailsModal(false);
+        }
+      }
+    } catch (error) {
+      console.error('Error saving appointment:', error);
+      alert('Failed to save appointment type');
+    }
+  };
+
+  const handleDelete = async (atid) => {
+    if (!confirm('Are you sure you want to delete this appointment type?')) return;
+
+    try {
+      const response = await authenticatedFetch(`${API}/appointment-types/${atid}`, {
+        method: 'DELETE'
+      });
+      const data = await response.json();
+      if (data.success) {
+        await fetchAppointments();
+      } else {
+        alert(data.error || 'Failed to delete appointment type');
+      }
+    } catch (error) {
+      console.error('Error deleting appointment:', error);
+      alert('Failed to delete appointment type');
+    }
+  };
+
+  if (loading) {
+    return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+  }
+
+  return (
+    <div style={{ padding: '1rem', maxWidth: '900px', margin: '0 auto' }}>
+      {/* Appointment Types List */}
+      <div style={{ marginBottom: '1rem' }}>
+        <h3 style={{ marginBottom: '1rem', color: '#2c3e50' }}>Appointment Types</h3>
+        <div style={{ display: 'grid', gap: '1rem' }}>
+          {appointments.map((appointment) => (
+            <div key={appointment.atid} style={{
+              background: 'white',
+              border: '2px solid #e0e0e0',
+              borderRadius: '10px',
+              padding: '1rem',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+            }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                  <div style={{ fontWeight: 600, fontSize: '1.1rem', color: '#2c3e50' }}>
+                    {appointment.appName}
+                  </div>
+                  <span style={{
+                    padding: '0.25rem 0.5rem',
+                    background: appointment.appLanguage === 'pl' ? '#dc3545' : '#007bff',
+                    color: 'white',
+                    borderRadius: '4px',
+                    fontSize: '0.75rem',
+                    fontWeight: 600
+                  }}>
+                    {appointment.appLanguage?.toUpperCase() || 'EN'}
+                  </span>
+                </div>
+                <div style={{ fontSize: '0.9rem', color: '#666' }}>
+                  {appointment.appDuration} min • {appointment.appPrice ? `${appointment.appPrice} ${appointment.appCurrency}` : 'No price set'}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button
+                  onClick={() => handleEdit(appointment)}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: '#667eea',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(appointment.atid)}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: '#e74c3c',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '6px',
+                    cursor: 'pointer',
+                    fontWeight: 600
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Add New Button */}
+      <button
+        onClick={handleAddNew}
+        style={{
+          width: '100%',
+          padding: '1rem',
+          background: 'linear-gradient(135deg, rgba(102,126,234,0.15) 0%, rgba(118,75,162,0.15) 100%)',
+          color: '#667eea',
+          border: '2px dashed #667eea',
+          borderRadius: '10px',
+          cursor: 'pointer',
+          fontSize: '1rem',
+          fontWeight: 600,
+          marginBottom: '1rem'
+        }}
+      >
+        + Add Appointment Type
+      </button>
+
+      {/* Close Button */}
+      <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '1rem', borderTop: '2px solid #e0e0e0' }}>
+        <button
+          onClick={onCancel}
+          style={{
+            padding: '0.75rem 2rem',
+            borderRadius: '10px',
+            border: '2px solid #ddd',
+            background: 'white',
+            color: '#666',
+            fontSize: '1rem',
+            fontWeight: 600,
+            cursor: 'pointer'
+          }}
+        >
+          Close
+        </button>
+      </div>
+
+      <AppointmentDetailsModal
+        isOpen={showDetailsModal}
+        onClose={() => setShowDetailsModal(false)}
+        appointment={selectedAppointment}
+        onSave={handleSave}
+      />
+    </div>
+  );
+};
+
+export default AppointmentTypesEditorNew;

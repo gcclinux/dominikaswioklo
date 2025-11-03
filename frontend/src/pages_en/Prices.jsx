@@ -1,53 +1,47 @@
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../config/api';
 import './Prices.css';
 
 export default function Prices() {
   const navigate = useNavigate();
-  
-  const services = [
-    {
-      title: "Individual Therapy Session",
-      duration: "50 minutes",
-      price: "$120",
-      description: "One-on-one therapy session focused on your personal goals and challenges. Tailored approach to meet your specific needs.",
-      features: ["Personalized treatment plan", "Confidential environment", "Evidence-based techniques"]
-    },
-    {
-      title: "Couples Therapy Session",
-      duration: "60 minutes",
-      price: "$150",
-      description: "Work together to improve communication, resolve conflicts, and strengthen your relationship.",
-      features: ["Joint sessions", "Communication strategies", "Conflict resolution tools"]
-    },
-    {
-      title: "Initial Consultation",
-      duration: "30 minutes",
-      price: "$60",
-      description: "Get to know each other and discuss your needs. This session helps determine the best approach for your therapy journey.",
-      features: ["Assessment", "Treatment planning", "Questions & answers"]
-    },
-    {
-      title: "Group Therapy Session",
-      duration: "90 minutes",
-      price: "$50",
-      description: "Connect with others facing similar challenges in a supportive group environment led by a professional therapist.",
-      features: ["Small groups (6-8 people)", "Peer support", "Shared experiences"]
-    },
-    {
-      title: "Online Therapy Session",
-      duration: "50 minutes",
-      price: "$100",
-      description: "Convenient therapy from the comfort of your home via secure video call. Same quality care, more flexibility.",
-      features: ["Video sessions", "Flexible scheduling", "Secure platform"]
-    },
-    {
-      title: "Extended Session",
-      duration: "90 minutes",
-      price: "$180",
-      description: "Longer session for deeper work on complex issues or intensive therapy needs.",
-      features: ["Extended time", "Deep dive sessions", "Complex issue resolution"]
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAppointmentTypes();
+  }, []);
+
+  const fetchAppointmentTypes = async () => {
+    try {
+      const response = await fetch(`${API}/appointment-types?language=en`);
+      const data = await response.json();
+      if (data.success) {
+        const types = data.data.types.map(type => ({
+          title: type.appName,
+          duration: `${type.appDuration} minutes`,
+          price: type.appPrice ? `${type.appPrice} ${type.appCurrency}` : 'Contact for pricing',
+          description: type.appDescription || '',
+          features: type.appFeatures ? type.appFeatures.split('\n').filter(f => f.trim()) : []
+        }));
+        setServices(types);
+      }
+    } catch (error) {
+      console.error('Error fetching appointment types:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
+
+  if (loading) {
+    return (
+      <div className="prices-page">
+        <div className="container" style={{ textAlign: 'center', padding: '3rem' }}>
+          <p>Loading services...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="prices-page">

@@ -392,17 +392,11 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
         <AppointmentDetailsModalMobile
           isOpen={activeModal === 'appointmentTypes'}
           onClose={() => setActiveModal(null)}
-          appointmentTypes={appointmentTypes}
-          currency={appointmentCurrency}
-          onSave={handleSaveAppointmentTypes}
         />
       ) : (
         <AppointmentDetailsModalDesktop
           isOpen={activeModal === 'appointmentTypes'}
           onClose={() => setActiveModal(null)}
-          appointmentTypes={appointmentTypes}
-          currency={appointmentCurrency}
-          onSave={handleSaveAppointmentTypes}
         />
       )}
 
