@@ -35,7 +35,7 @@ router.put('/', authenticateAdmin, async (req, res) => {
     const updates = req.body;
     
     // Validate that we have valid settings to update
-  const validFields = ['maxApp', 'maxAppWeek', 'startHour', 'endHour', 'displayAvailability', 'availabilityLocked', 'availabilityLockedUntil', 'headerMessage', 'pastAppointmentsDays', 'futureAppointmentsDays', 'includeWeekend', 'allow30Min'];
+  const validFields = ['maxApp', 'maxAppWeek', 'startHour', 'endHour', 'displayAvailability', 'availabilityLocked', 'availabilityLockedUntil', 'headerMessage', 'pastAppointmentsDays', 'futureAppointmentsDays', 'includeWeekend', 'allow30Min', 'siteTheme'];
     const filteredUpdates = Object.keys(updates)
       .filter(key => validFields.includes(key))
       .reduce((obj: any, key) => {

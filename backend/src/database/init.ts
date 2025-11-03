@@ -338,6 +338,9 @@ export const initializeDatabase = (): Promise<void> => {
         if (!cols.includes('appointmentCurrency')) {
           alters.push(`ALTER TABLE settings ADD COLUMN appointmentCurrency TEXT DEFAULT 'USD'`);
         }
+        if (!cols.includes('siteTheme')) {
+          alters.push(`ALTER TABLE settings ADD COLUMN siteTheme TEXT DEFAULT 'purple'`);
+        }
 
         const runInSeries = (arr: string[], idx: number, cb: () => void) => {
           if (idx >= arr.length) return cb();

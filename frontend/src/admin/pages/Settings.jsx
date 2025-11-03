@@ -7,6 +7,7 @@ import AvailabilityLockEditor from '../components/AvailabilityLockEditor';
 import AvailabilityLockEditorMobile from '../components/AvailabilityLockEditorMobile';
 import BrandingFooter from '../../components/BrandingFooter';
 import PremiumUpgradeModal from '../components/PremiumUpgradeModal';
+import ThemeSelector from '../components/ThemeSelector';
 import { authenticatedFetch } from '../utils/apiHelper';
 import {
   CustomerLimitsModalDesktop,
@@ -121,11 +122,13 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
 
   const updateSetting = async (updates) => {
     try {
+      console.log('updateSetting called with:', updates);
       const response = await authenticatedFetch(`${API_BASE}/settings`, {
         method: 'PUT',
         body: JSON.stringify(updates),
       });
       const data = await response.json();
+      console.log('API response:', data);
       if (data.success) {
         await fetchSettings();
         showToast('Settings updated successfully!', 'success');
@@ -153,6 +156,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
     { id: 'appointmentsFilter', title: 'Appointments Filter', description: 'Control how many days of past and future appointments to show in admin lists', icon: '🧮', color: '#2ECC71' },
     { id: 'appointmentTypes', title: 'Appointment Details', description: 'Create and manage appointment types with names and prices', icon: '📋', color: '#3498db' },
     { id: 'headerMessage', title: 'Header Message', description: 'Customize the calendar header message displayed to users', icon: '💬', color: '#F39C12' },
+    { id: 'siteTheme', title: 'Site Theme', description: 'Choose between purple gradient or dark green theme', icon: '🎨', color: '#9B59B6' },
     { id: 'emailSettings', title: 'Email Configuration', description: 'Configure SMTP settings for automated email notifications', icon: '📧', color: '#E67E22' },
     { id: 'logout', title: 'Logout', description: `${currentAdmin?.aName || ''} ${currentAdmin?.aSurname || ''} (${currentAdmin?.email || ''})`, icon: '🚪', color: '#e74c3c', mobileOnly: true },
   ];
@@ -172,6 +176,12 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
   const handleSaveWorkingHours = async ({ startHour, endHour, includeWeekend, allow30Min }) => updateSetting({ startHour, endHour, includeWeekend, allow30Min });
   const handleSaveAvailabilityLock = async (payload) => updateSetting(payload);
   const handleSaveHeaderMessage = async (payload) => updateSetting(payload);
+  const handleSaveTheme = async (payload) => {
+    console.log('handleSaveTheme called with:', payload);
+    await updateSetting(payload);
+    console.log('Theme saved successfully!');
+    // window.location.reload();
+  };
   const handleSaveCustomerLimits = async ({ maxApp, maxAppWeek }) => updateSetting({ maxApp, maxAppWeek });
   const handleSaveAppointmentsFilter = async ({ pastAppointmentsDays, futureAppointmentsDays }) => updateSetting({ pastAppointmentsDays, futureAppointmentsDays });
 
@@ -415,6 +425,16 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
           onSave={handleSaveEmailSettings}
         />
       )}
+
+      <Modal isOpen={activeModal === 'siteTheme'} onClose={() => setActiveModal(null)} title="🎨 Site Theme" maxWidth="650px">
+        {settings && (
+          <ThemeSelector
+            currentTheme={settings.siteTheme || 'purple'}
+            onSave={handleSaveTheme}
+            onCancel={() => setActiveModal(null)}
+          />
+        )}
+      </Modal>
 
       <Toast message={toast.message} type={toast.type} isVisible={toast.visible} onClose={closeToast} />
       
