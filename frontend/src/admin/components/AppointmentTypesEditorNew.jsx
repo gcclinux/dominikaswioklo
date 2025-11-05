@@ -2,6 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { API } from '../../config/api';
 import { authenticatedFetch } from '../utils/apiHelper';
 
+const styles = `
+  @media (max-width: 768px) {
+    .appointment-card {
+      flex-direction: column !important;
+      align-items: stretch !important;
+    }
+    
+    .appointment-card > div:first-child {
+      margin-bottom: 1rem;
+    }
+    
+    .appointment-actions {
+      width: 100% !important;
+      flex-direction: column !important;
+    }
+    
+    .appointment-actions button {
+      width: 100% !important;
+    }
+  }
+`;
+
 const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
   const [formData, setFormData] = useState({
     appName: '',
@@ -173,7 +195,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-                Duration (minutes)
+                Minutes
               </label>
               <input
                 type="text"
@@ -357,7 +379,9 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
   }
 
   return (
-    <div style={{ padding: '1rem', maxWidth: '900px', margin: '0 auto' }}>
+    <>
+      <style>{styles}</style>
+      <div style={{ padding: '1rem', maxWidth: '900px', margin: '0 auto' }}>
       {/* Appointment Types List */}
       <div style={{ marginBottom: '1rem' }}>
         <h3 style={{ marginBottom: '1rem', color: '#2c3e50' }}>Appointment Types</h3>
@@ -371,8 +395,12 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
-            }}>
+              boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+              '@media (maxWidth: 768px)': {
+                flexDirection: 'column',
+                alignItems: 'flex-start'
+              }
+            }} className="appointment-card">
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
                   <div style={{ fontWeight: 600, fontSize: '1.1rem', color: '#2c3e50' }}>
@@ -393,7 +421,8 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
                   {appointment.appDuration} min • {appointment.appPrice ? `${appointment.appPrice} ${appointment.appCurrency}` : 'No price set'}
                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+
+              <div style={{ display: 'flex', gap: '0.5rem' }} className="appointment-actions">
                 <button
                   onClick={() => handleEdit(appointment)}
                   style={{
@@ -472,7 +501,8 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
         appointment={selectedAppointment}
         onSave={handleSave}
       />
-    </div>
+      </div>
+    </>
   );
 };
 

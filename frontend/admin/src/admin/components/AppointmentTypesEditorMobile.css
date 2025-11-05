@@ -64,13 +64,16 @@
   padding: 1.75rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   border: 2px solid rgba(102, 126, 234, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .type-card-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 
 .type-number {
@@ -100,6 +103,27 @@
 .type-remove:active {
   transform: scale(0.9);
 }
+
+.type-remove-bottom {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e74c3c;
+  border-radius: 12px;
+  background: white;
+  color: #e74c3c;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.type-remove-bottom:active {
+  background: #e74c3c;
+  color: white;
+  transform: scale(0.98);
+}
+
 
 .mobile-type-input {
   width: 100%;

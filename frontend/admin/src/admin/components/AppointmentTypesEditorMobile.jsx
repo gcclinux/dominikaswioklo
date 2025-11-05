@@ -56,9 +56,6 @@ const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD',
           <div key={index} className="mobile-type-card">
             <div className="type-card-header">
               <span className="type-number">#{index + 1}</span>
-              {types.length > 1 && (
-                <button onClick={() => handleRemove(index)} className="type-remove">✕</button>
-              )}
             </div>
             <input
               type="text"
@@ -85,6 +82,9 @@ const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD',
                 min="0"
               />
             </div>
+            {types.length > 1 && (
+              <button onClick={() => handleRemove(index)} className="type-remove-bottom">Delete</button>
+            )}
           </div>
         ))}
       </div>
