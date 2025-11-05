@@ -481,11 +481,16 @@ Create a \`.env\` file in the project root directory:
 \`\`\`env
 PORT=5000
 NODE_ENV=development
-API_BASE_URL=http://localhost:5000
+VITE_API_BASE_URL=http://localhost:5000
 DB_PATH=./database/scheduler.db
 JWT_SECRET=your-super-secret-jwt-key-change-this
-PREMIUM_FEATURES_PURCHASE_URL=https://gumroad.com/your-product
+PREMIUM_FEATURES_PURCHASE_URL=https://gumroad.com/easyscheduler
+PREMIUM_FEATURES_ENCRYPTION=easyscheduler-has-additional-key
 VITE_ADMIN_DEV_MODE=false
+# Options: sqlite (default) | mongodb
+DB_TYPE=sqlite
+MONGODB_URI=mongodb://admin_user:user_password@host_id:27017
+MONGO_DB_NAME=easyscheduler
 \`\`\`
 
 ### 4. Initialize the Database

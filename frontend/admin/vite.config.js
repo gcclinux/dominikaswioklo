@@ -8,8 +8,8 @@ export default defineConfig(({ mode }) => {
   return {
   plugins: [react()],
   define: {
-    // Map root .env API_BASE_URL to a Vite-exposed var for the client
-    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL || env.API_BASE_URL || '')
+    // Map root .env VITE_API_BASE_URL to a Vite-exposed var for the client
+    'import.meta.env.VITE_API_BASE_URL': JSON.stringify(env.VITE_API_BASE_URL || '')
   },
   server: {
     host: '0.0.0.0',

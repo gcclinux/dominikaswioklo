@@ -55,7 +55,7 @@ export const adminPasswordChangedTemplate = (adminName: string) => `
 `;
 
 export const adminNewScheduleTemplate = (userName: string, date: string, time: string, appointmentId: number, appointmentName?: string | null) => {
-  const baseUrl = process.env.API_BASE_URL || process.env.BASE_URL || 'http://localhost:5000';
+  const baseUrl = process.env.VITE_API_BASE_URL || 'http://localhost:5000';
   const confirmUrl = `${baseUrl}/api/appointments/admin-confirm/${appointmentId}`;
   const cancelUrl = `${baseUrl}/api/appointments/admin-cancel/${appointmentId}`;
   const appName = appointmentName && appointmentName.trim() ? appointmentName : 'Default Appointment';

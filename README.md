@@ -105,7 +105,7 @@ PORT=5000
 NODE_ENV=development
 
 # API Base URL
-API_BASE_URL=http://localhost:5000
+VITE_API_BASE_URL=http://localhost:5000
 
 # Database
 DB_PATH=./backend/database/scheduler.db

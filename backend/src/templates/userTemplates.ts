@@ -33,7 +33,7 @@ export const userWelcomeTemplate = (userName: string, emailFooter: string = 'Sch
 `;
 
 export const userScheduleCreatedTemplate = (userName: string, date: string, time: string, cancellationToken: string, emailFooter: string = 'Scheduler System', showBranding: boolean = true) => {
-  const base = process.env.API_BASE_URL || process.env.BASE_URL || 'http://localhost:5000';
+  const base = process.env.VITE_API_BASE_URL || 'http://localhost:5000';
   const cancelUrl = `${base}/api/appointments/cancel-by-token/${cancellationToken}`;
   
   return `
