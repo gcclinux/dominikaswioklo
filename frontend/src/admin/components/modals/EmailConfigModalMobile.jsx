@@ -17,11 +17,12 @@ function EmailConfigModalMobile({ isOpen, onClose, emailSettings, onSave }) {
 
   const checkLicense = async () => {
     try {
-      const res = await authenticatedFetch(`${API}/api/settings`);
+      const res = await authenticatedFetch(`${API}/settings`);
       const data = await res.json();
       if (data.success && data.data.license) {
-        setIsPremium(data.data.license.features.emailNotifications);
-        if (!data.data.license.features.emailNotifications) {
+        const hasEmailFeature = data.data.license.features.emailNotifications;
+        setIsPremium(hasEmailFeature);
+        if (!hasEmailFeature) {
           setShowUpgrade(true);
         }
       } else {
@@ -29,6 +30,7 @@ function EmailConfigModalMobile({ isOpen, onClose, emailSettings, onSave }) {
         setShowUpgrade(true);
       }
     } catch (error) {
+      console.error('Error checking license:', error);
       setIsPremium(false);
       setShowUpgrade(true);
     }

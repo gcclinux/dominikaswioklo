@@ -22,7 +22,8 @@ export default function Prices() {
           duration: `${type.appDuration} minutes`,
           price: type.appPrice ? `${type.appPrice} ${type.appCurrency}` : 'Contact for pricing',
           description: type.appDescription || '',
-          features: type.appFeatures ? type.appFeatures.split('\n').filter(f => f.trim()) : []
+          features: type.appFeatures ? type.appFeatures.split('\n').filter(f => f.trim()) : [],
+          appTag: type.appTag
         }));
         setServices(types);
       }
@@ -65,7 +66,7 @@ export default function Prices() {
                   <li key={idx}>{feature}</li>
                 ))}
               </ul>
-              <button className="book-button" onClick={() => navigate('/easyscheduler')}>Book Now</button>
+              <button className="book-button" onClick={() => navigate(`/easyscheduler${service.appTag ? `?appTag=${service.appTag}` : ''}`)}>Book Now</button>
             </div>
           ))}
         </div>

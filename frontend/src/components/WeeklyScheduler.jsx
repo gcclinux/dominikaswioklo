@@ -65,6 +65,23 @@ const WeeklyScheduler = ({ onClose, appointmentType = null, forceMobile = false 
     }
   }
 
+  const fetchAppointmentByTag = async (appTag) => {
+    try {
+      const res = await fetch(`${API}/appointment-types`)
+      if (res.ok) {
+        const json = await res.json()
+        if (json.success && json.data?.types) {
+          const appointment = json.data.types.find(t => t.appTag === appTag)
+          if (appointment?.appName) {
+            setHeaderMessage(appointment.appName)
+          }
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to fetch appointment type', err)
+    }
+  }
+
   // ALL useEffect hooks must be called here, always
   useEffect(() => {
     const checkMobile = () => {
@@ -77,6 +94,11 @@ const WeeklyScheduler = ({ onClose, appointmentType = null, forceMobile = false 
 
   useEffect(() => {
     fetchSettings()
+    const params = new URLSearchParams(window.location.hash.split('?')[1])
+    const appTag = params.get('appTag')
+    if (appTag) {
+      fetchAppointmentByTag(appTag)
+    }
   }, [])
 
   useEffect(() => {

@@ -22,7 +22,8 @@ export default function Prices() {
           duration: `${type.appDuration} minut`,
           price: type.appPrice ? `${type.appPrice} ${type.appCurrency}` : 'Skontaktuj się w sprawie ceny',
           description: type.appDescription || '',
-          features: type.appFeatures ? type.appFeatures.split('\n').filter(f => f.trim()) : []
+          features: type.appFeatures ? type.appFeatures.split('\n').filter(f => f.trim()) : [],
+          appTag: type.appTag
         }));
         setServices(types);
       }
@@ -65,7 +66,7 @@ export default function Prices() {
                   <li key={idx}>{feature}</li>
                 ))}
               </ul>
-              <button className="book-button" onClick={() => navigate('/easyscheduler')}>Umów Wizytę</button>
+              <button className="book-button" onClick={() => navigate(`/easyscheduler${service.appTag ? `?appTag=${service.appTag}` : ''}`)}>Umów Wizytę</button>
             </div>
           ))}
         </div>
