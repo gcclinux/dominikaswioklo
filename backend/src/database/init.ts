@@ -294,6 +294,22 @@ export const initializeDatabase = (): Promise<void> => {
           )
         `);
 
+      // Create NEWSLETTERS table
+      db.run(`
+        CREATE TABLE IF NOT EXISTS newsletters (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          title TEXT NOT NULL,
+          subtitle TEXT,
+          message_part1 TEXT NOT NULL,
+          message_part2 TEXT,
+          status TEXT DEFAULT 'draft' CHECK(status IN ('draft', 'sent')),
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          sent_at DATETIME,
+          sent_by INTEGER,
+          FOREIGN KEY (sent_by) REFERENCES admin(aid)
+        )
+      `);
+
       // Ensure startHour/endHour columns exist (safe migration for existing DBs)
 
       db.all(`PRAGMA table_info('settings')`, (err, rows: any[]) => {

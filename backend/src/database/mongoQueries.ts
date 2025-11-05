@@ -290,6 +290,36 @@ export class DatabaseQueries {
     const db = getDb();
     return db.collection('licenses').findOne({ email }, { sort: { createdAt: -1 } });
   }
+
+  // NEWSLETTERS
+  static async createNewsletter(newsletter: any): Promise<string> {
+    const db = getDb();
+    const res = await db.collection('newsletters').insertOne({ ...newsletter, created_at: new Date().toISOString() });
+    return String(res.insertedId);
+  }
+
+  static async getNewsletters(): Promise<any[]> {
+    const db = getDb();
+    return db.collection('newsletters').find({}).sort({ created_at: -1 }).toArray();
+  }
+
+  static async getNewsletterById(id: any): Promise<any | null> {
+    const db = getDb();
+    const _id = typeof id === 'string' ? new ObjectId(id) : id;
+    return db.collection('newsletters').findOne({ _id });
+  }
+
+  static async updateNewsletter(id: any, updates: any): Promise<void> {
+    const db = getDb();
+    const _id = typeof id === 'string' ? new ObjectId(id) : id;
+    await db.collection('newsletters').updateOne({ _id }, { $set: updates });
+  }
+
+  static async deleteNewsletter(id: any): Promise<void> {
+    const db = getDb();
+    const _id = typeof id === 'string' ? new ObjectId(id) : id;
+    await db.collection('newsletters').deleteOne({ _id });
+  }
 }
 
 export default DatabaseQueries;

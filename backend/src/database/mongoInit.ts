@@ -25,6 +25,7 @@ export async function initializeMongo() {
     await db.collection('appointment_types').createIndex({ tenantId: 1, appTag: 1 }, { unique: true, sparse: true });
     await db.collection('admin').createIndex({ tenantId: 1, login: 1 }, { unique: true, sparse: true });
     await db.collection('licenses').createIndex({ tenantId: 1, saleId: 1 }, { unique: true, sparse: true });
+    await db.collection('newsletters').createIndex({ tenantId: 1, created_at: -1 });
   } catch (err) {
     console.warn('Warning: index creation error', err);
   }

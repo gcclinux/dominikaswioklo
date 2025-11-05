@@ -539,4 +539,57 @@ export class DatabaseQueries {
     });
   }
 
+  // NEWSLETTERS
+  static createNewsletter(newsletter: any): Promise<number> {
+    return new Promise((resolve, reject) => {
+      const stmt = db.prepare(`
+        INSERT INTO newsletters (title, subtitle, message_part1, message_part2, status, sent_by)
+        VALUES (?, ?, ?, ?, ?, ?)
+      `);
+      stmt.run([newsletter.title, newsletter.subtitle, newsletter.message_part1, newsletter.message_part2, newsletter.status || 'draft', newsletter.sent_by], function(err) {
+        if (err) reject(err);
+        else resolve(this.lastID);
+      });
+      stmt.finalize();
+    });
+  }
+
+  static getNewsletters(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM newsletters ORDER BY created_at DESC`, (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows as any[]);
+      });
+    });
+  }
+
+  static getNewsletterById(id: number): Promise<any | null> {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM newsletters WHERE id = ?`, [id], (err, row) => {
+        if (err) reject(err);
+        else resolve(row || null);
+      });
+    });
+  }
+
+  static updateNewsletter(id: number, updates: any): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const fields = Object.keys(updates).map(key => `${key} = ?`).join(', ');
+      const values = Object.values(updates);
+      db.run(`UPDATE newsletters SET ${fields} WHERE id = ?`, [...values, id], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
+  static deleteNewsletter(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      db.run(`DELETE FROM newsletters WHERE id = ?`, [id], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
 }
