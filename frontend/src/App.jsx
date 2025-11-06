@@ -6,11 +6,15 @@ import PricesEN from './pages_en/Prices';
 import AboutEN from './pages_en/About';
 import ContactEN from './pages_en/Contact';
 import AppointmentEN from './pages_en/Appointment';
+import PrivacyEN from './pages_en/Privacy';
 import HomePL from './pages_pl/Home';
 import PricesPL from './pages_pl/Prices';
 import AboutPL from './pages_pl/About';
 import ContactPL from './pages_pl/Contact';
 import AppointmentPL from './pages_pl/Appointment';
+import PrivacyPL from './pages_pl/Privacy';
+import CookieBanner from './components/CookieBanner';
+import Footer from './components/Footer';
 import AdminApp from './admin/AdminApp';
 import WeeklyScheduler from './components/WeeklyScheduler';
 import { useState, useEffect } from 'react';
@@ -74,6 +78,7 @@ function AppContent() {
   const About = language === 'en' ? AboutEN : AboutPL;
   const Contact = language === 'en' ? ContactEN : ContactPL;
   const Appointment = language === 'en' ? AppointmentEN : AppointmentPL;
+  const Privacy = language === 'en' ? PrivacyEN : PrivacyPL;
   
   return (
     <Routes>
@@ -84,6 +89,7 @@ function AppContent() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/appointment" element={<Appointment />} />
+      <Route path="/privacy" element={<Privacy />} />
     </Routes>
   );
 }
@@ -93,6 +99,8 @@ function MainLayout() {
     <>
       <Navbar />
       <AppContent />
+      <Footer />
+      <CookieBanner />
     </>
   );
 }

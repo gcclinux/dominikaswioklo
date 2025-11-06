@@ -19,7 +19,8 @@ const MobileScheduler = ({ onClose, appointmentType = null, onSwitchToDesktop })
     name: '',
     surname: '',
     email: '',
-    phone: ''
+    phone: '',
+    privacyConsent: false
   })
   const [startHour, setStartHour] = useState(9)
   const [endHour, setEndHour] = useState(17)
@@ -287,6 +288,11 @@ const MobileScheduler = ({ onClose, appointmentType = null, onSwitchToDesktop })
       return
     }
 
+    if (!bookingData.privacyConsent) {
+      setToast({ message: 'Please accept the Privacy Policy to continue', type: 'warning' })
+      return
+    }
+
     setBooking(true)
 
     try {
@@ -361,7 +367,8 @@ const MobileScheduler = ({ onClose, appointmentType = null, onSwitchToDesktop })
       name: '',
       surname: '',
       email: '',
-      phone: ''
+      phone: '',
+      privacyConsent: false
     })
   }
 
@@ -591,6 +598,21 @@ const MobileScheduler = ({ onClose, appointmentType = null, onSwitchToDesktop })
                     onChange={handleInputChange}
                   />
                 </div>
+              </div>
+
+              <div className="privacy-consent" style={{ marginTop: '1rem' }}>
+                <label className="consent-label">
+                  <input
+                    type="checkbox"
+                    name="privacyConsent"
+                    checked={bookingData.privacyConsent}
+                    onChange={(e) => setBookingData(prev => ({ ...prev, privacyConsent: e.target.checked }))}
+                    required
+                  />
+                  <span>
+                    I agree to the <a href="#/privacy" target="_blank" rel="noopener noreferrer" style={{ color: '#667eea', textDecoration: 'underline' }}>Privacy Policy</a> and consent to my data being stored for appointment management *
+                  </span>
+                </label>
               </div>
 
               <button
