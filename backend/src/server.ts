@@ -16,6 +16,7 @@ import appointmentTypesRoutes from './routes/appointmentTypes';
 import licenseRoutes from './routes/license';
 import gumroadRoutes from './routes/gumroad';
 import newslettersRoutes from './routes/newsletters';
+import userDataRoutes from './routes/userData';
 
 // Load environment variables from root
 dotenv.config({ path: path.join(__dirname, '../../.env') });
@@ -65,6 +66,7 @@ app.use('/api/appointment-types', appointmentTypesRoutes);
 app.use('/api/license', licenseRoutes);
 app.use('/api/gumroad', gumroadRoutes);
 app.use('/api/newsletters', newslettersRoutes);
+app.use('/api/user-data', userDataRoutes);
 
 // API Status endpoint
 app.get('/api/status', async (req, res) => {

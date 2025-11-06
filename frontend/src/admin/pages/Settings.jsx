@@ -8,6 +8,8 @@ import AvailabilityLockEditorMobile from '../components/AvailabilityLockEditorMo
 import BrandingFooter from '../../components/BrandingFooter';
 import PremiumUpgradeModal from '../components/PremiumUpgradeModal';
 import ThemeSelector from '../components/ThemeSelector';
+import NewsletterModal from '../components/NewsletterModal';
+import ConfirmDialog from '../components/ConfirmDialog';
 import { authenticatedFetch } from '../utils/apiHelper';
 import {
   CustomerLimitsModalDesktop,
@@ -39,6 +41,10 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [showDraftConfirm, setShowDraftConfirm] = useState(false);
+  const [pendingDraft, setPendingDraft] = useState(null);
+  const [loadedDraft, setLoadedDraft] = useState(null);
+  const [draftConfirmAction, setDraftConfirmAction] = useState(null);
 
   useEffect(() => {
     fetchSettings();
@@ -158,6 +164,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
     { id: 'headerMessage', title: 'Header Message', description: 'Customize the calendar header message displayed to users', icon: '💬', color: '#F39C12' },
     { id: 'siteTheme', title: 'Site Theme', description: 'Choose between purple gradient or dark green theme', icon: '🎨', color: '#9B59B6' },
     { id: 'emailSettings', title: 'Email Configuration', description: 'Configure SMTP settings for automated email notifications', icon: '📧', color: '#E67E22' },
+    { id: 'newsletter', title: 'Newsletter', description: 'Create and send newsletters to all users', icon: '📰', color: '#16A085' },
     { id: 'logout', title: 'Logout', description: `${currentAdmin?.aName || ''} ${currentAdmin?.aSurname || ''} (${currentAdmin?.email || ''})`, icon: '🚪', color: '#e74c3c', mobileOnly: true },
   ];
 
@@ -169,7 +176,58 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
     if (setting.id === 'emailSettings' && !emailSettings) {
       await fetchEmailSettings();
     }
+    if (setting.id === 'newsletter') {
+      await checkForDraft();
+      return;
+    }
     setActiveModal(setting.id);
+  };
+
+  const checkForDraft = async () => {
+    try {
+      const response = await authenticatedFetch(`${API_BASE}/newsletters`);
+      const data = await response.json();
+      if (data.success && data.data.length > 0) {
+        const draft = data.data.find(n => n.status === 'draft');
+        if (draft) {
+          setPendingDraft(draft);
+          setShowDraftConfirm(true);
+        } else {
+          setLoadedDraft(null);
+          setActiveModal('newsletter');
+        }
+      } else {
+        setLoadedDraft(null);
+        setActiveModal('newsletter');
+      }
+    } catch (error) {
+      setLoadedDraft(null);
+      setActiveModal('newsletter');
+    }
+  };
+
+  useEffect(() => {
+    if (draftConfirmAction === 'load') {
+      setLoadedDraft(pendingDraft);
+      setShowDraftConfirm(false);
+      setActiveModal('newsletter');
+      setDraftConfirmAction(null);
+      setPendingDraft(null);
+    } else if (draftConfirmAction === 'skip') {
+      setLoadedDraft(null);
+      setShowDraftConfirm(false);
+      setActiveModal('newsletter');
+      setDraftConfirmAction(null);
+      setPendingDraft(null);
+    }
+  }, [draftConfirmAction, pendingDraft]);
+
+  const handleLoadDraft = () => {
+    setDraftConfirmAction('load');
+  };
+
+  const handleSkipDraft = () => {
+    setDraftConfirmAction('skip');
   };
 
   const handleSaveDisplayAvailability = async (newValue) => updateSetting({ displayAvailability: newValue });
@@ -220,6 +278,25 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
     } catch (error) {
       console.error('Error updating appointment types:', error);
       showToast('Error updating appointment types', 'error');
+    }
+  };
+
+  const handleSaveNewsletter = async (data) => {
+    try {
+      const response = await authenticatedFetch(`${API_BASE}/newsletters`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      if (result.success) {
+        showToast('Newsletter saved as draft!', 'success');
+        setActiveModal(null);
+      } else {
+        showToast(result.error || 'Failed to save newsletter', 'error');
+      }
+    } catch (error) {
+      console.error('Error saving newsletter:', error);
+      showToast('Error saving newsletter', 'error');
     }
   };
 
@@ -443,6 +520,25 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
           showToast('Premium activated! Restart server to apply changes.', 'success');
           fetchSettings();
         }}
+      />
+
+      <ConfirmDialog
+        isOpen={showDraftConfirm}
+        onClose={() => handleSkipDraft()}
+        onConfirm={() => handleLoadDraft()}
+        title="📰 Draft Found"
+        message="A draft newsletter exists. Would you like to load it?"
+      />
+
+      <NewsletterModal
+        isOpen={activeModal === 'newsletter'}
+        onClose={() => {
+          setActiveModal(null);
+          setLoadedDraft(null);
+          setPendingDraft(null);
+        }}
+        onSave={handleSaveNewsletter}
+        draftData={loadedDraft}
       />
     </div>
   );

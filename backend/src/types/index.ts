@@ -29,6 +29,7 @@ export interface User {
   email: string;
   phone?: string;
   ipAddress?: string;
+  userToken?: string;
   createdAt?: string;
   updatedAt?: string;
 }

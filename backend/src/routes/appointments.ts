@@ -95,11 +95,13 @@ router.post('/', async (req, res) => {
     let user = await DatabaseQueries.getUserByEmail(appointmentData.user.email);
     const isNewUser = !user;
     if (!user) {
+      const userToken = uuidv4();
       const userId = await DatabaseQueries.createUser({
         ...appointmentData.user,
-        ipAddress: clientIp
+        ipAddress: clientIp,
+        userToken
       });
-      user = { uid: userId, ...appointmentData.user } as any;
+      user = { uid: userId, ...appointmentData.user, userToken } as any;
     } else {
       // Existing user found by email: optionally update profile fields if new values were provided
       const updates: any = {};

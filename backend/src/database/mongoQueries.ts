@@ -165,6 +165,18 @@ export class DatabaseQueries {
     return db.collection('users').findOne({ _id });
   }
 
+  static async getUserByToken(userToken: string): Promise<any | null> {
+    const db = getDb();
+    return db.collection('users').findOne({ userToken });
+  }
+
+  static async deleteUserData(uid: any): Promise<void> {
+    const db = getDb();
+    const _id = typeof uid === 'string' ? new ObjectId(uid) : uid;
+    await db.collection('appointments').deleteMany({ userId: uid });
+    await db.collection('users').deleteOne({ _id });
+  }
+
   // SETTINGS
   static async getSettings(): Promise<any> {
     const db = getDb();

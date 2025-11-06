@@ -814,6 +814,27 @@ Get license information.
 ### POST \`/api/license/activate\`
 Activate premium license.
 
+## User Data Management
+
+### GET \`/api/user-data/:token\`
+View user's personal data and appointments by unique token.
+
+**Public endpoint** - No authentication required.
+
+**Response:** HTML page displaying:
+- Personal information (name, email, phone)
+- All user appointments (past and future)
+- Option to delete all data
+
+### POST \`/api/user-data/:token\`
+Permanently delete user's data and all appointments.
+
+**Public endpoint** - No authentication required.
+
+**Response:** HTML confirmation page.
+
+**Note:** Each user receives a unique \`userToken\` (UUID) when they first book an appointment. This token can be included in confirmation emails to allow users to manage their own data.
+
 ## Error Responses
 
 - **400** Bad Request - Invalid request

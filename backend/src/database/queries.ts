@@ -145,8 +145,8 @@ export class DatabaseQueries {
   static createUser(user: Omit<User, 'uid'>): Promise<number> {
     return new Promise((resolve, reject) => {
       const stmt = db.prepare(`
-        INSERT INTO users (name, middle, surname, email, phone, ipAddress)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO users (name, middle, surname, email, phone, ipAddress, userToken)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
       `);
       
       stmt.run([
@@ -155,7 +155,8 @@ export class DatabaseQueries {
         user.surname,
         user.email,
         user.phone,
-        user.ipAddress
+        user.ipAddress,
+        user.userToken
       ], function(err) {
         if (err) reject(err);
         else resolve(this.lastID);
@@ -188,6 +189,29 @@ export class DatabaseQueries {
       db.get(`SELECT * FROM users WHERE uid = ?`, [uid], (err, row) => {
         if (err) reject(err);
         else resolve((row as User) || null);
+      });
+    });
+  }
+
+  static getUserByToken(userToken: string): Promise<User | null> {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM users WHERE userToken = ?`, [userToken], (err, row) => {
+        if (err) reject(err);
+        else resolve((row as User) || null);
+      });
+    });
+  }
+
+  static deleteUserData(uid: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      db.serialize(() => {
+        db.run(`DELETE FROM appointments WHERE userId = ?`, [uid], (err) => {
+          if (err) return reject(err);
+          db.run(`DELETE FROM users WHERE uid = ?`, [uid], (err) => {
+            if (err) reject(err);
+            else resolve();
+          });
+        });
       });
     });
   }

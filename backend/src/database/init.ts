@@ -60,6 +60,7 @@ export const initializeDatabase = (): Promise<void> => {
           email TEXT UNIQUE NOT NULL,
           phone TEXT,
           ipAddress TEXT,
+          userToken TEXT UNIQUE,
           createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
           updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
         )
@@ -173,6 +174,19 @@ export const initializeDatabase = (): Promise<void> => {
               } else {
                 console.log('✅ Added email column to blocked table');
               }
+            });
+          }
+        }
+      });
+
+      // Ensure userToken column exists in users table
+      db.all(`PRAGMA table_info('users')`, (userErr, userRows: any[]) => {
+        if (!userErr && userRows) {
+          const userCols = userRows.map(r => r.name);
+          if (!userCols.includes('userToken')) {
+            db.run(`ALTER TABLE users ADD COLUMN userToken TEXT UNIQUE`, (alterErr) => {
+              if (alterErr) console.warn('Could not add userToken column:', alterErr.message);
+              else console.log('✅ Added userToken column to users table');
             });
           }
         }
