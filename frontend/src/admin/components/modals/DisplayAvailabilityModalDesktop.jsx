@@ -1,9 +1,11 @@
 import Modal from '../Modal';
 import NumberSettingEditor from '../NumberSettingEditor';
+import { useAdminTranslation } from '../../utils/useAdminTranslation';
 
 function DisplayAvailabilityModalDesktop({ isOpen, onClose, settings, onSave }) {
+  const { t } = useAdminTranslation();
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="📅 Display Availability" maxWidth="650px">
+    <Modal isOpen={isOpen} onClose={onClose} title={t('displayAvailability.modalTitleDesktop')} maxWidth="650px">
       {settings && (
         <NumberSettingEditor
           currentValue={settings.displayAvailability}
@@ -12,10 +14,10 @@ function DisplayAvailabilityModalDesktop({ isOpen, onClose, settings, onSave }) 
           min={1}
           max={52}
           step={1}
-          label="Weeks Ahead"
-          recommendedRange="1-8 weeks"
-          helpText="Number of weeks ahead customers will see available slots on the booking calendar. Increasing shows more future slots but may be overwhelming."
-          previewText={(value) => value === 1 ? `Customers will see availability for the next week only.` : `Customers will see availability for the next ${value} weeks.`}
+          label={t('displayAvailability.weeksAheadLabel')}
+          recommendedRange={t('displayAvailability.recommendedRange') + ': 1-8'}
+          helpText={t('displayAvailability.helpText')}
+          previewText={(value) => value === 1 ? t('displayAvailability.previewSingleWeek') : t('displayAvailability.previewMultiWeeks', { weeks: value })}
         />
       )}
     </Modal>

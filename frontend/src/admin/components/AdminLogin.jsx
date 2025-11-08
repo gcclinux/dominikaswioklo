@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './NumberSettingEditor.css';
 import { API } from '../../config/api';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function AdminLogin({ onLoginSuccess }) {
+  const { t } = useAdminTranslation();
   const [credentials, setCredentials] = useState({ login: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -11,7 +13,7 @@ function AdminLogin({ onLoginSuccess }) {
     e.preventDefault();
     
     if (!credentials.login || !credentials.password) {
-      setError('Please enter both login and password');
+      setError(t('login.errors.bothFields'));
       return;
     }
 
@@ -35,10 +37,10 @@ function AdminLogin({ onLoginSuccess }) {
         }));
         onLoginSuccess(json.data);
       } else {
-        setError(json.error || 'Login failed');
+        setError(json.error || t('login.errors.loginFailed'));
       }
     } catch (err) {
-      setError('Connection error. Please try again.');
+      setError(t('login.errors.connectionError'));
     } finally {
       setLoading(false);
     }
@@ -73,14 +75,14 @@ function AdminLogin({ onLoginSuccess }) {
             fontSize: '1.8rem',
             fontWeight: 600 
           }}>
-            🔐 Admin Login
+            🔐 {t('login.title')}
           </h1>
           <p style={{ 
             margin: '0.5rem 0 0 0', 
             color: '#7f8c8d',
             fontSize: '0.9rem'
           }}>
-            Enter your credentials to access the admin dashboard
+            {t('login.subtitle')}
           </p>
         </div>
 
@@ -95,7 +97,7 @@ function AdminLogin({ onLoginSuccess }) {
               color: '#2c3e50'
             }}>
               <span>👤</span>
-              <span>Login:</span>
+              <span>{t('login.loginLabel')}</span>
             </label>
             <input
               type="text"
@@ -112,7 +114,7 @@ function AdminLogin({ onLoginSuccess }) {
               }}
               onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
               onBlur={(e) => e.target.style.borderColor = '#e1e8ed'}
-              placeholder="Enter your login username"
+              placeholder={t('login.placeholder.login')}
               disabled={loading}
             />
           </div>
@@ -127,7 +129,7 @@ function AdminLogin({ onLoginSuccess }) {
               color: '#2c3e50'
             }}>
               <span>🔑</span>
-              <span>Password:</span>
+              <span>{t('login.passwordLabel')}</span>
             </label>
             <input
               type="password"
@@ -144,7 +146,7 @@ function AdminLogin({ onLoginSuccess }) {
               }}
               onFocus={(e) => e.target.style.borderColor = 'var(--primary-color)'}
               onBlur={(e) => e.target.style.borderColor = '#e1e8ed'}
-              placeholder="Enter your password"
+              placeholder={t('login.placeholder.password')}
               disabled={loading}
             />
           </div>
@@ -204,10 +206,10 @@ function AdminLogin({ onLoginSuccess }) {
                   animation: 'spin 1s linear infinite',
                   marginRight: '0.5rem'
                 }} />
-                Signing in...
+                {t('login.loggingIn')}
               </>
             ) : (
-              'Sign In'
+              t('login.loginButton')
             )}
           </button>
         </form>
@@ -218,7 +220,7 @@ function AdminLogin({ onLoginSuccess }) {
           fontSize: '0.8rem',
           color: '#95a5a6'
         }}>
-          Scheduler Admin Dashboard v1.0.0
+          {t('footer.version')}
         </div>
       </div>
 

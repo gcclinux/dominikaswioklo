@@ -4,9 +4,11 @@ import './NumberSettingEditor.css';
 import { API } from '../../config/api';
 import { authenticatedFetch } from '../utils/apiHelper';
 import AdminAccessMobile from './AdminAccessMobile';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 
 function AdminAccess({ isOpen, onClose, currentAdmin }) {
+  const { t } = useAdminTranslation();
   const [isMobile] = useState(window.innerWidth <= 768);
   
   // If mobile, render mobile component
@@ -40,9 +42,9 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
       const res = await authenticatedFetch(`${API}/admins`);
       const json = await res.json();
       if (json.success) setItems(json.data || []);
-      else setError(json.error || 'Failed to load admin accounts');
+      else setError(json.error || t('adminAccess.errors.loadFailed'));
     } catch (e) {
-      setError('Failed to load admin accounts');
+      setError(t('adminAccess.errors.loadFailed'));
     }
     setLoading(false);
   };
@@ -60,7 +62,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
   }, [isOpen]);
 
   const doDelete = async () => {
-    if (!selectedId) return setError('Select an admin first');
+    if (!selectedId) return setError(t('adminAccess.errors.selectFirst'));
     setWorking(true);
     setError('');
     try {
@@ -69,18 +71,18 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
       if (json.success) {
         await fetchAdmins();
         setSelectedId(null);
-      } else setError(json.error || 'Failed to delete admin');
+      } else setError(json.error || t('adminAccess.errors.deleteFailed'));
     } catch (e) {
-      setError('Failed to delete admin');
+      setError(t('adminAccess.errors.deleteFailed'));
     }
     setWorking(false);
   };
 
   const doChangePassword = async () => {
-    if (!selectedId) return setError('Select an admin first');
-    if (!newPassword || !confirmPassword) return setError('Please fill in both password fields');
-    if (newPassword !== confirmPassword) return setError('Passwords do not match');
-    if (newPassword.length < 6) return setError('Password must be at least 6 characters');
+    if (!selectedId) return setError(t('adminAccess.errors.selectFirst'));
+    if (!newPassword || !confirmPassword) return setError(t('adminAccess.errors.fillBothPasswords'));
+    if (newPassword !== confirmPassword) return setError(t('adminAccess.errors.passwordsNoMatch'));
+    if (newPassword.length < 6) return setError(t('adminAccess.errors.passwordTooShort'));
 
     setWorking(true);
     setError('');
@@ -96,15 +98,15 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
         setNewPassword('');
         setConfirmPassword('');
         setSelectedId(null);
-      } else setError(json.error || 'Failed to change password');
+      } else setError(json.error || t('adminAccess.errors.passwordChangeFailed'));
     } catch (e) {
-      setError('Failed to change password');
+      setError(t('adminAccess.errors.passwordChangeFailed'));
     }
     setWorking(false);
   };
 
   const doChangeEmail = async () => {
-    if (!selectedId) return setError('Select an admin first');
+    if (!selectedId) return setError(t('adminAccess.errors.selectFirst'));
 
     setWorking(true);
     setError('');
@@ -119,18 +121,18 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
         setShowEmailModal(false);
         setNewEmail('');
         setSelectedId(null);
-      } else setError(json.error || 'Failed to change email');
+      } else setError(json.error || t('adminAccess.errors.emailChangeFailed'));
     } catch (e) {
-      setError('Failed to change email');
+      setError(t('adminAccess.errors.emailChangeFailed'));
     }
     setWorking(false);
   };
 
   const doAddAdmin = async () => {
     if (!newAdmin.name || !newAdmin.surname || !newAdmin.email || !newAdmin.login || !newAdmin.password) {
-      return setError('All fields are required');
+      return setError(t('adminAccess.errors.allFieldsRequired'));
     }
-    if (newAdmin.password.length < 6) return setError('Password must be at least 6 characters');
+    if (newAdmin.password.length < 6) return setError(t('adminAccess.errors.passwordTooShort'));
 
     setWorking(true);
     setError('');
@@ -150,9 +152,9 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
         await fetchAdmins();
         setShowAddModal(false);
         setNewAdmin({ name: '', surname: '', email: '', login: '', password: '' });
-      } else setError(json.error || 'Failed to add admin');
+      } else setError(json.error || t('adminAccess.errors.addFailed'));
     } catch (e) {
-      setError('Failed to add admin');
+      setError(t('adminAccess.errors.addFailed'));
     }
     setWorking(false);
   };
@@ -164,7 +166,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        title="🔐 Admin Access"
+        title={`🔐 ${t('adminAccess.title')}`}
         maxWidth="90vw"
         maxHeight="80vh"
         closeOnOverlayClick={false}
@@ -182,7 +184,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-          {loading && <div className="info-box"><span className="info-icon">⏳</span><span className="info-text">Loading admin accounts…</span></div>}
+          {loading && <div className="info-box"><span className="info-icon">⏳</span><span className="info-text">{t('adminAccess.loading')}</span></div>}
           {error && <div className="error-message">{error}</div>}
 
 
@@ -191,12 +193,12 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
             <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, tableLayout: 'auto' }}>
               <thead>
                 <tr style={{ background: 'rgba(102,126,234,0.08)' }}>
-                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>👤 Name</th>
-                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>👤 Surname</th>
-                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>✉️ Email</th>
-                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>👤 Login</th>
-                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>📅 Created</th>
-                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>🔑 Password Changed</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>👤 {t('adminAccess.table.name')}</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>👤 {t('adminAccess.table.surname')}</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>✉️ {t('adminAccess.table.email')}</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>👤 {t('adminAccess.table.login')}</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>📅 {t('adminAccess.table.created')}</th>
+                  <th style={{ textAlign: 'left', padding: '0.75rem' }}>🔑 {t('adminAccess.table.passwordChanged')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -245,14 +247,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                     <td style={{ padding: '0.6rem' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <span>🔑</span>
-                        <span>{row.passwordLastChanged ? new Date(row.passwordLastChanged).toLocaleString() : 'Never'}</span>
+                        <span>{row.passwordLastChanged ? new Date(row.passwordLastChanged).toLocaleString() : t('adminAccess.table.never')}</span>
                       </div>
                     </td>
                   </tr>
                 ))}
                 {!loading && items.length === 0 && (
                   <tr>
-                    <td colSpan={6} style={{ padding: '1rem', textAlign: 'center', color: '#7f8c8d' }}>No admin accounts</td>
+                    <td colSpan={6} style={{ padding: '1rem', textAlign: 'center', color: '#7f8c8d' }}>{t('adminAccess.noAdmins')}</td>
                   </tr>
                 )}
               </tbody>
@@ -260,7 +262,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           </div>
 
           <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', alignItems: 'center' }}>
-            <button className="nav-button" onClick={() => setShowAddModal(true)}>Add Admin</button>
+            <button className="nav-button" onClick={() => setShowAddModal(true)}>{t('adminAccess.buttons.addAdmin')}</button>
             <button
               className="nav-button"
               disabled={!selectedId || working}
@@ -270,14 +272,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 setShowEmailModal(true);
               }}
             >
-              Change Email
+              {t('adminAccess.buttons.changeEmail')}
             </button>
             <button
               className="nav-button"
               disabled={!selectedId || working}
               onClick={() => setShowPasswordModal(true)}
             >
-              Change Password
+              {t('adminAccess.buttons.changePassword')}
             </button>
             <button
               className="nav-button"
@@ -289,13 +291,13 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
               }}
               title={
                 currentAdmin && selectedId === currentAdmin.aid
-                  ? 'You cannot delete your own account'
-                  : 'Delete selected admin account'
+                  ? t('adminAccess.buttons.cannotDeleteSelf')
+                  : t('adminAccess.buttons.deleteAdminTooltip')
               }
             >
-              Delete Admin
+              {t('adminAccess.buttons.deleteAdmin')}
             </button>
-            <button className="nav-button" onClick={onClose}>Close</button>
+            <button className="nav-button" onClick={onClose}>{t('common.close')}</button>
           </div>
         </div>
       </Modal>
@@ -309,7 +311,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           setConfirmPassword('');
           setError('');
         }}
-        title={`Change Password for ${selectedAdmin?.aName} ${selectedAdmin?.aSurname}`}
+        title={t('adminAccess.changePassword.title', { name: `${selectedAdmin?.aName} ${selectedAdmin?.aSurname}` })}
         maxWidth="400px"
         closeOnOverlayClick={false}
       >
@@ -319,7 +321,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>🔑</span>
-              <span>New Password:</span>
+              <span>{t('adminAccess.changePassword.newPassword')}</span>
             </label>
             <input
               type="password"
@@ -332,14 +334,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter new password"
+              placeholder={t('adminAccess.changePassword.newPasswordPlaceholder')}
             />
           </div>
 
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>🔑</span>
-              <span>Confirm Password:</span>
+              <span>{t('adminAccess.changePassword.confirmPassword')}</span>
             </label>
             <input
               type="password"
@@ -352,7 +354,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Confirm new password"
+              placeholder={t('adminAccess.changePassword.confirmPasswordPlaceholder')}
             />
           </div>
 
@@ -366,14 +368,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 setError('');
               }}
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               className="nav-button"
               disabled={working}
               onClick={doChangePassword}
             >
-              {working ? 'Changing...' : 'Change Password'}
+              {working ? t('adminAccess.changePassword.changing') : t('adminAccess.changePassword.changeButton')}
             </button>
           </div>
         </div>
@@ -387,7 +389,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           setNewEmail('');
           setError('');
         }}
-        title={`Change Email for ${selectedAdmin?.aName} ${selectedAdmin?.aSurname}`}
+        title={t('adminAccess.changeEmail.title', { name: `${selectedAdmin?.aName} ${selectedAdmin?.aSurname}` })}
         maxWidth="400px"
         closeOnOverlayClick={false}
       >
@@ -397,7 +399,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>✉️</span>
-              <span>Email Address:</span>
+              <span>{t('adminAccess.changeEmail.emailLabel')}</span>
             </label>
             <input
               type="email"
@@ -410,10 +412,10 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter email address (leave empty to remove)"
+              placeholder={t('adminAccess.changeEmail.emailPlaceholder')}
             />
             <small style={{ color: '#666', fontSize: '12px', marginTop: '0.25rem', display: 'block' }}>
-              Leave empty to remove the email address
+              {t('adminAccess.changeEmail.emptyHint')}
             </small>
           </div>
 
@@ -426,14 +428,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 setError('');
               }}
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               className="nav-button"
               disabled={working}
               onClick={doChangeEmail}
             >
-              {working ? 'Updating...' : 'Update Email'}
+              {working ? t('adminAccess.changeEmail.updating') : t('adminAccess.changeEmail.updateButton')}
             </button>
           </div>
         </div>
@@ -447,7 +449,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           setNewAdmin({ name: '', surname: '', email: '', login: '', password: '' });
           setError('');
         }}
-        title="Add New Admin"
+        title={t('adminAccess.addAdmin.title')}
         maxWidth="400px"
         closeOnOverlayClick={false}
       >
@@ -457,7 +459,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>👤</span>
-              <span>Name:</span>
+              <span>{t('adminAccess.addAdmin.nameLabel')}</span>
             </label>
             <input
               type="text"
@@ -470,14 +472,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter first name"
+              placeholder={t('adminAccess.addAdmin.namePlaceholder')}
             />
           </div>
 
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>👤</span>
-              <span>Surname:</span>
+              <span>{t('adminAccess.addAdmin.surnameLabel')}</span>
             </label>
             <input
               type="text"
@@ -490,14 +492,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter last name"
+              placeholder={t('adminAccess.addAdmin.surnamePlaceholder')}
             />
           </div>
 
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>✉️</span>
-              <span>Email:</span>
+              <span>{t('adminAccess.addAdmin.emailLabel')}</span>
             </label>
             <input
               type="email"
@@ -510,7 +512,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter email address"
+              placeholder={t('adminAccess.addAdmin.emailPlaceholder')}
               required
             />
           </div>
@@ -518,7 +520,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>👤</span>
-              <span>Login:</span>
+              <span>{t('adminAccess.addAdmin.loginLabel')}</span>
             </label>
             <input
               type="text"
@@ -531,14 +533,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter login username"
+              placeholder={t('adminAccess.addAdmin.loginPlaceholder')}
             />
           </div>
 
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontWeight: 500 }}>
               <span>🔑</span>
-              <span>Password:</span>
+              <span>{t('adminAccess.addAdmin.passwordLabel')}</span>
             </label>
             <input
               type="password"
@@ -551,7 +553,7 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 borderRadius: '4px',
                 fontSize: '14px'
               }}
-              placeholder="Enter password (min 6 characters)"
+              placeholder={t('adminAccess.addAdmin.passwordPlaceholder')}
             />
           </div>
 
@@ -564,14 +566,14 @@ function AdminAccess({ isOpen, onClose, currentAdmin }) {
                 setError('');
               }}
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               className="nav-button"
               disabled={working}
               onClick={doAddAdmin}
             >
-              {working ? 'Adding...' : 'Add Admin'}
+              {working ? t('adminAccess.addAdmin.adding') : t('adminAccess.addAdmin.addButton')}
             </button>
           </div>
         </div>

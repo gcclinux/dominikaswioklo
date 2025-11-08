@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './NumberSettingEditor.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function toLocalDateTimeString(iso) {
   if (!iso) return '';
@@ -9,6 +10,7 @@ function toLocalDateTimeString(iso) {
 }
 
 function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [locked, setLocked] = useState(Boolean(availabilityLocked));
   const [untilLocal, setUntilLocal] = useState(toLocalDateTimeString(availabilityLockedUntil));
   const [error, setError] = useState('');
@@ -21,8 +23,8 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
     if (locked && effective) {
       const chosen = new Date(effective);
       const now = new Date();
-      if (isNaN(chosen.getTime())) { setError('Invalid date/time format'); return false; }
-      if (chosen <= now) { setError('Lock-until must be in the future'); return false; }
+  if (isNaN(chosen.getTime())) { setError(t('availabilityLock.errors.invalidFormat')); return false; }
+  if (chosen <= now) { setError(t('availabilityLock.errors.mustBeFuture')); return false; }
     }
     setError('');
     return true;
@@ -59,10 +61,10 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
       }}>
         <div style={{ fontSize: '1.5rem' }}>{locked ? '🔒' : '🔓'}</div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>CURRENT STATUS</div>
+          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>{t('availabilityLock.currentStatus')}</div>
           <div style={{ fontSize: '1rem', fontWeight: 700, color: '#2c3e50' }}>
-            {locked ? 'Bookings Locked' : 'Bookings Open'}
-            {locked && availabilityLockedUntil && ` · Until ${new Date(availabilityLockedUntil).toLocaleString()}`}
+            {locked ? t('availabilityLock.locked') : t('availabilityLock.open')}
+            {locked && availabilityLockedUntil && ` · ${t('availabilityLock.until', { date: new Date(availabilityLockedUntil).toLocaleString() })}`}
           </div>
         </div>
       </div>
@@ -77,7 +79,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
         boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
       }}>
         <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
-          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '1rem' }}>Lock Availability?</div>
+          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '1rem' }}>{t('availabilityLock.lockQuestion')}</div>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
             <button 
               onClick={() => setLocked(true)}
@@ -96,7 +98,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
                 transition: 'all 0.2s ease'
               }}
             >
-              🔒 Yes
+              🔒 {t('common.yes')}
             </button>
             <button 
               onClick={() => setLocked(false)}
@@ -115,7 +117,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
                 transition: 'all 0.2s ease'
               }}
             >
-              🔓 No
+              🔓 {t('common.no')}
             </button>
           </div>
         </div>
@@ -124,7 +126,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
         {locked && (
           <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #e0e0e0' }}>
             <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '0.5rem', textAlign: 'center' }}>
-              📅 Auto-Unlock Date/Time (Optional)
+              📅 {t('availabilityLock.autoUnlockLabel')}
             </label>
             <input 
               type="datetime-local" 
@@ -178,7 +180,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ fontSize: '1.5rem' }}>ℹ️</div>
           <div style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
-            When locked, customers won't be able to book new appointments. Set an optional date/time to automatically unlock later.
+            {t('availabilityLock.info')}
           </div>
         </div>
       </div>
@@ -200,7 +202,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           onClick={handleSave} 
@@ -218,7 +220,7 @@ function AvailabilityLockEditor({ availabilityLocked, availabilityLockedUntil, o
             transition: 'all 0.2s ease'
           }}
         >
-          {isSaving ? '⏳ Saving...' : '✓ Save Changes'}
+          {isSaving ? `⏳ ${t('workingHours.saving')}` : `✓ ${t('workingHours.saveChanges')}`}
         </button>
       </div>
     </div>

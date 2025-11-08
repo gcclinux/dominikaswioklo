@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 import { API } from '../../config/api';
 import { authenticatedFetch } from '../utils/apiHelper';
 
@@ -13,12 +14,13 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
     email: '',
     licenseKey: ''
   });
+  const { t } = useAdminTranslation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.licenseKey) {
-      return setError('All fields are required');
+      return setError(t('common.error') + ': ' + t('workingHours.errors.invalidRange'));
     }
 
     setWorking(true);
@@ -35,16 +37,16 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
       const json = await res.json();
       
       if (json.success) {
-        setSuccess('Premium license activated! Please restart the server.');
+        setSuccess(t('settings.toast.premiumActivated'));
         setTimeout(() => {
           if (onSuccess) onSuccess();
           onClose();
         }, 3000);
       } else {
-        setError(json.error || 'Failed to activate license');
+        setError(json.error || t('common.error'));
       }
     } catch (e) {
-      setError('Failed to activate license');
+      setError(t('common.error'));
     }
     
     setWorking(false);
@@ -61,7 +63,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
     <Modal
       isOpen={isOpen}
       onClose={handleClose}
-      title="🔓 Upgrade to Premium"
+  title={t('premiumUpgrade.modalTitle')}
       maxWidth="500px"
       closeOnOverlayClick={false}
     >
@@ -72,12 +74,12 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
           borderRadius: '8px',
           border: '1px solid var(--primary-border)'
         }}>
-          <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary-color)' }}>Premium Features</h4>
+          <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--primary-color)' }}>{t('licenseInfo.featuresTitlePremium')}</h4>
           <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.9rem', color: '#555' }}>
-            <li>Remove all branding</li>
-            <li>Email notifications enabled</li>
-            <li>Priority support</li>
-            <li>Lifetime updates</li>
+            <li>{t('licenseInfo.featureRemoveBranding')}</li>
+            <li>{t('licenseInfo.featureEmailNotifications')}</li>
+            <li>{t('licenseInfo.featurePrioritySupport')}</li>
+            <li>{t('licenseInfo.featureLifetimeUpdates')}</li>
           </ul>
         </div>
 
@@ -110,7 +112,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-              Name *
+              {t('common.name')} *
             </label>
             <input
               type="text"
@@ -123,14 +125,14 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="Enter your name"
+              placeholder={t('common.name')}
               disabled={working || success}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-              Email *
+              {t('common.email')} *
             </label>
             <input
               type="email"
@@ -143,14 +145,14 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="Enter your email"
+              placeholder={t('common.email')}
               disabled={working || success}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500 }}>
-              License Key *
+              {t('premium.enterLicenseKey')} *
             </label>
             <input
               type="text"
@@ -168,7 +170,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
               disabled={working || success}
             />
             <small style={{ color: '#666', fontSize: '12px', marginTop: '0.25rem', display: 'block' }}>
-              Enter the license key you received after purchase
+              {t('licenseInfo.license')}
             </small>
           </div>
 
@@ -179,7 +181,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
               onClick={handleClose}
               disabled={working}
             >
-              Cancel
+              {t('common.cancel')}
             </button>
             <button
               type="submit"
@@ -189,7 +191,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
                 background: success ? '#27ae60' : 'var(--primary-gradient)'
               }}
             >
-              {working ? 'Activating...' : success ? 'Activated!' : 'Activate License'}
+              {working ? t('common.loading') : success ? t('common.success') : t('premium.activateButton')}
             </button>
           </div>
         </form>
@@ -202,7 +204,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
           color: '#666',
           textAlign: 'center'
         }}>
-          Don't have a license? <a href="https://gumroad.com/your-product" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 500 }}>Purchase Premium</a>
+          {t('licenseInfo.upgradeHint')} <a href="https://gumroad.com/your-product" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 500 }}>{t('premium.purchaseButton')}</a>
         </div>
       </div>
     </Modal>

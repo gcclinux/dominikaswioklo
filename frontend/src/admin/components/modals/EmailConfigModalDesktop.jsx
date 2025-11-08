@@ -4,10 +4,12 @@ import EmailSettingsEditor from '../EmailSettingsEditor';
 import PremiumUpgradeModal from '../PremiumUpgradeModal';
 import { API } from '../../../config/api';
 import { authenticatedFetch } from '../../utils/apiHelper';
+import { useAdminTranslation } from '../../utils/useAdminTranslation';
 
 function EmailConfigModalDesktop({ isOpen, onClose, emailSettings, onSave }) {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [isPremium, setIsPremium] = useState(null);
+  const { t } = useAdminTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -55,7 +57,7 @@ function EmailConfigModalDesktop({ isOpen, onClose, emailSettings, onSave }) {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="📧 Email Configuration" maxWidth="800px" closeOnOverlayClick={false}>
+    <Modal isOpen={isOpen} onClose={onClose} title={t('emailSettings.modalTitle')} maxWidth="800px" closeOnOverlayClick={false}>
       {emailSettings && isPremium ? (
         <EmailSettingsEditor
           settings={emailSettings}
@@ -65,7 +67,7 @@ function EmailConfigModalDesktop({ isOpen, onClose, emailSettings, onSave }) {
       ) : (
         <div style={{ padding: '2rem', textAlign: 'center' }}>
           <div className="loading-spinner"></div>
-          <p>Loading email settings...</p>
+          <p>{t('settings.loading')}</p>
         </div>
       )}
     </Modal>

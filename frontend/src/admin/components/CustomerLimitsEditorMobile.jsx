@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './CustomerLimitsEditorMobile.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function CustomerLimitsEditorMobile({ maxApp, maxAppWeek, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [dailyLimit, setDailyLimit] = useState(maxApp);
   const [weeklyLimit, setWeeklyLimit] = useState(maxAppWeek);
   const [isSaving, setIsSaving] = useState(false);
@@ -22,8 +24,8 @@ function CustomerLimitsEditorMobile({ maxApp, maxAppWeek, onSave, onCancel }) {
       <div className="mobile-limit-card">
         <div className="card-icon">📅</div>
         <div className="card-header">
-          <h3>Daily Limit</h3>
-          <p>Per customer, per day</p>
+          <h3>{t('customerLimits.dailyLimit')}</h3>
+          <p>{t('customerLimits.perCustomerPerDay')}</p>
         </div>
         <div className="card-controls">
           <button 
@@ -42,14 +44,14 @@ function CustomerLimitsEditorMobile({ maxApp, maxAppWeek, onSave, onCancel }) {
             +
           </button>
         </div>
-        <div className="card-hint">Recommended: 1-2</div>
+  <div className="card-hint">{t('customerLimits.recommended')}: 1-2</div>
       </div>
 
       <div className="mobile-limit-card">
         <div className="card-icon">📊</div>
         <div className="card-header">
-          <h3>Weekly Limit</h3>
-          <p>Per customer, per week</p>
+          <h3>{t('customerLimits.weeklyLimit')}</h3>
+          <p>{t('customerLimits.perCustomerPerWeek')}</p>
         </div>
         <div className="card-controls">
           <button 
@@ -68,26 +70,31 @@ function CustomerLimitsEditorMobile({ maxApp, maxAppWeek, onSave, onCancel }) {
             +
           </button>
         </div>
-        <div className="card-hint">Recommended: 3-5</div>
+  <div className="card-hint">{t('customerLimits.recommended')}: 3-5</div>
       </div>
 
       <div className="mobile-preview">
         <div className="preview-icon">✓</div>
         <p>
-          Customers can book <strong>{dailyLimit}</strong> per day and <strong>{weeklyLimit}</strong> per week
+          {t('customerLimits.previewText', {
+            dailyLimit,
+            dailyPlural: dailyLimit === 1 ? '' : 's',
+            weeklyLimit,
+            weeklyPlural: weeklyLimit === 1 ? '' : 's'
+          })}
         </p>
       </div>
 
       <div className="mobile-actions">
         <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           className="mobile-btn save" 
           onClick={handleSave} 
           disabled={!hasChanged || isSaving}
         >
-          {isSaving ? 'Saving...' : 'Save Changes'}
+          {isSaving ? t('workingHours.saving') : t('workingHours.saveChanges')}
         </button>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { API } from '../../config/api';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function FirstTimeSetup({ onAdminCreated }) {
+  const { t } = useAdminTranslation();
   const [working, setWorking] = useState(false);
   const [error, setError] = useState('');
   const [newAdmin, setNewAdmin] = useState({
@@ -17,15 +19,15 @@ function FirstTimeSetup({ onAdminCreated }) {
     e.preventDefault();
     
     if (!newAdmin.name || !newAdmin.surname || !newAdmin.email || !newAdmin.login || !newAdmin.password) {
-      return setError('All fields are required');
+      return setError(t('firstTimeSetup.errors.allFields') || 'All fields are required');
     }
     
     if (newAdmin.password !== newAdmin.confirmPassword) {
-      return setError('Passwords do not match');
+      return setError(t('firstTimeSetup.errors.passwordMatch') || 'Passwords do not match');
     }
     
-    if (newAdmin.password.length < 6) {
-      return setError('Password must be at least 6 characters');
+    if (newAdmin.password.length < 8) {
+      return setError(t('firstTimeSetup.errors.passwordLength') || 'Password must be at least 8 characters');
     }
 
     setWorking(true);
@@ -69,19 +71,19 @@ function FirstTimeSetup({ onAdminCreated }) {
             onAdminCreated();
           } else {
             // Admin created but login failed - just proceed with onAdminCreated which will show login page
-            setError('Account created! Please log in with your credentials.');
+            setError(t('firstTimeSetup.loginAfterCreate') || 'Account created! Please log in with your credentials.');
             setTimeout(() => onAdminCreated(), 2000);
           }
         } catch (loginErr) {
           // Admin created but login failed - just proceed
-          setError('Account created! Please log in with your credentials.');
+          setError(t('firstTimeSetup.loginAfterCreate') || 'Account created! Please log in with your credentials.');
           setTimeout(() => onAdminCreated(), 2000);
         }
       } else {
-        setError(json.error || 'Failed to create admin account');
+        setError(json.error || t('firstTimeSetup.errors.creationFailed'));
       }
     } catch (e) {
-      setError('Failed to create admin account');
+      setError(t('firstTimeSetup.errors.connectionError'));
     }
     
     setWorking(false);
@@ -104,9 +106,9 @@ function FirstTimeSetup({ onAdminCreated }) {
         width: '100%',
         boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
       }}>
-        <h2 style={{ margin: '0 0 0.5rem 0', color: '#2c3e50' }}>🚀 First Time Setup</h2>
+        <h2 style={{ margin: '0 0 0.5rem 0', color: '#2c3e50' }}>🚀 {t('firstTimeSetup.title')}</h2>
         <p style={{ margin: '0 0 1.5rem 0', color: '#7f8c8d', fontSize: '0.9rem' }}>
-          Create your first admin account to get started
+          {t('firstTimeSetup.subtitle')}
         </p>
 
         {error && (
@@ -126,7 +128,7 @@ function FirstTimeSetup({ onAdminCreated }) {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: '#2c3e50' }}>
-              First Name *
+              {t('firstTimeSetup.firstName')} *
             </label>
             <input
               type="text"
@@ -139,14 +141,14 @@ function FirstTimeSetup({ onAdminCreated }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="Enter first name"
+              placeholder={t('firstTimeSetup.placeholder.firstName')}
               disabled={working}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: '#2c3e50' }}>
-              Last Name *
+              {t('firstTimeSetup.lastName')} *
             </label>
             <input
               type="text"
@@ -159,14 +161,14 @@ function FirstTimeSetup({ onAdminCreated }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="Enter last name"
+              placeholder={t('firstTimeSetup.placeholder.lastName')}
               disabled={working}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: '#2c3e50' }}>
-              Email *
+              {t('firstTimeSetup.email')} *
             </label>
             <input
               type="email"
@@ -179,14 +181,14 @@ function FirstTimeSetup({ onAdminCreated }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="admin@example.com"
+              placeholder={t('firstTimeSetup.placeholder.email')}
               disabled={working}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: '#2c3e50' }}>
-              Username *
+              {t('firstTimeSetup.login')} *
             </label>
             <input
               type="text"
@@ -199,14 +201,14 @@ function FirstTimeSetup({ onAdminCreated }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="admin"
+              placeholder={t('firstTimeSetup.placeholder.login')}
               disabled={working}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: '#2c3e50' }}>
-              Password *
+              {t('firstTimeSetup.password')} *
             </label>
             <input
               type="password"
@@ -219,14 +221,14 @@ function FirstTimeSetup({ onAdminCreated }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="Min 6 characters"
+              placeholder={t('firstTimeSetup.placeholder.password')}
               disabled={working}
             />
           </div>
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, color: '#2c3e50' }}>
-              Confirm Password *
+              {t('firstTimeSetup.confirmPassword')} *
             </label>
             <input
               type="password"
@@ -239,7 +241,7 @@ function FirstTimeSetup({ onAdminCreated }) {
                 borderRadius: '6px',
                 fontSize: '14px'
               }}
-              placeholder="Re-enter password"
+              placeholder={t('firstTimeSetup.placeholder.confirmPassword')}
               disabled={working}
             />
           </div>
@@ -259,7 +261,7 @@ function FirstTimeSetup({ onAdminCreated }) {
               marginTop: '0.5rem'
             }}
           >
-            {working ? 'Creating Account...' : 'Create Admin Account'}
+            {working ? (t('firstTimeSetup.creating') || 'Creating...') : t('firstTimeSetup.createButton')}
           </button>
         </form>
       </div>

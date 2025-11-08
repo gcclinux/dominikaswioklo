@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './AppointmentTypesEditorMobile.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD', onSave, onCancel }) => {
+  const { t } = useAdminTranslation();
   const [types, setTypes] = useState(appointmentTypes.length > 0 ? appointmentTypes.map(t => ({ name: t.appName || t.name || '', tag: t.appTag || t.tag || '', price: t.appPrice || t.price || '' })) : [{ name: '', tag: '', price: '' }]);
   const [selectedCurrency, setSelectedCurrency] = useState(currency);
 
@@ -35,8 +37,8 @@ const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD',
       <div className="mobile-currency-card">
         <div className="currency-icon">{currencies.find(c => c.code === selectedCurrency)?.symbol || '$'}</div>
         <div className="currency-header">
-          <h3>Currency</h3>
-          <p>For all appointments</p>
+          <h3>{t('appointmentTypes.currency')}</h3>
+          <p>{t('appointmentTypes.infoBanner')}</p>
         </div>
         <select
           value={selectedCurrency}
@@ -62,14 +64,14 @@ const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD',
             </div>
             <input
               type="text"
-              placeholder="Name (e.g., Consultation)"
+              placeholder={t('appointmentTypes.namePlaceholder')}
               value={type.name}
               onChange={(e) => handleChange(index, 'name', e.target.value)}
               className="mobile-type-input"
             />
             <input
               type="text"
-              placeholder="Tag (e.g., consultation)"
+              placeholder={t('appointmentTypes.tagPlaceholder')}
               value={type.tag}
               onChange={(e) => handleChange(index, 'tag', e.target.value.toLowerCase().replace(/\s+/g, '-'))}
               className="mobile-type-input"
@@ -78,7 +80,7 @@ const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD',
               <span className="price-symbol">{currencies.find(c => c.code === selectedCurrency)?.symbol || '$'}</span>
               <input
                 type="number"
-                placeholder="0.00"
+                placeholder={t('appointmentTypes.pricePlaceholder')}
                 value={type.price}
                 onChange={(e) => handleChange(index, 'price', e.target.value)}
                 step="0.01"
@@ -90,12 +92,12 @@ const AppointmentTypesEditorMobile = ({ appointmentTypes = [], currency = 'USD',
       </div>
 
       <button onClick={handleAdd} className="mobile-add-btn">
-        + Add Appointment Type
+        + {t('appointmentTypes.addType')}
       </button>
 
       <div className="mobile-actions">
-        <button className="mobile-btn cancel" onClick={onCancel}>Cancel</button>
-        <button className="mobile-btn save" onClick={handleSave}>Save Changes</button>
+        <button className="mobile-btn cancel" onClick={onCancel}>{t('common.cancel')}</button>
+        <button className="mobile-btn save" onClick={handleSave}>{t('workingHours.saveChanges')}</button>
       </div>
     </div>
   );

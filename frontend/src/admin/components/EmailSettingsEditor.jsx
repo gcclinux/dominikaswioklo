@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function EmailSettingsEditor({ settings, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [formData, setFormData] = useState({
     smtpHost: settings.smtpHost || 'smtp.gmail.com',
     smtpPort: settings.smtpPort || 587,
@@ -8,7 +10,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
     smtpUser: settings.smtpUser || '',
     smtpPass: settings.smtpPass === '********' ? '' : settings.smtpPass || '',
     smtpFrom: settings.smtpFrom || '',
-    emailFooter: settings.emailFooter || 'Scheduler System'
+  emailFooter: settings.emailFooter || t('emailSettings.defaultFooter')
   });
 
   const handleChange = (field, value) => {
@@ -36,7 +38,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
       }}>
         <div style={{ fontSize: '1.5rem' }}>📧</div>
         <div style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.5' }}>
-          Configure SMTP settings to enable email notifications for appointments.
+          {t('emailSettings.infoBanner')}
         </div>
       </div>
 
@@ -52,10 +54,10 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <div style={{ fontSize: '1.2rem' }}>🖥️</div>
-            <div style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>SMTP Server</div>
+            <div style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>{t('emailSettings.smtpServer')}</div>
           </div>
           <div style={{ marginBottom: '0.75rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>Host</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.host')}</label>
             <input
               type="text"
               value={formData.smtpHost}
@@ -66,7 +68,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
           </div>
 
           <div style={{ marginBottom: '0.75rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>Port</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.port')}</label>
             <input
               type="number"
               value={formData.smtpPort}
@@ -76,7 +78,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>Security</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.security')}</label>
             <label style={{
               display: 'flex',
               alignItems: 'center',
@@ -109,11 +111,11 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
             <div style={{ fontSize: '1.2rem' }}>✉️</div>
-            <div style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>Email Settings</div>
+            <div style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>{t('emailSettings.emailSettings')}</div>
           </div>
 
           <div style={{ marginBottom: '0.75rem' }}>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>From Email</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.fromEmail')}</label>
             <input
               type="email"
               value={formData.smtpFrom}
@@ -124,15 +126,15 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>Email Footer</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.emailFooter')}</label>
             <input
               type="text"
               value={formData.emailFooter}
               onChange={(e) => handleChange('emailFooter', e.target.value)}
-              placeholder="Scheduler System"
+              placeholder={t('emailSettings.defaultFooter')}
               style={{ width: '100%', padding: '0.6rem', border: '2px solid #ddd', borderRadius: '8px', fontSize: '0.9rem', fontWeight: 500 }}
             />
-            <small style={{ display: 'block', marginTop: '0.5rem', color: '#7f8c8d', fontSize: '0.8rem' }}>Appears at the bottom of emails</small>
+            <small style={{ display: 'block', marginTop: '0.5rem', color: '#7f8c8d', fontSize: '0.8rem' }}>{t('emailSettings.footerHint')}</small>
           </div>
         </div>
       </div>
@@ -147,13 +149,13 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
         boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-          <div style={{ fontSize: '1.2rem' }}>🔑</div>
-          <div style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>Authentication</div>
-        </div>
+            <div style={{ fontSize: '1.2rem' }}>🔑</div>
+            <div style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>{t('emailSettings.authentication')}</div>
+          </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>Email Address</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.emailAddress')}</label>
             <input
               type="email"
               value={formData.smtpUser}
@@ -164,12 +166,12 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
           </div>
 
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>Password</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 500, fontSize: '0.85rem', color: '#7f8c8d' }}>{t('emailSettings.password')}</label>
             <input
               type="password"
               value={formData.smtpPass}
               onChange={(e) => handleChange('smtpPass', e.target.value)}
-              placeholder={settings.smtpPass === '********' ? 'Leave empty to keep current' : 'App password'}
+              placeholder={settings.smtpPass === '********' ? t('emailSettings.passwordKeepPlaceholder') : t('emailSettings.passwordPlaceholder')}
               style={{ width: '100%', padding: '0.6rem', border: '2px solid #ddd', borderRadius: '8px', fontSize: '0.9rem', fontWeight: 500 }}
             />
           </div>
@@ -182,7 +184,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
           fontSize: '0.8rem',
           color: '#666'
         }}>
-          💡 For Gmail, use App Password from <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" style={{ color: '#3498db', fontWeight: 600 }}>here</a>
+          💡 {t('emailSettings.gmailHint')} <a href="https://myaccount.google.com/apppasswords" target="_blank" rel="noopener noreferrer" style={{ color: '#3498db', fontWeight: 600 }}>{t('emailSettings.here')}</a>
         </div>
       </div>
 
@@ -202,7 +204,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button
           onClick={handleSubmit}
@@ -219,7 +221,7 @@ function EmailSettingsEditor({ settings, onSave, onCancel }) {
             transition: 'all 0.2s ease'
           }}
         >
-          ✓ Save Settings
+          ✓ {t('emailSettings.saveSettings')}
         </button>
       </div>
     </div>

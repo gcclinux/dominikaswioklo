@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Modal from './Modal';
 import './NumberSettingEditor.css';
 import { authenticatedFetch } from '../utils/apiHelper';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 import AdminUsersListMobile from './AdminUsersListMobile';
 import { API } from '../../config/api';
 
 function AdminUsersList({ isOpen, onClose }) {
+  const { t } = useAdminTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [items, setItems] = useState([]);
@@ -21,15 +23,15 @@ function AdminUsersList({ isOpen, onClose }) {
       const res = await authenticatedFetch(`${API}/users`);
       const json = await res.json();
       if (json.success) setItems(json.data || []);
-      else setError(json.error || 'Failed to load users');
-    } catch (e) { setError('Failed to load'); }
+      else setError(json.error || t('users.loadError'));
+    } catch (e) { setError(t('users.loadError')); }
     setLoading(false);
   };
 
   useEffect(() => { if (isOpen) fetchUsers(); else { setItems([]); setSelectedUid(null); } }, [isOpen]);
 
   const doDelete = async (uid = selectedUid) => {
-    if (!uid) return setError('Select a user first');
+    if (!uid) return setError(t('users.selectUser'));
     setWorking(true); setError('');
     try {
       const res = await authenticatedFetch(`${API}/users/${uid}`, { method: 'DELETE' });
@@ -37,13 +39,13 @@ function AdminUsersList({ isOpen, onClose }) {
       if (json.success) {
         await fetchUsers();
         setSelectedUid(null);
-      } else setError(json.error || 'Failed to delete');
-    } catch (e) { setError('Failed to delete'); }
+      } else setError(json.error || t('users.toast.deleteFailed'));
+    } catch (e) { setError(t('users.toast.deleteFailed')); }
     setWorking(false);
   };
 
   const doBlock = async (uid = selectedUid) => {
-    if (!uid) return setError('Select a user first');
+    if (!uid) return setError(t('users.selectUser'));
     setWorking(true); setError('');
     try {
       const res = await authenticatedFetch(`${API}/blocked`, {
@@ -54,8 +56,8 @@ function AdminUsersList({ isOpen, onClose }) {
       if (json.success) {
         await fetchUsers();
         setSelectedUid(null);
-      } else setError(json.error || 'Failed to block');
-    } catch (e) { setError('Failed to block'); }
+      } else setError(json.error || t('users.toast.blockFailed'));
+    } catch (e) { setError(t('users.toast.blockFailed')); }
     setWorking(false);
   };
 
@@ -82,14 +84,14 @@ function AdminUsersList({ isOpen, onClose }) {
       if (json.success) {
         await fetchUsers();
         setEditingUser(null);
-      } else setError(json.error || 'Failed to update user');
-    } catch (e) { setError('Failed to update user'); }
+      } else setError(json.error || t('users.toast.updateFailed'));
+    } catch (e) { setError(t('users.toast.updateFailed')); }
     setWorking(false);
   };
 
   return (
     <>
-    <Modal isOpen={isOpen} onClose={onClose} title="👥 User List" maxWidth="90vw" maxHeight="80vh">
+    <Modal isOpen={isOpen} onClose={onClose} title={`👥 ${t('users.title')}`} maxWidth="90vw" maxHeight="80vh">
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -99,7 +101,7 @@ function AdminUsersList({ isOpen, onClose }) {
         {/* Fixed header section for loading/error messages */}
         {(loading || error) && (
           <div style={{ flexShrink: 0 }}>
-            {loading && <div className="info-box"><span className="info-icon">⏳</span><span className="info-text">Loading users…</span></div>}
+            {loading && <div className="info-box"><span className="info-icon">⏳</span><span className="info-text">{t('users.loading')}</span></div>}
             {error && <div className="error-message">{error}</div>}
           </div>
         )}
@@ -133,13 +135,13 @@ function AdminUsersList({ isOpen, onClose }) {
               gap: '0.5rem',
               padding: '0.75rem'
             }}>
-              <div style={{ fontWeight: 600 }}>Name</div>
-              <div style={{ fontWeight: 600 }}>Email</div>
-              <div style={{ fontWeight: 600 }}>Phone</div>
-              <div style={{ fontWeight: 600 }}>Created</div>
+              <div style={{ fontWeight: 600 }}>{t('users.table.name')}</div>
+              <div style={{ fontWeight: 600 }}>{t('users.table.email')}</div>
+              <div style={{ fontWeight: 600 }}>{t('users.table.phone')}</div>
+              <div style={{ fontWeight: 600 }}>{t('users.table.registered')}</div>
               <div style={{ fontWeight: 600 }}>Blocked</div>
-              <div style={{ fontWeight: 600, textAlign: 'center' }}>Select</div>
-              <div style={{ fontWeight: 600, textAlign: 'center' }}>Edit</div>
+              <div style={{ fontWeight: 600, textAlign: 'center' }}>{t('common.select')}</div>
+              <div style={{ fontWeight: 600, textAlign: 'center' }}>{t('common.edit')}</div>
             </div>
           </div>
 
@@ -209,7 +211,7 @@ function AdminUsersList({ isOpen, onClose }) {
                 color: '#7f8c8d',
                 fontStyle: 'italic'
               }}>
-                No users found
+                {t('users.noUsers')}
               </div>
             )}
           </div>
@@ -227,10 +229,10 @@ function AdminUsersList({ isOpen, onClose }) {
           borderTop: '1px solid rgba(0,0,0,0.08)',
           background: 'white'
         }}>
-          <button className="nav-button" disabled={!selectedUid || working} onClick={() => handleEdit(items.find(u => u.uid === selectedUid))}>✏️ Edit selected user</button>
-          <button className="nav-button" disabled={!selectedUid || working} onClick={doDelete}>Delete selected user</button>
-          <button className="nav-button" disabled={!selectedUid || working} onClick={doBlock}>Block selected user</button>
-          <button className="nav-button" onClick={onClose}>Close</button>
+          <button className="nav-button" disabled={!selectedUid || working} onClick={() => handleEdit(items.find(u => u.uid === selectedUid))}>✏️ {t('users.actions.edit')}</button>
+          <button className="nav-button" disabled={!selectedUid || working} onClick={doDelete}>{t('users.actions.delete')}</button>
+          <button className="nav-button" disabled={!selectedUid || working} onClick={doBlock}>{t('users.actions.block')}</button>
+          <button className="nav-button" onClick={onClose}>{t('common.close')}</button>
         </div>
         )}
       </div>
@@ -240,12 +242,12 @@ function AdminUsersList({ isOpen, onClose }) {
     <Modal
       isOpen={!!editingUser}
       onClose={() => setEditingUser(null)}
-      title="✏️ Edit User"
+      title={`✏️ ${t('users.edit.title')}`}
       maxWidth="500px"
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>First Name:</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>{t('users.edit.firstName')}:</label>
           <input
             type="text"
             value={editForm.name}
@@ -254,7 +256,7 @@ function AdminUsersList({ isOpen, onClose }) {
           />
         </div>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Middle Name:</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>{t('users.edit.middleName')}:</label>
           <input
             type="text"
             value={editForm.middle}
@@ -263,7 +265,7 @@ function AdminUsersList({ isOpen, onClose }) {
           />
         </div>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Last Name:</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>{t('users.edit.lastName')}:</label>
           <input
             type="text"
             value={editForm.surname}
@@ -272,7 +274,7 @@ function AdminUsersList({ isOpen, onClose }) {
           />
         </div>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Email:</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>{t('users.edit.email')}:</label>
           <input
             type="email"
             value={editForm.email}
@@ -281,7 +283,7 @@ function AdminUsersList({ isOpen, onClose }) {
           />
         </div>
         <div>
-          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>Phone:</label>
+          <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600 }}>{t('users.edit.phone')}:</label>
           <input
             type="tel"
             value={editForm.phone}
@@ -290,9 +292,9 @@ function AdminUsersList({ isOpen, onClose }) {
           />
         </div>
         <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'flex-end', marginTop: '1rem' }}>
-          <button className="cancel-button" onClick={() => setEditingUser(null)}>Cancel</button>
+          <button className="cancel-button" onClick={() => setEditingUser(null)}>{t('users.edit.cancelButton')}</button>
           <button className="nav-button" onClick={handleSaveEdit} disabled={working}>
-            {working ? 'Saving...' : 'Save Changes'}
+            {working ? t('common.loading') : t('users.edit.saveButton')}
           </button>
         </div>
       </div>

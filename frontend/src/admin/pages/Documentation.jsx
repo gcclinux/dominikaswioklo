@@ -3,12 +3,13 @@ import Modal from '../components/Modal';
 import './Settings.css';
 import './Documentation.css';
 import emailSetupMd from './docs/EMAIL_SETUP.md?raw';
+import { useAdminTranslation } from '../../admin/utils/useAdminTranslation';
 
 // Generate a slug for heading anchors
 const slugify = (text = '') => text.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
 
 // Parse simple Markdown-like content and build a TOC and enhanced nodes
-const parseDocContent = (content) => {
+const parseDocContent = (content, t) => {
   const lines = content.split('\n');
   const nodes = [];
   const toc = [];
@@ -82,7 +83,7 @@ const parseDocContent = (content) => {
       const codeText = codeLines.join('\n');
       nodes.push(
         <div key={`cb-${key++}`} className="code-block">
-          <button className="code-copy" onClick={() => navigator.clipboard?.writeText(codeText)}>Copy</button>
+          <button className="code-copy" onClick={() => navigator.clipboard?.writeText(codeText)}>{t('documentation.copyCode') || 'Copy'}</button>
           <pre>
             <code className={language ? `lang-${language}` : undefined}>{codeText}</code>
           </pre>
@@ -126,6 +127,7 @@ const parseDocContent = (content) => {
 };
 
 function Documentation({ onBack }) {
+  const { t } = useAdminTranslation();
   const [activeDoc, setActiveDoc] = useState(null);
   const [query, setQuery] = useState('');
   const contentRef = useRef(null);
@@ -133,11 +135,11 @@ function Documentation({ onBack }) {
   const docs = [
     {
       id: 'mongo-setup',
-      title: 'MongoDB Setup & Migration',
+      title: t('documentation.tiles.mongo-setup.title'),
       icon: '🍃',
       color: '#10B981',
       tags: ['mongodb','database','migration','env','backend'],
-      description: 'Use MongoDB instead of SQLite, test the connection, and migrate data.',
+      description: t('documentation.tiles.mongo-setup.description'),
       content: `# MongoDB Setup & Migration
 
 This project supports two database adapters: SQLite (default) and MongoDB. You can switch adapters via environment variables and use built-in scripts to test the connection and migrate data from SQLite to MongoDB.
@@ -259,11 +261,11 @@ npm run mongo:migrate --prefix ".\backend"
     },
     { 
       id: 'admin-layout', 
-      title: 'Admin Layout', 
+      title: t('documentation.tiles.admin-layout.title'), 
       icon: '📊',
       color: '#4A90E2',
       tags: ['dashboard','overview','tiles'],
-      description: 'Guide to the admin dashboard tiles and what each does.',
+      description: t('documentation.tiles.admin-layout.description'),
       content: `# Admin Dashboard Guide
 
 Complete reference for all admin tiles and their functionality in the EasyScheduler admin dashboard.
@@ -352,11 +354,11 @@ Configure SMTP settings for automated email notifications (confirmations, cancel
     },
     { 
       id: 'admin-features', 
-      title: 'Admin Features', 
+      title: t('documentation.tiles.admin-features.title'), 
       icon: '🔐',
       color: '#50C878',
       tags: ['admin','security','management'],
-      description: 'Complete feature set available to administrators.',
+      description: t('documentation.tiles.admin-features.description'),
       content: `# Admin Features
 
 ## Overview
@@ -448,11 +450,11 @@ Admin panel provides comprehensive management tools for controlling appointments
     },
     { 
       id: 'setup', 
-      title: 'Setup', 
+      title: t('documentation.tiles.setup.title'), 
       icon: '⚙️',
       color: '#9B59B6',
       tags: ['install','environment','quickstart'],
-      description: 'Install, configure, and run EasyScheduler locally.',
+      description: t('documentation.tiles.setup.description'),
       content: `# Setup Guide
 
 Complete installation and setup instructions for EasyScheduler.
@@ -565,11 +567,11 @@ npm run install:all
     },
     { 
       id: 'customer-features', 
-      title: 'Customer Features', 
+      title: t('documentation.tiles.customer-features.title'), 
       icon: '👥',
       color: '#E74C3C',
       tags: ['customer','booking','ui'],
-      description: 'What customers see and can do while booking.',
+      description: t('documentation.tiles.customer-features.description'),
       content: `# Customer Features
 
 ## Overview
@@ -631,11 +633,11 @@ EasyScheduler provides a simple, intuitive interface for customers to book appoi
     },
     { 
       id: 'license', 
-      title: 'License', 
+      title: t('documentation.tiles.license.title'), 
       icon: '📜',
       color: '#16A085',
       tags: ['legal','terms','premium'],
-      description: 'EasyEdit Scheduler Community License (EESCL).',
+      description: t('documentation.tiles.license.description'),
       content: `# EasyEdit Scheduler Community License (EESCL) v1.0
 
 Copyright (c) 2024-present Ricardo Wagemaker (gcclinux) and contributors
@@ -691,11 +693,11 @@ For questions, feature licensing, or commercial arrangements, please open an iss
     },
     { 
       id: 'api-routes', 
-      title: 'API Routes', 
+      title: t('documentation.tiles.api-routes.title'), 
       icon: '🔌',
       color: '#F39C12',
       tags: ['api','backend','endpoints'],
-      description: 'REST endpoints, auth requirements, and formats.',
+      description: t('documentation.tiles.api-routes.description'),
       content: `# API Routes
 
 ## Base URL
@@ -851,11 +853,11 @@ Permanently delete user's data and all appointments.
     },
     {
       id: 'email-setup',
-      title: 'Email Setup',
+      title: t('documentation.tiles.email-setup.title'),
       icon: '📧',
       color: '#2563EB',
       tags: ['email','smtp','notifications'],
-      description: 'Configure SMTP and templates for admin and user notifications.',
+      description: t('documentation.tiles.email-setup.description'),
       content: emailSetupMd
     }
   ];
@@ -879,16 +881,16 @@ Permanently delete user's data and all appointments.
     <div className="settings-container">
       <header className="settings-header docs-header">
         <div className="docs-header-left">
-          <button onClick={onBack} className="back-button">← Back to Dashboard</button>
+          <button onClick={onBack} className="back-button">{t('documentation.backButton')}</button>
           <div>
-            <h1>📚 Documentation</h1>
-            <p className="settings-subtitle">Search, browse, and learn how to use EasyScheduler</p>
+            <h1>{t('documentation.headerTitle')}</h1>
+            <p className="settings-subtitle">{t('documentation.subtitle')}</p>
           </div>
         </div>
         <div className="docs-search">
           <input
             type="search"
-            placeholder="Search topics, e.g. appointments, email, setup…"
+            placeholder={t('documentation.searchPlaceholder')}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
@@ -916,7 +918,7 @@ Permanently delete user's data and all appointments.
                 </div>
               </div>
               <div className="doc-card-footer">
-                <span className="doc-card-cta">Open →</span>
+                <span className="doc-card-cta">{t('documentation.openCta')}</span>
               </div>
             </div>
           ))}
@@ -933,11 +935,11 @@ Permanently delete user's data and all appointments.
         >
           <div className="doc-modal">
             <aside className="doc-toc">
-              <h4>On this page</h4>
+              <h4>{t('documentation.onThisPage')}</h4>
               <DocTOC content={activeDoc.content} contentRef={contentRef} />
             </aside>
             <article className="doc-article" ref={contentRef}>
-              <DocBody content={activeDoc.content} />
+              <DocBody content={activeDoc.content} lastUpdatedLabel={t('documentation.lastUpdated')} />
             </article>
           </div>
         </Modal>
@@ -949,20 +951,21 @@ Permanently delete user's data and all appointments.
 export default Documentation;
 
 // Separate components using the parser above
-const DocBody = ({ content }) => {
-  const parsed = useMemo(() => parseDocContent(content), [content]);
+const DocBody = ({ content, lastUpdatedLabel }) => {
+  const parsed = useMemo(() => parseDocContent(content, t), [content, t]);
   return (
     <div className="doc-content">
       {parsed.nodes}
       <footer className="doc-footer">
-        <span>Last updated: {new Date().toLocaleDateString()}</span>
+        <span>{lastUpdatedLabel} {new Date().toLocaleDateString()}</span>
       </footer>
     </div>
   );
 };
 
 const DocTOC = ({ content, contentRef }) => {
-  const toc = useMemo(() => parseDocContent(content).toc, [content]);
+  const { t } = useAdminTranslation();
+  const toc = useMemo(() => parseDocContent(content, t).toc, [content, t]);
   const onClick = (id) => {
     const root = contentRef?.current;
     const target = root?.querySelector(`#${id}`);

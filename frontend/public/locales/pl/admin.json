@@ -1,0 +1,619 @@
+{
+  "dashboard": {
+    "title": "Panel Administracyjny Schedulera",
+    "subtitle": "Zarządzaj swoim systemem planowania wizyt",
+    "devMode": "TRYB DEWELOPERSKI",
+    "welcome": "Witaj",
+    "logout": "Wyloguj",
+    "logoutDisabled": "Wylogowanie wyłączone w trybie deweloperskim",
+    "devModeActive": "Tryb Dev"
+  },
+  "tiles": {
+    "settings": {
+      "title": "Ustawienia",
+      "description": "Konfiguruj ustawienia systemowe, godziny pracy, dostępność i wiadomości"
+    },
+    "users": {
+      "title": "Użytkownicy",
+      "description": "Przeglądaj i zarządzaj zarejestrowanymi użytkownikami i ich wizytami"
+    },
+    "blocked": {
+      "title": "Zablokowani",
+      "description": "Zarządzaj zablokowanymi użytkownikami i adresami IP"
+    },
+    "appointments": {
+      "title": "Zaplanowane Wizyty",
+      "description": "Przeglądaj, potwierdzaj i zarządzaj wszystkimi wizytami"
+    },
+    "admin": {
+      "title": "Administratorzy",
+      "description": "Zarządzaj użytkownikami administracyjnymi i kontrolą dostępu"
+    },
+    "documentation": {
+      "title": "Dokumentacja",
+      "description": "Przeglądaj dokumentację systemu i przewodniki"
+    },
+    "scheduler": {
+      "title": "Otwórz Harmonogram",
+      "description": "Zobacz publiczną stronę rezerwacji wizyt"
+    },
+    "license": {
+      "title": "Licencja",
+      "descriptionPremium": "Zobacz szczegóły licencji premium",
+      "descriptionFree": "Przejdź na wersję premium i odblokuj wszystkie funkcje"
+    }
+  },
+  "login": {
+    "title": "Logowanie Administratora",
+    "subtitle": "Wprowadź swoje dane logowania, aby uzyskać dostęp do panelu administratora",
+    "loginLabel": "Login:",
+    "passwordLabel": "Hasło:",
+    "loginButton": "Zaloguj",
+    "loggingIn": "Logowanie...",
+    "errors": {
+      "bothFields": "Proszę wprowadzić login i hasło",
+      "loginFailed": "Logowanie nie powiodło się",
+      "connectionError": "Błąd połączenia. Spróbuj ponownie."
+    },
+    "placeholder": {
+      "login": "Wprowadź swój login administratora",
+      "password": "Wprowadź swoje hasło"
+    }
+  },
+  "settings": {
+    "pageTitle": "Ustawienia Systemowe",
+    "pageSubtitle": "Skonfiguruj swój harmonogram wizyt",
+    "backButton": "Powrót",
+    "footer": "Wszystkie zmiany są zapisywane automatycznie",
+    "loading": "Ładowanie ustawień...",
+    "tiles": {
+      "customerLimits": {
+        "title": "Limity Rezerwacji Klienta",
+        "description": "Ustaw dzienne i tygodniowe limity wizyt na klienta"
+      },
+      "workingHours": {
+        "title": "Dni i Godziny Pracy",
+        "description": "Skonfiguruj godziny rozpoczęcia i zakończenia pracy"
+      },
+      "displayAvailability": {
+        "title": "Wyświetlanie Dostępności",
+        "description": "Liczba tygodni do przodu do wyświetlenia dostępności"
+      },
+      "availabilityLock": {
+        "title": "Blokada Dostępności",
+        "description": "Zablokuj/odblokuj dostępność rezerwacji (availabilityLocked & availabilityLockedUntil)"
+      },
+      "appointmentsFilter": {
+        "title": "Filtr Wizyt",
+        "description": "Kontroluj, ile dni przeszłych i przyszłych wizyt pokazać na listach administratora"
+      },
+      "appointmentTypes": {
+        "title": "Szczegóły Wizyt",
+        "description": "Twórz i zarządzaj typami wizyt z nazwami i cenami"
+      },
+      "headerMessage": {
+        "title": "Wiadomość Nagłówka",
+        "description": "Dostosuj wiadomość nagłówka kalendarza wyświetlaną użytkownikom"
+      },
+      "siteTheme": {
+        "title": "Motyw Strony",
+        "description": "Wybierz między fioletowym gradientem a ciemnozielonym motywem"
+      },
+      "emailSettings": {
+        "title": "Konfiguracja Email",
+        "description": "Skonfiguruj ustawienia SMTP dla automatycznych powiadomień email"
+      },
+      "newsletter": {
+        "title": "Newsletter",
+        "description": "Twórz i wysyłaj newslettery do wszystkich użytkowników"
+      }
+    },
+    "configure": "Konfiguruj",
+    "toast": {
+      "settingsUpdated": "Ustawienia zaktualizowane pomyślnie!",
+      "settingsFailed": "Nie udało się zaktualizować ustawień",
+      "settingsError": "Błąd podczas aktualizacji ustawień",
+      "emailUpdated": "Ustawienia email zaktualizowane pomyślnie!",
+      "emailFailed": "Nie udało się zaktualizować ustawień email",
+      "emailError": "Błąd podczas aktualizacji ustawień email",
+      "appointmentTypesUpdated": "Typy wizyt zaktualizowane pomyślnie!",
+      "appointmentTypesFailed": "Nie udało się zaktualizować typów wizyt",
+      "appointmentTypesError": "Błąd podczas aktualizacji typów wizyt",
+      "newsletterSaved": "Newsletter zapisany jako szkic!",
+      "newsletterFailed": "Nie udało się zapisać newslettera",
+      "newsletterError": "Błąd podczas zapisywania newslettera",
+      "premiumActivated": "Premium aktywowane! Uruchom ponownie serwer, aby zastosować zmiany.",
+      "loadFailed": "Nie udało się załadować ustawień",
+      "loadError": "Błąd podczas ładowania ustawień"
+    }
+  },
+  "firstTimeSetup": {
+    "title": "Pierwsza Konfiguracja",
+    "subtitle": "Utwórz swoje pierwsze konto administratora, aby rozpocząć",
+    "firstName": "Imię",
+    "lastName": "Nazwisko",
+    "email": "Email",
+    "login": "Login",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź Hasło",
+    "createButton": "Utwórz Konto Administratora",
+    "creating": "Tworzenie...",
+    "loginAfterCreate": "Konto utworzone! Zaloguj się swoimi danymi.",
+    "errors": {
+      "allFields": "Proszę wypełnić wszystkie pola",
+      "passwordMatch": "Hasła nie pasują do siebie",
+      "passwordLength": "Hasło musi mieć co najmniej 8 znaków",
+      "creationFailed": "Nie udało się utworzyć konta administratora",
+      "connectionError": "Błąd połączenia. Spróbuj ponownie."
+    },
+    "placeholder": {
+      "firstName": "Wprowadź imię",
+      "lastName": "Wprowadź nazwisko",
+      "email": "admin@przyklad.pl",
+      "login": "Wybierz nazwę użytkownika do logowania",
+      "password": "Co najmniej 8 znaków",
+      "confirmPassword": "Wprowadź ponownie swoje hasło"
+    }
+  },
+  "premium": {
+    "upgradeTitle": "Przejdź na Premium",
+    "features": {
+      "emailNotifications": "Powiadomienia Email",
+      "customBranding": "Własny Branding",
+      "advancedReports": "Zaawansowane Raporty",
+      "prioritySupport": "Priorytetowe Wsparcie"
+    },
+    "purchaseButton": "Kup Licencję",
+    "activateButton": "Aktywuj Licencję",
+    "enterLicenseKey": "Wprowadź Klucz Licencyjny",
+    "close": "Zamknij"
+  },
+  "licenseDetails": {
+    "title": "Szczegóły Licencji",
+    "status": "Status",
+    "active": "Aktywna",
+    "expired": "Wygasła",
+    "type": "Typ",
+    "premium": "Premium",
+    "expiresOn": "Wygasa Dnia",
+    "features": "Funkcje",
+    "close": "Zamknij"
+  },
+  "confirmDialog": {
+    "draftFound": "Znaleziono Szkic",
+    "draftMessage": "Istnieje szkic newslettera. Czy chcesz go załadować?",
+    "confirm": "Załaduj Szkic",
+    "cancel": "Pomiń"
+  },
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "close": "Zamknij",
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "confirm": "Potwierdź",
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "success": "Sukces",
+    "yes": "Tak",
+    "no": "Nie",
+    "email": "Email",
+    "name": "Nazwa",
+    "date": "Data",
+    "time": "Czas",
+    "status": "Status",
+    "actions": "Akcje",
+    "remove": "Usuń",
+    "block": "Zablokuj",
+    "unblock": "Odblokuj",
+    "update": "Aktualizuj",
+    "search": "Szukaj",
+    "filter": "Filtruj",
+    "select": "Wybierz",
+    "selectAll": "Zaznacz Wszystkie",
+    "deselectAll": "Odznacz Wszystkie"
+  },
+  "appointments": {
+    "title": "Zaplanowane Wizyty",
+    "loading": "Ładowanie wizyt…",
+    "loadError": "Nie udało się załadować wizyt",
+    "noAppointments": "Nie znaleziono wizyt",
+    "filters": {
+      "showPendingOnly": "Pokaż tylko oczekujące",
+      "showAll": "Pokaż wszystkie",
+      "hideBlocked": "Ukryj zablokowanych użytkowników",
+      "hidePast": "Ukryj minione wizyty",
+      "sortBy": "Sortuj według",
+      "sortDate": "Data",
+      "sortName": "Nazwisko",
+      "sortEmail": "Email",
+      "sortStatus": "Status"
+    },
+    "bulkActions": {
+      "title": "Akcje Grupowe",
+      "confirmSelected": "Potwierdź Zaznaczone",
+      "cancelSelected": "Anuluj Zaznaczone",
+      "selected": "Zaznaczono: {{count}}"
+    },
+    "table": {
+      "select": "Wybierz",
+      "date": "Data",
+      "time": "Godzina",
+      "name": "Imię i Nazwisko",
+      "email": "Email",
+      "phone": "Telefon",
+      "type": "Typ",
+      "status": "Status",
+      "ip": "IP",
+      "actions": "Akcje"
+    },
+    "status": {
+      "pending": "Oczekujące",
+      "confirmed": "Potwierdzone",
+      "cancelled": "Anulowane"
+    },
+    "actions": {
+      "confirm": "Potwierdź",
+      "cancel": "Anuluj",
+      "blockUser": "Zablokuj Użytkownika",
+      "confirming": "Potwierdzanie...",
+      "cancelling": "Anulowanie...",
+      "blocking": "Blokowanie..."
+    },
+    "confirmBlock": {
+      "title": "Zablokuj użytkownika",
+      "message": "Zamierzasz zablokować {{name}} ({{email}}) i oznaczyć wszystkie ich wizyty jako zablokowane. To zwolni terminy.",
+      "confirmButton": "Zablokuj wszystkie",
+      "cancelButton": "Anuluj"
+    },
+    "toast": {
+      "confirmed": "Wizyta potwierdzona",
+      "cancelled": "Wizyta anulowana",
+      "blocked": "Użytkownik zablokowany",
+      "confirmFailed": "Nie udało się potwierdzić wizyty",
+      "cancelFailed": "Nie udało się anulować wizyty",
+      "blockFailed": "Nie udało się zablokować użytkownika"
+    }
+  },
+  "users": {
+    "title": "Lista Użytkowników",
+    "loading": "Ładowanie użytkowników…",
+    "loadError": "Nie udało się załadować użytkowników",
+    "noUsers": "Nie znaleziono użytkowników",
+    "selectUser": "Najpierw wybierz użytkownika",
+    "table": {
+      "name": "Imię i Nazwisko",
+      "email": "Email",
+      "phone": "Telefon",
+      "registered": "Zarejestrowany",
+      "appointments": "Wizyty",
+      "actions": "Akcje"
+    },
+    "actions": {
+      "edit": "Edytuj",
+      "delete": "Usuń",
+      "block": "Zablokuj",
+      "viewAppointments": "Zobacz Wizyty"
+    },
+    "edit": {
+      "title": "Edytuj Użytkownika",
+      "firstName": "Imię",
+      "middleName": "Drugie Imię",
+      "lastName": "Nazwisko",
+      "email": "Email",
+      "phone": "Telefon",
+      "saveButton": "Zapisz Zmiany",
+      "cancelButton": "Anuluj"
+    },
+    "toast": {
+      "updated": "Użytkownik zaktualizowany pomyślnie",
+      "deleted": "Użytkownik usunięty pomyślnie",
+      "blocked": "Użytkownik zablokowany pomyślnie",
+      "updateFailed": "Nie udało się zaktualizować użytkownika",
+      "deleteFailed": "Nie udało się usunąć użytkownika",
+      "blockFailed": "Nie udało się zablokować użytkownika"
+    }
+  },
+  "blocked": {
+    "title": "Zablokowani Użytkownicy i Adresy IP",
+    "loading": "Ładowanie zablokowanych wpisów…",
+    "loadError": "Nie udało się załadować zablokowanych wpisów",
+    "noBlocked": "Brak zablokowanych wpisów",
+    "table": {
+      "email": "Email",
+      "ip": "Adres IP",
+      "reason": "Powód",
+      "added": "Dodano",
+      "actions": "Akcje"
+    },
+    "actions": {
+      "remove": "Usuń"
+    },
+    "toast": {
+      "removed": "Wpis usunięty",
+      "removeFailed": "Nie udało się usunąć wpisu"
+    }
+  },
+  "adminAccess": {
+    "title": "Dostęp administratora",
+    "loading": "Ładowanie kont administratorów…",
+    "noAdmins": "Brak kont administratorów",
+    "youTag": "(TY)",
+    "table": {
+      "name": "Imię",
+      "surname": "Nazwisko",
+      "email": "Email",
+      "login": "Login",
+      "created": "Utworzono",
+      "passwordChanged": "Zmiana hasła",
+      "never": "Nigdy"
+    },
+    "buttons": {
+      "addAdmin": "Dodaj administratora",
+      "changeEmail": "Zmień email",
+      "changePassword": "Zmień hasło",
+      "deleteAdmin": "Usuń administratora",
+      "cannotDeleteSelf": "Nie możesz usunąć własnego konta",
+      "deleteAdminTooltip": "Usuń wybrane konto administratora"
+    },
+    "changePassword": {
+      "title": "Zmień hasło dla {{name}}",
+      "newPassword": "Nowe hasło:",
+      "confirmPassword": "Potwierdź hasło:",
+      "newPasswordPlaceholder": "Wprowadź nowe hasło",
+      "confirmPasswordPlaceholder": "Potwierdź nowe hasło",
+      "changeButton": "Zmień hasło",
+      "changing": "Zmiana..."
+    },
+    "changeEmail": {
+      "title": "Zmień email dla {{name}}",
+      "emailLabel": "Adres email:",
+      "emailPlaceholder": "Wprowadź adres email (zostaw puste aby usunąć)",
+      "emptyHint": "Zostaw puste aby usunąć adres email",
+      "updateButton": "Zaktualizuj email",
+      "updating": "Aktualizacja..."
+    },
+    "addAdmin": {
+      "title": "Dodaj nowego administratora",
+      "nameLabel": "Imię:",
+      "surnameLabel": "Nazwisko:",
+      "emailLabel": "Email:",
+      "loginLabel": "Login:",
+      "passwordLabel": "Hasło:",
+      "namePlaceholder": "Wprowadź imię",
+      "surnamePlaceholder": "Wprowadź nazwisko",
+      "emailPlaceholder": "Wprowadź adres email",
+      "loginPlaceholder": "Wprowadź login",
+      "passwordPlaceholder": "Wprowadź hasło (min. 6 znaków)",
+      "addButton": "Dodaj administratora",
+      "adding": "Dodawanie..."
+    },
+    "errors": {
+      "loadFailed": "Nie udało się załadować kont administratorów",
+      "selectFirst": "Najpierw wybierz administratora",
+      "deleteFailed": "Nie udało się usunąć administratora",
+      "fillBothPasswords": "Wypełnij oba pola hasła",
+      "passwordsNoMatch": "Hasła nie pasują do siebie",
+      "passwordTooShort": "Hasło musi mieć co najmniej 6 znaków",
+      "passwordChangeFailed": "Nie udało się zmienić hasła",
+      "emailChangeFailed": "Nie udało się zmienić email",
+      "allFieldsRequired": "Wszystkie pola są wymagane",
+      "addFailed": "Nie udało się dodać administratora"
+    }
+  },
+  "workingHours": {
+    "modalTitle": "🕐 Godziny pracy",
+    "mobileHeader": "Godziny pracy",
+    "format24h": "Format 24‑godzinny",
+    "weekendDays": "Sobota i Niedziela",
+    "allowShorter": "Zezwól na krótsze rezerwacje",
+    "currentSchedule": "AKTUALNY HARMONOGRAM",
+    "weekendsOn": "Weekendy włączone",
+    "weekendsOff": "Weekendy wyłączone",
+    "start": "Początek",
+    "end": "Koniec",
+    "weekends": "Weekendy",
+    "halfHourSlots": "Sloty 30-min",
+    "noWeekends": "Bez weekendów",
+    "slots3060": "30/60 min",
+    "slots60": "60 min",
+    "preview": "PODGLĄD",
+    "saving": "Zapisywanie...",
+    "saveChanges": "Zapisz zmiany",
+    "errors": {
+      "startBeforeEnd": "Godzina rozpoczęcia musi być przed godziną zakończenia.",
+      "invalidRange": "Godziny muszą mieścić się w przedziale 0-24 (start 0-23, koniec 1-24)."
+    }
+  },
+  "customerLimits": {
+    "modalTitleDesktop": "📊 Limity rezerwacji klientów",
+    "modalTitleMobile": "📊 Limity rezerwacji",
+    "currentLimits": "AKTUALNE LIMITY",
+    "perDay": "dziennie",
+    "perWeek": "tygodniowo",
+    "dailyLimit": "Limit dzienny",
+    "weeklyLimit": "Limit tygodniowy",
+    "perCustomerPerDay": "Na klienta, dziennie",
+    "perCustomerPerWeek": "Na klienta, tygodniowo",
+    "recommended": "Zalecane",
+    "previewText": "Klienci mogą zarezerwować do {{dailyLimit}} wizyt{{dailyPlural}} dziennie i {{weeklyLimit}} wizyt{{weeklyPlural}} tygodniowo"
+  },
+  "availabilityLock": {
+    "currentStatus": "OBECNY STATUS",
+    "locked": "Rezerwacje zablokowane",
+    "open": "Rezerwacje otwarte",
+    "until": "Do {{date}}",
+    "lockQuestion": "Zablokować dostępność?",
+    "autoUnlockLabel": "Data/Czas automatycznego odblokowania (opcjonalnie)",
+  "autoUnlockHint": "Ustaw kiedy ponownie otworzyć rezerwacje",
+  "mobileHeader": "Status rezerwacji",
+  "mobileSubheader": "Kontroluj rezerwacje klientów",
+  "previewLocked": "Klienci nie mogą rezerwować nowych wizyt",
+  "previewOpen": "Klienci mogą normalnie rezerwować wizyty",
+  "info": "Gdy zablokowane, klienci nie mogą rezerwować nowych wizyt. Ustaw opcjonalną datę/godzinę automatycznego odblokowania.",
+    "errors": {
+      "invalidFormat": "Nieprawidłowy format daty/czasu",
+      "mustBeFuture": "Data odblokowania musi być w przyszłości"
+    }
+  },
+  "appointmentsFilter": {
+    "modalTitleDesktop": "🧮 Filtr wizyt",
+    "modalTitleMobile": "🧮 Filtr wizyt",
+    "errors": { "invalidChoice": "Wybierz spośród 7, 14, 30 lub 90 dni" },
+    "currentFilters": "OBECNE FILTRY",
+    "currentRange": "Przeszłość: {{past}} dni · Przyszłość: {{future}} dni",
+    "past": "Wizyty minione",
+    "future": "Wizyty przyszłe",
+    "pastHint": "Pokaż wizyty z przeszłości...",
+    "futureHint": "Pokaż nadchodzące wizyty na...",
+    "days": "dni",
+    "preview": "Pokaż wizyty z ostatnich {{past}} dni i następnych {{future}} dni"
+  },
+  "numberSetting": {
+    "currentValue": "OBECNA WARTOŚĆ",
+    "newValue": "Nowa wartość",
+    "errors": {
+      "min": "Wartość musi wynosić co najmniej {{min}}",
+      "max": "Wartość nie może przekroczyć {{max}}"
+    }
+  },
+  "appointmentTypes": {
+    "modalTitle": "📋 Szczegóły wizyty",
+    "infoBanner": "Zdefiniuj typy wizyt z nazwami, tagami i cenami dla swojego systemu rezerwacji.",
+    "currency": "Waluta",
+    "namePlaceholder": "Nazwa (np. Konsultacja)",
+    "tagPlaceholder": "Tag (np. konsultacja)",
+    "pricePlaceholder": "Cena",
+    "addType": "Dodaj typ wizyty"
+  },
+  "emailSettings": {
+  "useSslTls": "Użyj SSL/TLS",
+    "modalTitle": "📧 Konfiguracja e-mail",
+    "infoBanner": "Skonfiguruj ustawienia SMTP, aby włączyć powiadomienia e-mail o wizytach.",
+    "smtpServer": "Serwer SMTP",
+    "emailSettings": "Ustawienia e-mail",
+    "authentication": "Uwierzytelnianie",
+    "host": "Host",
+    "port": "Port",
+    "security": "Bezpieczeństwo",
+    "fromEmail": "E-mail nadawcy",
+    "emailFooter": "Stopka e-mail",
+    "footerHint": "Pojawia się na dole wiadomości e-mail",
+    "emailAddress": "Adres e-mail",
+    "password": "Hasło",
+    "passwordPlaceholder": "Hasło aplikacji",
+    "passwordKeepPlaceholder": "Zostaw puste aby zachować obecne",
+    "gmailHint": "Dla Gmail użyj hasła aplikacji z",
+    "here": "tutaj",
+    "saveSettings": "Zapisz ustawienia"
+  },
+  "headerMessage": {
+    "modalTitle": "💬 Wiadomość nagłówka",
+    "defaultHeader": "Zaktualizuj domyślny nagłówek w ustawieniach",
+    "infoBanner": "Ta wiadomość pojawia się na górze kalendarza rezerwacji. Niech będzie zwięzła i przyjazna.",
+    "currentMessage": "OBECNA WIADOMOŚĆ",
+    "editMessage": "Edytuj wiadomość",
+    "characters": "znaków",
+    "errors": {
+      "tooLong": "Wiadomość nie może przekroczyć {{maxLength}} znaków"
+    }
+  },
+  "documentation": {
+    "backButton": "← Powrót do panelu",
+    "headerTitle": "📚 Dokumentacja",
+    "subtitle": "Szukaj, przeglądaj i ucz się jak korzystać z EasyScheduler",
+    "searchPlaceholder": "Szukaj tematów, np. wizyty, e-mail, konfiguracja…",
+    "openCta": "Otwórz →",
+    "onThisPage": "Na tej stronie",
+    "lastUpdated": "Ostatnia aktualizacja:",
+    "copyCode": "Kopiuj",
+    "tiles": {
+      "mongo-setup": {
+        "title": "Konfiguracja MongoDB i migracja",
+        "description": "Użyj MongoDB zamiast SQLite, przetestuj połączenie i wykonaj migrację danych."
+      },
+      "admin-layout": {
+        "title": "Układ panelu administratora",
+        "description": "Przewodnik po kafelkach panelu i ich funkcjach."
+      },
+      "admin-features": {
+        "title": "Funkcje administratora",
+        "description": "Pełen zestaw funkcji dostępnych dla administratorów."
+      },
+      "setup": {
+        "title": "Instalacja",
+        "description": "Zainstaluj, skonfiguruj i uruchom EasyScheduler lokalnie."
+      },
+      "customer-features": {
+        "title": "Funkcje dla klientów",
+        "description": "Co widzą i mogą zrobić klienci podczas rezerwacji."
+      },
+      "license": {
+        "title": "Licencja",
+        "description": "EasyEdit Scheduler Community License (EESCL)."
+      },
+      "api-routes": {
+        "title": "Trasy API",
+        "description": "Endpointy REST, wymagania uwierzytelniania i formaty."
+      },
+      "email-setup": {
+        "title": "Konfiguracja e-mail",
+        "description": "Skonfiguruj SMTP i szablony powiadomień administratora i użytkowników."
+      }
+    }
+  },
+  "newsletterModal": {
+    "modalTitle": "📰 Utwórz newsletter",
+    "title": "Tytuł",
+    "subtitle": "Podtytuł",
+    "messagePart1": "Część wiadomości 1",
+    "messagePart2": "Część wiadomości 2",
+        "defaultFooter": "System Rezerwacji",
+    "placeholders": {
+      "title": "Tytuł newslettera",
+      "subtitle": "Podtytuł newslettera",
+      "messagePart1": "Pierwsza część wiadomości",
+      "messagePart2": "Druga część wiadomości"
+    },
+    "buttons": {
+      "saveDraft": "Zapisz szkic",
+      "cancel": "Anuluj"
+    },
+    "errors": {
+      "required": "Tytuł i pierwsza część wiadomości są wymagane"
+    }
+  },
+  "footer": {
+    "version": "Scheduler Admin v1.0.0",
+    "copyright": "© 2025"
+  },
+  "displayAvailability": {
+    "modalTitleDesktop": "📅 Wyświetlana dostępność",
+    "modalTitleMobile": "📅 Dostępność",
+    "weeksAheadLabel": "Tygodni naprzód",
+    "recommendedRange": "Zalecany zakres",
+    "helpText": "Liczba tygodni do przodu, dla których klienci zobaczą dostępne terminy. Zwiększenie pokazuje więcej przyszłych slotów, ale może być przytłaczające.",
+    "previewSingleWeek": "Klienci zobaczą dostępność tylko na następny tydzień.",
+    "previewMultiWeeks": "Klienci zobaczą dostępność na następne {{weeks}} tygodni."
+  },
+  "premiumUpgrade": {
+    "modalTitle": "🔓 Ulepsz do Premium"
+  },
+  "licenseInfo": {
+    "modalTitle": "🔓 Szczegóły licencji Premium",
+    "loading": "Wczytywanie informacji o licencji...",
+    "premiumActive": "Premium aktywne",
+    "freeTier": "Wersja darmowa",
+    "licensedTo": "Licencja dla:",
+    "email": "Email:",
+    "license": "Licencja:",
+    "upgradeHint": "Ulepsz do premium aby odblokować wszystkie funkcje",
+    "featuresTitlePremium": "Funkcje Premium",
+    "featuresTitleFree": "Dostępne w Premium",
+    "featureRemoveBranding": "Usuń całe oznaczenie marki",
+    "featureEmailNotifications": "Powiadomienia e-mail aktywne",
+    "featurePrioritySupport": "Priorytetowe wsparcie",
+    "featureLifetimeUpdates": "Aktualizacje dożywotnio",
+    "purchaseBanner": "Kup wersję Premium za jednorazową opłatę 49$"
+  }
+}

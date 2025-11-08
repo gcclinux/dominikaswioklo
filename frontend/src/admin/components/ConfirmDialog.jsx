@@ -1,7 +1,9 @@
 import React from 'react';
 import Modal from './Modal';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
+  const { t } = useAdminTranslation();
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="450px" closeOnOverlayClick={false}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -23,7 +25,7 @@ function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
               fontWeight: '500'
             }}
           >
-            No
+            {t('common.no')}
           </button>
           <button
             onClick={() => {
@@ -40,7 +42,7 @@ function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
               fontWeight: '500'
             }}
           >
-            Yes, Load Draft
+            {t('confirmDialog.confirm')}
           </button>
         </div>
       </div>

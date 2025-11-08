@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 import { API } from '../../config/api';
 import { authenticatedFetch } from '../utils/apiHelper';
 
@@ -7,6 +8,7 @@ import { authenticatedFetch } from '../utils/apiHelper';
 function LicenseDetailsModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(true);
   const [licenseInfo, setLicenseInfo] = useState(null);
+  const { t } = useAdminTranslation();
 
   useEffect(() => {
     if (isOpen) {
@@ -32,13 +34,13 @@ function LicenseDetailsModal({ isOpen, onClose }) {
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      title="🔓 Premium License Details"
+  title={t('licenseInfo.modalTitle')}
       maxWidth="500px"
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '2rem', color: '#7f8c8d' }}>
-            Loading license information...
+            {t('licenseInfo.loading')}
           </div>
         ) : (
           <>
@@ -57,25 +59,25 @@ function LicenseDetailsModal({ isOpen, onClose }) {
                   {licenseInfo?.isPremium && licenseInfo?.isValid ? '✅' : '🔒'}
                 </span>
                 <h3 style={{ margin: 0, color: licenseInfo?.isPremium && licenseInfo?.isValid ? '#27ae60' : 'var(--primary-color)' }}>
-                  {licenseInfo?.isPremium && licenseInfo?.isValid ? 'Premium Active' : 'Free Tier'}
+                  {licenseInfo?.isPremium && licenseInfo?.isValid ? t('licenseInfo.premiumActive') : t('licenseInfo.freeTier')}
                 </h3>
               </div>
               
               {licenseInfo?.isPremium && licenseInfo?.isValid ? (
                 <div style={{ fontSize: '0.9rem', color: '#555' }}>
                   <p style={{ margin: '0.5rem 0' }}>
-                    <strong>Licensed to:</strong> {licenseInfo.name}
+                    <strong>{t('licenseInfo.licensedTo')}</strong> {licenseInfo.name}
                   </p>
                   <p style={{ margin: '0.5rem 0' }}>
-                    <strong>Email:</strong> {licenseInfo.email}
+                    <strong>{t('licenseInfo.email')}</strong> {licenseInfo.email}
                   </p>
                   <p style={{ margin: '0.5rem 0' }}>
-                    <strong>License:</strong> <span style={{ fontFamily: 'monospace', fontSize: '0.85rem' }}>{licenseInfo.licenseKey}</span>
+                    <strong>{t('licenseInfo.license')}</strong> <span style={{ fontFamily: 'monospace', fontSize: '0.85rem' }}>{licenseInfo.licenseKey}</span>
                   </p>
                 </div>
               ) : (
                 <p style={{ margin: '0.5rem 0 0 0', fontSize: '0.9rem', color: '#555' }}>
-                  Upgrade to premium to unlock all features
+                  {t('licenseInfo.upgradeHint')}
                 </p>
               )}
             </div>
@@ -86,13 +88,13 @@ function LicenseDetailsModal({ isOpen, onClose }) {
               borderRadius: '8px'
             }}>
               <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.95rem', color: '#2c3e50' }}>
-                {licenseInfo?.isPremium && licenseInfo?.isValid ? 'Premium Features' : 'Available in Premium'}
+                {licenseInfo?.isPremium && licenseInfo?.isValid ? t('licenseInfo.featuresTitlePremium') : t('licenseInfo.featuresTitleFree')}
               </h4>
               <ul style={{ margin: 0, paddingLeft: '1.5rem', fontSize: '0.85rem', color: '#555' }}>
-                <li>Remove all branding</li>
-                <li>Email notifications enabled</li>
-                <li>Priority support</li>
-                <li>Lifetime updates</li>
+                  <li>{t('licenseInfo.featureRemoveBranding')}</li>
+                  <li>{t('licenseInfo.featureEmailNotifications')}</li>
+                  <li>{t('licenseInfo.featurePrioritySupport')}</li>
+                  <li>{t('licenseInfo.featureLifetimeUpdates')}</li>
               </ul>
             </div>
 
@@ -106,7 +108,7 @@ function LicenseDetailsModal({ isOpen, onClose }) {
                 color: '#856404',
                 textAlign: 'center'
               }}>
-                Purchase premium for $49 one-time payment
+                {t('licenseInfo.purchaseBanner')}
               </div>
             )}
 
@@ -115,7 +117,7 @@ function LicenseDetailsModal({ isOpen, onClose }) {
                 className="nav-button"
                 onClick={onClose}
               >
-                Close
+                {t('common.close')}
               </button>
             </div>
           </>

@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import './AppointmentsFilterEditorMobile.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 const PRESETS = [7, 14, 30, 90];
 
 function AppointmentsFilterEditorMobile({ pastDays, futureDays, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [past, setPast] = useState(pastDays ?? 30);
   const [future, setFuture] = useState(futureDays ?? 30);
   const [isSaving, setIsSaving] = useState(false);
@@ -29,8 +31,8 @@ function AppointmentsFilterEditorMobile({ pastDays, futureDays, onSave, onCancel
       <div className="mobile-filter-card">
         <div className="filter-icon">📆</div>
         <div className="filter-header">
-          <h3>Past Appointments</h3>
-          <p>Show appointments from the past...</p>
+          <h3>{t('appointmentsFilter.past')}</h3>
+          <p>{t('appointmentsFilter.pastHint')}</p>
         </div>
         <div className="filter-presets">
           {PRESETS.map(v => (
@@ -40,7 +42,7 @@ function AppointmentsFilterEditorMobile({ pastDays, futureDays, onSave, onCancel
               onClick={() => setPast(v)}
               disabled={isSaving}
             >
-              {v} days
+              {v} {t('appointmentsFilter.days')}
             </button>
           ))}
         </div>
@@ -49,8 +51,8 @@ function AppointmentsFilterEditorMobile({ pastDays, futureDays, onSave, onCancel
       <div className="mobile-filter-card">
         <div className="filter-icon">📅</div>
         <div className="filter-header">
-          <h3>Future Appointments</h3>
-          <p>Show upcoming appointments for...</p>
+          <h3>{t('appointmentsFilter.future')}</h3>
+          <p>{t('appointmentsFilter.futureHint')}</p>
         </div>
         <div className="filter-presets">
           {PRESETS.map(v => (
@@ -60,7 +62,7 @@ function AppointmentsFilterEditorMobile({ pastDays, futureDays, onSave, onCancel
               onClick={() => setFuture(v)}
               disabled={isSaving}
             >
-              {v} days
+              {v} {t('appointmentsFilter.days')}
             </button>
           ))}
         </div>
@@ -69,20 +71,20 @@ function AppointmentsFilterEditorMobile({ pastDays, futureDays, onSave, onCancel
       <div className="mobile-preview">
         <div className="preview-icon">✓</div>
         <p>
-          Admin lists will show appointments from the past <strong>{past} days</strong> and upcoming for the next <strong>{future} days</strong>
+          {t('appointmentsFilter.preview', { past, future })}
         </p>
       </div>
 
       <div className="mobile-actions">
         <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           className="mobile-btn save" 
           onClick={handleSave} 
           disabled={!hasChanged || isSaving}
         >
-          {isSaving ? 'Saving...' : 'Save Changes'}
+          {isSaving ? t('workingHours.saving') : t('workingHours.saveChanges')}
         </button>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import './WorkingHoursEditorMobile.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeWeekendProp = 1, allow30Min: allow30MinProp = 1, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [start, setStart] = useState(startHour ?? 9);
   const [end, setEnd] = useState(endHour ?? 17);
   const [includeWeekend, setIncludeWeekend] = useState(Boolean(includeWeekendProp));
@@ -17,8 +19,8 @@ function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeW
   }, [startHour, endHour, includeWeekendProp, allow30MinProp]);
 
   const validate = (s, e) => {
-    if (s >= e) { setError('Start must be before end'); return false; }
-    if (s < 0 || s > 23 || e < 1 || e > 24) { setError('Invalid hours'); return false; }
+    if (s >= e) { setError(t('workingHours.errors.startBeforeEnd')); return false; }
+    if (s < 0 || s > 23 || e < 1 || e > 24) { setError(t('workingHours.errors.invalidRange')); return false; }
     setError(''); return true;
   };
 
@@ -49,13 +51,13 @@ function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeW
       <div className="mobile-hours-card">
         <div className="hours-icon">🕐</div>
         <div className="hours-header">
-          <h3>Business Hours</h3>
-          <p>24-hour format</p>
+          <h3>{t('workingHours.mobileHeader')}</h3>
+          <p>{t('workingHours.format24h')}</p>
         </div>
         
         <div className="hours-row">
           <div className="hour-control">
-            <label>Start</label>
+            <label>{t('workingHours.start')}</label>
             <div className="hour-stepper">
               <button onClick={() => setStart(Math.max(0, start - 1))} disabled={isSaving || start <= 0}>−</button>
               <div className="hour-value">{String(start).padStart(2, '0')}:00</div>
@@ -64,7 +66,7 @@ function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeW
           </div>
           
           <div className="hour-control">
-            <label>End</label>
+            <label>{t('workingHours.end')}</label>
             <div className="hour-stepper">
               <button onClick={() => setEnd(Math.max(1, end - 1))} disabled={isSaving || end <= 1}>−</button>
               <div className="hour-value">{String(end).padStart(2, '0')}:00</div>
@@ -81,8 +83,8 @@ function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeW
           <div className="option-info">
             <div className="option-icon">📅</div>
             <div>
-              <h4>Include Weekends</h4>
-              <p>Saturday & Sunday</p>
+              <h4>{t('workingHours.weekends')}</h4>
+              <p>{t('workingHours.weekendDays')}</p>
             </div>
           </div>
           <div className={`toggle-switch ${includeWeekend ? 'active' : ''}`}>
@@ -94,8 +96,8 @@ function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeW
           <div className="option-info">
             <div className="option-icon">⏱️</div>
             <div>
-              <h4>30-Minute Slots</h4>
-              <p>Allow shorter bookings</p>
+              <h4>{t('workingHours.halfHourSlots')}</h4>
+              <p>{t('workingHours.allowShorter')}</p>
             </div>
           </div>
           <div className={`toggle-switch ${allow30Min ? 'active' : ''}`}>
@@ -108,14 +110,14 @@ function WorkingHoursEditorMobile({ startHour, endHour, includeWeekend: includeW
         <div className="preview-icon">✓</div>
         <p>
           <strong>{start}:00 - {end}:00</strong><br/>
-          {includeWeekend ? 'Weekends included' : 'Weekends off'} · {allow30Min ? '30 or 60 min' : '60 min only'}
+          {includeWeekend ? t('workingHours.weekendsOn') : t('workingHours.weekendsOff')} · {allow30Min ? t('workingHours.slots3060') : t('workingHours.slots60')}
         </p>
       </div>
 
       <div className="mobile-actions">
-        <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>Cancel</button>
+        <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>{t('common.cancel')}</button>
         <button className="mobile-btn save" onClick={handleSave} disabled={!hasChanged || !!error || isSaving}>
-          {isSaving ? 'Saving...' : 'Save Changes'}
+          {isSaving ? t('workingHours.saving') : t('workingHours.saveChanges')}
         </button>
       </div>
     </div>

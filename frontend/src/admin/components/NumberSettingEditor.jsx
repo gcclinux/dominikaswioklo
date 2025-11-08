@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './NumberSettingEditor.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 100, step = 1, label, helpText, recommendedRange, previewText }) {
+  const { t } = useAdminTranslation();
   const [value, setValue] = useState(currentValue);
   const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -12,7 +14,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
   const handleDecrement = () => { const newValue = Math.max(value - step, min); setValue(newValue); validateValue(newValue); };
   const handleInputChange = (e) => { const newValue = parseInt(e.target.value, 10); if (!isNaN(newValue)) { setValue(newValue); validateValue(newValue); } };
 
-  const validateValue = (val) => { if (val < min) { setError(`Value must be at least ${min}`); return false; } if (val > max) { setError(`Value cannot exceed ${max}`); return false; } setError(''); return true; };
+  const validateValue = (val) => { if (val < min) { setError(t('numberSetting.errors.min', { min })); return false; } if (val > max) { setError(t('numberSetting.errors.max', { max })); return false; } setError(''); return true; };
 
   const handleSave = async () => { if (!validateValue(value)) return; setIsSaving(true); try { await onSave(value); } finally { setIsSaving(false); } };
 
@@ -33,7 +35,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
       }}>
         <div style={{ fontSize: '1.5rem' }}>📊</div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>CURRENT VALUE</div>
+          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>{t('numberSetting.currentValue')}</div>
           <div style={{ fontSize: '1rem', fontWeight: 700, color: '#2c3e50' }}>
             {currentValue} {label && `· ${label}`}
           </div>
@@ -50,7 +52,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
         boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
       }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '1rem' }}>{label || 'New Value'}</div>
+          <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '1rem' }}>{label || t('numberSetting.newValue')}</div>
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', justifyContent: 'center' }}>
             <button 
               onClick={handleDecrement}
@@ -112,7 +114,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
               padding: '0.5rem',
               borderRadius: '8px'
             }}>
-              ✓ Recommended: {recommendedRange}
+              ✓ {t('customerLimits.recommended')}: {recommendedRange}
             </div>
           )}
         </div>
@@ -151,7 +153,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{ fontSize: '1.5rem' }}>✓</div>
             <div>
-              <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9 }}>PREVIEW</div>
+              <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9 }}>{t('workingHours.preview')}</div>
               <div style={{ fontSize: '0.9rem', fontWeight: 600, marginTop: '0.25rem' }}>
                 {previewText(value)}
               </div>
@@ -192,7 +194,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           onClick={handleSave} 
@@ -210,7 +212,7 @@ function NumberSettingEditor({ currentValue, onSave, onCancel, min = 1, max = 10
             transition: 'all 0.2s ease'
           }}
         >
-          {isSaving ? '⏳ Saving...' : '✓ Save Changes'}
+          {isSaving ? `⏳ ${t('workingHours.saving')}` : `✓ ${t('workingHours.saveChanges')}`}
         </button>
       </div>
     </div>

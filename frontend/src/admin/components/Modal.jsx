@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import './Modal.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function Modal({ isOpen, onClose, title, children, maxWidth = '500px', maxHeight = '90vh', closeOnOverlayClick = true, headerContent, showCloseButton = true }) {
+  const { t } = useAdminTranslation();
   useEffect(() => {
     const handleEscape = (e) => { if (e.key === 'Escape' && isOpen) onClose(); };
     document.addEventListener('keydown', handleEscape);
@@ -28,7 +30,7 @@ function Modal({ isOpen, onClose, title, children, maxWidth = '500px', maxHeight
           <h2 className="modal-title">{title}</h2>
           <div className="modal-header-right">
             {headerContent && <div className="modal-header-content">{headerContent}</div>}
-            {showCloseButton && <button className="modal-close" onClick={onClose} aria-label="Close">✕</button>}
+            {showCloseButton && <button className="modal-close" onClick={onClose} aria-label={t('common.close')}>✕</button>}
           </div>
         </div>
         <div className="modal-body">{children}</div>

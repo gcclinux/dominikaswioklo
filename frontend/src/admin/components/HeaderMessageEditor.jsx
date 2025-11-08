@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './NumberSettingEditor.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }) {
-  const DEFAULT_HEADER = 'Update default header in settings';
+  const { t } = useAdminTranslation();
+  const DEFAULT_HEADER = t('headerMessage.defaultHeader');
   const [value, setValue] = useState(currentValue || '');
   const [error, setError] = useState('');
   const [isSaving, setIsSaving] = useState(false);
@@ -11,7 +13,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
 
   const validate = (v) => {
     if (v.length > maxLength) {
-      setError(`Message cannot exceed ${maxLength} characters`);
+      setError(t('headerMessage.errors.tooLong', { maxLength }));
       return false;
     }
     setError('');
@@ -47,7 +49,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
       }}>
         <div style={{ fontSize: '1.5rem' }}>💬</div>
         <div style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.5' }}>
-          This message appears at the top of the booking calendar. Keep it concise and welcoming.
+          {t('headerMessage.infoBanner')}
         </div>
       </div>
 
@@ -60,7 +62,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
           padding: '0.75rem 1rem',
           marginBottom: '1rem'
         }}>
-          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600, marginBottom: '0.25rem' }}>CURRENT MESSAGE</div>
+          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600, marginBottom: '0.25rem' }}>{t('headerMessage.currentMessage')}</div>
           <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#2c3e50' }}>{currentValue}</div>
         </div>
       )}
@@ -75,7 +77,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
         boxShadow: '0 4px 12px rgba(0,0,0,0.08)'
       }}>
         <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '0.5rem' }}>
-          ✏️ Edit Message
+          ✏️ {t('headerMessage.editMessage')}
         </label>
         <textarea
           value={value}
@@ -101,7 +103,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
             color: charPercentage > 90 ? '#e74c3c' : charPercentage > 70 ? '#f39c12' : '#27ae60',
             fontWeight: 600
           }}>
-            {charCount} / {maxLength} characters
+            {charCount} / {maxLength} {t('headerMessage.characters')}
           </div>
           <div style={{
             width: '100px',
@@ -153,6 +155,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
           <div style={{ fontSize: '1.5rem' }}>👁️</div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9, marginBottom: '0.25rem' }}>PREVIEW</div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9, marginBottom: '0.25rem' }}>{t('workingHours.preview')}</div>
             <div style={{ fontSize: '1rem', fontWeight: 600 }}>
               {value || <em style={{ opacity: 0.7 }}>{DEFAULT_HEADER}</em>}
             </div>
@@ -177,7 +180,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button
           onClick={handleSave}
@@ -195,7 +198,7 @@ function HeaderMessageEditor({ currentValue, onSave, onCancel, maxLength = 300 }
             transition: 'all 0.2s ease'
           }}
         >
-          {isSaving ? '⏳ Saving...' : '✓ Save Changes'}
+          {isSaving ? `⏳ ${t('workingHours.saving')}` : `✓ ${t('workingHours.saveChanges')}`}
         </button>
       </div>
     </div>
