@@ -952,6 +952,7 @@ export default Documentation;
 
 // Separate components using the parser above
 const DocBody = ({ content, lastUpdatedLabel }) => {
+  const { t } = useAdminTranslation();
   const parsed = useMemo(() => parseDocContent(content, t), [content, t]);
   return (
     <div className="doc-content">

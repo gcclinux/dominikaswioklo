@@ -17,11 +17,12 @@ const LICENSE_NAME = '';
 const LICENSE_EMAIL = '';
 
 // Secret key for license generation (keep this private!)
-const LICENSE_SECRET = process.env.PREMIUM_FEATURES_ENCRYPTION;
+const LICENSE_SECRET = '78090092f200960d38cf461d1025f56c8155d63ac5d4eed0c6839a5c5245d7e0';
+const PREMIUM_FEATURES_ENCRYPTION = process.env.PREMIUM_FEATURES_ENCRYPTION || 'easyscheduler-has-additional-key';
 
 // Generate license key from name and email
 export const generateLicenseKey = (name: string, email: string): string => {
-  const data = `${name.toLowerCase().trim()}:${email.toLowerCase().trim()}:${LICENSE_SECRET}`;
+  const data = `${name.toLowerCase().trim()}:${email.toLowerCase().trim()}:${LICENSE_SECRET}:${PREMIUM_FEATURES_ENCRYPTION}`;
   return crypto.createHash('sha256').update(data).digest('hex').substring(0, 32).toUpperCase();
 };
 
@@ -60,6 +61,7 @@ export const getLicenseInfo = () => {
     isPremium: IS_PREMIUM,
     isValid: isLicenseValid(),
     name: LICENSE_NAME,
-    email: LICENSE_EMAIL
+    email: LICENSE_EMAIL,
+    licenseKey: LICENSE_KEY
   };
 };
