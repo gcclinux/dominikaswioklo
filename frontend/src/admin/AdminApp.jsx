@@ -17,7 +17,7 @@ import { API } from '../config/api';
 import { useAdminTranslation } from './utils/useAdminTranslation';
 
 function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
-  const { t } = useAdminTranslation();
+  const { t, loading: translationsLoading } = useAdminTranslation();
   const navigate = useNavigate();
   const [showAppointments, setShowAppointments] = useState(false);
   const [showBlocked, setShowBlocked] = useState(false);
@@ -43,6 +43,34 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
   React.useEffect(() => {
     checkLicense();
   }, []);
+
+  // Wait for translations to load before rendering
+  if (translationsLoading) {
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        background: 'var(--primary-gradient)'
+      }}>
+        <div style={{ color: 'white', fontSize: '1.2rem' }}>
+          <span style={{
+            display: 'inline-block',
+            width: '20px',
+            height: '20px',
+            border: '2px solid #fff',
+            borderTop: '2px solid transparent',
+            borderRadius: '50%',
+            animation: 'spin 1s linear infinite',
+            marginRight: '0.5rem'
+          }} />
+          Loading...
+        </div>
+      </div>
+    );
+  }
+
   const tiles = [
     { id: 'settings', title: t('tiles.settings.title'), description: t('tiles.settings.description'), icon: '⚙️', color: '#4A90E2', onClick: () => navigate('settings') },
     { id: 'users', title: t('tiles.users.title'), description: t('tiles.users.description'), icon: '👥', color: '#50C878', onClick: () => setShowUsers(true) },
@@ -143,7 +171,7 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
 }
 
 function AdminApp() {
-  const { t } = useAdminTranslation();
+  const { t, loading: translationsLoading } = useAdminTranslation();
   const navigate = useNavigate();
   const [currentAdmin, setCurrentAdmin] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -235,8 +263,8 @@ function AdminApp() {
     navigate('/admin'); // Redirect to login
   };
 
-  // Show loading spinner while checking session
-  if (isLoading) {
+  // Show loading spinner while checking session or loading translations
+  if (isLoading || translationsLoading) {
     return (
       <div style={{
         display: 'flex',
@@ -256,7 +284,7 @@ function AdminApp() {
             animation: 'spin 1s linear infinite',
             marginRight: '0.5rem'
           }} />
-          {t('common.loading')}
+          {translationsLoading ? 'Loading...' : t('common.loading')}
         </div>
       </div>
     );

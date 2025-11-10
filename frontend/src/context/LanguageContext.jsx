@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const LanguageContext = createContext();
 
@@ -14,7 +14,7 @@ export function LanguageProvider({ children }) {
   };
 
   // Check for saved preference on mount
-  useState(() => {
+  useEffect(() => {
     const saved = localStorage.getItem('preferredLanguage');
     if (saved) setLanguage(saved);
   }, []);
