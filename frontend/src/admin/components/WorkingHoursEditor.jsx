@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './NumberSettingEditor.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekendProp = 1, allow30Min: allow30MinProp = 1, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [start, setStart] = useState(startHour ?? 9);
   const [end, setEnd] = useState(endHour ?? 17);
   const [includeWeekend, setIncludeWeekend] = useState(Boolean(includeWeekendProp));
@@ -17,8 +19,8 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
   }, [startHour, endHour, includeWeekendProp, allow30MinProp]);
 
   const validate = (s, e) => {
-    if (s >= e) { setError('Start hour must be before end hour.'); return false; }
-    if (s < 0 || s > 23 || e < 1 || e > 24) { setError('Hours must be within 0-24 (start 0-23, end 1-24).'); return false; }
+    if (s >= e) { setError(t('workingHours.errors.startBeforeEnd')); return false; }
+    if (s < 0 || s > 23 || e < 1 || e > 24) { setError(t('workingHours.errors.invalidRange')); return false; }
     setError(''); return true;
   };
 
@@ -59,9 +61,9 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
       }}>
         <div style={{ fontSize: '1.5rem' }}>🕐</div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>CURRENT SCHEDULE</div>
+          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>{t('workingHours.currentSchedule')}</div>
           <div style={{ fontSize: '1rem', fontWeight: 700, color: '#2c3e50' }}>
-            {(startHour ?? 9)}:00 - {(endHour ?? 17)}:00 · {Boolean(includeWeekendProp) ? 'Weekends On' : 'Weekends Off'}
+            {(startHour ?? 9)}:00 - {(endHour ?? 17)}:00 · {Boolean(includeWeekendProp) ? t('workingHours.weekendsOn') : t('workingHours.weekendsOff')}
           </div>
         </div>
       </div>
@@ -79,7 +81,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
           {/* Start Time */}
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🌅</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '0.5rem' }}>Start</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '0.5rem' }}>{t('workingHours.start')}</div>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <button 
                 onClick={() => setStart((s) => Math.max(0, s - 1))} 
@@ -135,7 +137,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
           {/* End Time */}
           <div style={{ textAlign: 'center' }}>
             <div style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>🌆</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '0.5rem' }}>End</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d', marginBottom: '0.5rem' }}>{t('workingHours.end')}</div>
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <button 
                 onClick={() => setEnd((e) => Math.max(1, e - 1))} 
@@ -230,7 +232,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
           />
           <div>
             <div style={{ fontSize: '1.2rem' }}>📅</div>
-            <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#2c3e50' }}>Weekends</div>
+            <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#2c3e50' }}>{t('workingHours.weekends')}</div>
           </div>
         </label>
 
@@ -254,7 +256,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
           />
           <div>
             <div style={{ fontSize: '1.2rem' }}>⏱️</div>
-            <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#2c3e50' }}>30-Min Slots</div>
+            <div style={{ fontWeight: 600, fontSize: '0.85rem', color: '#2c3e50' }}>{t('workingHours.halfHourSlots')}</div>
           </div>
         </label>
       </div>
@@ -271,9 +273,9 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ fontSize: '1.5rem' }}>✓</div>
           <div>
-            <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9 }}>PREVIEW</div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9 }}>{t('workingHours.preview')}</div>
             <div style={{ fontSize: '0.95rem', fontWeight: 600, marginTop: '0.25rem' }}>
-              {String(start).padStart(2, '0')}:00 - {String(end).padStart(2, '0')}:00 · {includeWeekend ? 'Weekends' : 'No Weekends'} · {allow30Min ? '30/60 min' : '60 min'}
+              {String(start).padStart(2, '0')}:00 - {String(end).padStart(2, '0')}:00 · {includeWeekend ? t('workingHours.weekends') : t('workingHours.noWeekends')} · {allow30Min ? t('workingHours.slots3060') : t('workingHours.slots60')}
             </div>
           </div>
         </div>
@@ -296,7 +298,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           onClick={handleSave} 
@@ -314,7 +316,7 @@ function WorkingHoursEditor({ startHour, endHour, includeWeekend: includeWeekend
             transition: 'all 0.2s ease'
           }}
         >
-          {isSaving ? '⏳ Saving...' : '✓ Save Changes'}
+          {isSaving ? `⏳ ${t('workingHours.saving')}` : `✓ ${t('workingHours.saveChanges')}`}
         </button>
       </div>
     </div>

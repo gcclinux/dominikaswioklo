@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import './DisplayAvailabilityEditorMobile.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function DisplayAvailabilityEditorMobile({ currentValue, onSave, onCancel, min = 1, max = 52 }) {
+  const { t } = useAdminTranslation();
   const [value, setValue] = useState(currentValue);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -23,8 +25,8 @@ function DisplayAvailabilityEditorMobile({ currentValue, onSave, onCancel, min =
       <div className="mobile-availability-card">
         <div className="availability-icon">📅</div>
         <div className="availability-header">
-          <h3>Weeks Ahead</h3>
-          <p>Booking calendar visibility</p>
+          <h3>{t('displayAvailability.weeksAheadLabel')}</h3>
+          <p>{t('displayAvailability.helpText')}</p>
         </div>
         <div className="availability-controls">
           <button 
@@ -43,28 +45,26 @@ function DisplayAvailabilityEditorMobile({ currentValue, onSave, onCancel, min =
             +
           </button>
         </div>
-        <div className="availability-hint">Recommended: 1-8 weeks</div>
+  <div className="availability-hint">{t('displayAvailability.recommendedRange')}: 1-8</div>
       </div>
 
       <div className="mobile-preview">
         <div className="preview-icon">✓</div>
         <p>
           {value === 1 
-            ? 'Customers will see availability for the next week only' 
-            : `Customers will see availability for the next ${value} weeks`}
+            ? t('displayAvailability.previewSingleWeek') 
+            : t('displayAvailability.previewMultiWeeks', { weeks: value })}
         </p>
       </div>
 
       <div className="mobile-actions">
-        <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>
-          Cancel
-        </button>
+        <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>{t('common.cancel')}</button>
         <button 
           className="mobile-btn save" 
           onClick={handleSave} 
           disabled={!hasChanged || isSaving}
         >
-          {isSaving ? 'Saving...' : 'Save Changes'}
+          {isSaving ? t('workingHours.saving') : t('workingHours.saveChanges')}
         </button>
       </div>
     </div>

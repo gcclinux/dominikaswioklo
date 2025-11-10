@@ -10,7 +10,9 @@ import PremiumUpgradeModal from '../components/PremiumUpgradeModal';
 import ThemeSelector from '../components/ThemeSelector';
 import NewsletterModal from '../components/NewsletterModal';
 import ConfirmDialog from '../components/ConfirmDialog';
+import LanguageSelector from '../components/LanguageSelector';
 import { authenticatedFetch } from '../utils/apiHelper';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 import {
   CustomerLimitsModalDesktop,
   CustomerLimitsModalMobile,
@@ -31,6 +33,7 @@ import {
 const API_BASE = API;
 
 function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
+  const { t } = useAdminTranslation();
   const [settings, setSettings] = useState(null);
   const [emailSettings, setEmailSettings] = useState(null);
   const [appointmentTypes, setAppointmentTypes] = useState([]);
@@ -70,11 +73,11 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       if (data.success) {
         setSettings(data.data);
       } else {
-        showToast('Failed to load settings', 'error');
+        showToast(t('settings.toast.loadFailed'), 'error');
       }
     } catch (error) {
       console.error('Error fetching settings:', error);
-      showToast('Error loading settings', 'error');
+      showToast(t('settings.toast.loadError'), 'error');
     } finally {
       setLoading(false);
     }
@@ -95,7 +98,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
           smtpUser: '',
           smtpPass: '',
           smtpFrom: '',
-          emailFooter: 'Scheduler System'
+          emailFooter: t('emailSettings.defaultFooter')
         });
       }
     } catch (error) {
@@ -107,7 +110,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
         smtpUser: '',
         smtpPass: '',
         smtpFrom: '',
-        emailFooter: 'Scheduler System'
+        emailFooter: t('emailSettings.defaultFooter')
       });
     }
   };
@@ -138,14 +141,14 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       console.log('API response:', data);
       if (data.success) {
         await fetchSettings();
-        showToast('Settings updated successfully!', 'success');
+        showToast(t('settings.toast.settingsUpdated'), 'success');
         setActiveModal(null);
       } else {
-        showToast(data.error || 'Failed to update settings', 'error');
+        showToast(data.error || t('settings.toast.settingsFailed'), 'error');
       }
     } catch (error) {
       console.error('Error updating settings:', error);
-      showToast('Error updating settings', 'error');
+      showToast(t('settings.toast.settingsError'), 'error');
     }
   };
 
@@ -156,17 +159,17 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
   const closeToast = () => setToast({ ...toast, visible: false });
 
   const settingsTiles = [
-    { id: 'customerLimits', title: 'Customer Booking Limits', description: 'Set daily and weekly appointment limits per customer', icon: '📊', color: '#4A90E2' },
-    { id: 'workingHours', title: 'Working Days & Hours', description: 'Configure business start and end hours', icon: '🕐', color: '#48C9B0' },
-    { id: 'displayAvailability', title: 'Display Availability', description: 'Number of weeks ahead to show availability', icon: '📅', color: '#AF7AC5' },
-    { id: 'availabilityLock', title: 'Availability Lock', description: 'Lock/unlock booking availability (availabilityLocked & availabilityLockedUntil)', icon: '🔒', color: '#EC7063' },
-    { id: 'appointmentsFilter', title: 'Appointments Filter', description: 'Control how many days of past and future appointments to show in admin lists', icon: '🧮', color: '#2ECC71' },
-    { id: 'appointmentTypes', title: 'Appointment Details', description: 'Create and manage appointment types with names and prices', icon: '📋', color: '#3498db' },
-    { id: 'headerMessage', title: 'Header Message', description: 'Customize the calendar header message displayed to users', icon: '💬', color: '#F39C12' },
-    { id: 'siteTheme', title: 'Site Theme', description: 'Choose between purple gradient or dark green theme', icon: '🎨', color: '#9B59B6' },
-    { id: 'emailSettings', title: 'Email Configuration', description: 'Configure SMTP settings for automated email notifications', icon: '📧', color: '#E67E22' },
-    { id: 'newsletter', title: 'Newsletter', description: 'Create and send newsletters to all users', icon: '📰', color: '#16A085' },
-    { id: 'logout', title: 'Logout', description: `${currentAdmin?.aName || ''} ${currentAdmin?.aSurname || ''} (${currentAdmin?.email || ''})`, icon: '🚪', color: '#e74c3c', mobileOnly: true },
+    { id: 'customerLimits', title: t('settings.tiles.customerLimits.title'), description: t('settings.tiles.customerLimits.description'), icon: '📊', color: '#4A90E2' },
+    { id: 'workingHours', title: t('settings.tiles.workingHours.title'), description: t('settings.tiles.workingHours.description'), icon: '🕐', color: '#48C9B0' },
+    { id: 'displayAvailability', title: t('settings.tiles.displayAvailability.title'), description: t('settings.tiles.displayAvailability.description'), icon: '📅', color: '#AF7AC5' },
+    { id: 'availabilityLock', title: t('settings.tiles.availabilityLock.title'), description: t('settings.tiles.availabilityLock.description'), icon: '🔒', color: '#EC7063' },
+    { id: 'appointmentsFilter', title: t('settings.tiles.appointmentsFilter.title'), description: t('settings.tiles.appointmentsFilter.description'), icon: '🧮', color: '#2ECC71' },
+    { id: 'appointmentTypes', title: t('settings.tiles.appointmentTypes.title'), description: t('settings.tiles.appointmentTypes.description'), icon: '📋', color: '#3498db' },
+    { id: 'headerMessage', title: t('settings.tiles.headerMessage.title'), description: t('settings.tiles.headerMessage.description'), icon: '💬', color: '#F39C12' },
+    { id: 'siteTheme', title: t('settings.tiles.siteTheme.title'), description: t('settings.tiles.siteTheme.description'), icon: '🎨', color: '#9B59B6' },
+    { id: 'emailSettings', title: t('settings.tiles.emailSettings.title'), description: t('settings.tiles.emailSettings.description'), icon: '📧', color: '#E67E22' },
+    { id: 'newsletter', title: t('settings.tiles.newsletter.title'), description: t('settings.tiles.newsletter.description'), icon: '📰', color: '#16A085' },
+    { id: 'logout', title: t('dashboard.logout'), description: `${currentAdmin?.aName || ''} ${currentAdmin?.aSurname || ''} (${currentAdmin?.email || ''})`, icon: '🚪', color: '#e74c3c', mobileOnly: true },
   ];
 
   const handleSettingClick = async (setting) => {
@@ -251,14 +254,14 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       const data = await response.json();
       if (data.success) {
         await fetchEmailSettings();
-        showToast('Email settings updated successfully!', 'success');
+        showToast(t('settings.toast.emailUpdated'), 'success');
         setActiveModal(null);
       } else {
-        showToast(data.error || 'Failed to update email settings', 'error');
+        showToast(data.error || t('settings.toast.emailFailed'), 'error');
       }
     } catch (error) {
       console.error('Error updating email settings:', error);
-      showToast('Error updating email settings', 'error');
+      showToast(t('settings.toast.emailError'), 'error');
     }
   };
 
@@ -271,14 +274,14 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       const result = await response.json();
       if (result.success) {
         await fetchAppointmentTypes();
-        showToast('Appointment types updated successfully!', 'success');
+        showToast(t('settings.toast.appointmentTypesUpdated'), 'success');
         setActiveModal(null);
       } else {
-        showToast(result.error || 'Failed to update appointment types', 'error');
+        showToast(result.error || t('settings.toast.appointmentTypesFailed'), 'error');
       }
     } catch (error) {
       console.error('Error updating appointment types:', error);
-      showToast('Error updating appointment types', 'error');
+      showToast(t('settings.toast.appointmentTypesError'), 'error');
     }
   };
 
@@ -290,14 +293,14 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       });
       const result = await response.json();
       if (result.success) {
-        showToast('Newsletter saved as draft!', 'success');
+        showToast(t('settings.toast.newsletterSaved'), 'success');
         setActiveModal(null);
       } else {
-        showToast(result.error || 'Failed to save newsletter', 'error');
+        showToast(result.error || t('settings.toast.newsletterFailed'), 'error');
       }
     } catch (error) {
       console.error('Error saving newsletter:', error);
-      showToast('Error saving newsletter', 'error');
+      showToast(t('settings.toast.newsletterError'), 'error');
     }
   };
 
@@ -329,7 +332,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       <div className="settings-container">
         <div className="loading-container">
           <div className="loading-spinner"></div>
-          <p>Loading settings...</p>
+          <p>{t('settings.loading')}</p>
         </div>
       </div>
     );
@@ -340,18 +343,19 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       <header className="settings-header settings-page-header" style={{ textAlign: 'left' }}>
         <div className="settings-header-content">
           <div className="settings-header-left">
-            <button className="back-button desktop-back" onClick={onBack}>← Back</button>
+            <button className="back-button desktop-back" onClick={onBack}>← {t('settings.backButton')}</button>
             <div className="settings-header-title">
-              <h1 style={{ margin: 0, textAlign: 'left' }}>⚙️ System Settings {isDevelopmentMode && <span style={{ color: '#f39c12', fontSize: '0.8rem' }}>🚧 DEV MODE</span>}</h1>
-              <p className="settings-subtitle" style={{ margin: 0, textAlign: 'left' }}>Configure your appointment scheduler</p>
-              <button className="back-button mobile-back" onClick={onBack}>← Back</button>
+              <h1 style={{ margin: 0, textAlign: 'left' }}>⚙️ {t('settings.pageTitle')} {isDevelopmentMode && <span style={{ color: '#f39c12', fontSize: '0.8rem' }}>🚧 {t('dashboard.devMode')}</span>}</h1>
+              <p className="settings-subtitle" style={{ margin: 0, textAlign: 'left' }}>{t('settings.pageSubtitle')}</p>
+              <button className="back-button mobile-back" onClick={onBack}>← {t('settings.backButton')}</button>
             </div>
           </div>
 
           {currentAdmin && (
             <div className="settings-header-right">
+              <LanguageSelector compact={true} />
               <div style={{ textAlign: 'right', fontSize: '0.9rem', color: '#fff', fontWeight: '500', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
-                <div>Welcome, <strong>{currentAdmin.aName} {currentAdmin.aSurname}</strong></div>
+                <div>{t('dashboard.welcome')}, <strong>{currentAdmin.aName} {currentAdmin.aSurname}</strong></div>
                 <div style={{ fontSize: '0.85rem', opacity: 0.95 }}>{currentAdmin.email}</div>
               </div>
               <button
@@ -366,9 +370,9 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
                   fontSize: '0.9rem',
                   fontWeight: 500
                 }}
-                title={isDevelopmentMode ? 'Logout disabled in development mode' : 'Logout'}
+                title={isDevelopmentMode ? t('dashboard.logoutDisabled') : t('dashboard.logout')}
               >
-                {isDevelopmentMode ? 'Dev Mode' : 'Logout'}
+                {isDevelopmentMode ? t('dashboard.devModeActive') : t('dashboard.logout')}
               </button>
             </div>
           )}
@@ -382,14 +386,14 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
               <div className="setting-icon">{setting.icon}</div>
               <h3 className="setting-title">{setting.title}</h3>
               <p className="setting-description">{setting.description}</p>
-              {!setting.mobileOnly && <div className="setting-action"><span className="action-label">Configure →</span></div>}
+              {!setting.mobileOnly && <div className="setting-action"><span className="action-label">{t('settings.configure')} →</span></div>}
             </div>
           ))}
         </div>
       </main>
 
       <footer className="settings-footer">
-        <p>All changes are saved automatically</p>
+        <p>{t('settings.footer')}</p>
         <BrandingFooter isPremium={isPremium} />
       </footer>
 
@@ -525,7 +529,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
         />
       )}
 
-      <Modal isOpen={activeModal === 'siteTheme'} onClose={() => setActiveModal(null)} title="🎨 Site Theme" maxWidth="650px">
+  <Modal isOpen={activeModal === 'siteTheme'} onClose={() => setActiveModal(null)} title={t('settings.tiles.siteTheme.title')} maxWidth="650px">
         {settings && (
           <ThemeSelector
             currentTheme={settings.siteTheme || 'purple'}
@@ -541,7 +545,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
         isOpen={showPremiumModal} 
         onClose={() => setShowPremiumModal(false)}
         onSuccess={() => {
-          showToast('Premium activated! Restart server to apply changes.', 'success');
+          showToast(t('settings.toast.premiumActivated'), 'success');
           fetchSettings();
         }}
       />
@@ -550,10 +554,8 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
         isOpen={showDraftConfirm}
         onClose={() => handleSkipDraft()}
         onConfirm={() => handleLoadDraft()}
-        title="📰 Draft Found"
-        message="A draft newsletter exists. Would you like to load it?"
-        confirmText="Yes, Load Draft"
-        cancelText="No"
+        title={t('confirmDialog.draftFound')}
+        message={t('confirmDialog.draftMessage')}
       />
 
       <NewsletterModal

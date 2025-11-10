@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './NumberSettingEditor.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [dailyLimit, setDailyLimit] = useState(maxApp);
   const [weeklyLimit, setWeeklyLimit] = useState(maxAppWeek);
   const [isSaving, setIsSaving] = useState(false);
@@ -32,9 +34,9 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
       }}>
         <div style={{ fontSize: '2rem' }}>📊</div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.85rem', color: '#666', fontWeight: 600, marginBottom: '0.25rem' }}>CURRENT LIMITS</div>
+          <div style={{ fontSize: '0.85rem', color: '#666', fontWeight: 600, marginBottom: '0.25rem' }}>{t('customerLimits.currentLimits')}</div>
           <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#2c3e50' }}>
-            {maxApp} per day · {maxAppWeek} per week
+            {maxApp} {t('customerLimits.perDay')} · {maxAppWeek} {t('customerLimits.perWeek')}
           </div>
         </div>
       </div>
@@ -52,8 +54,8 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
         }}>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
             <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>📅</div>
-            <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: '#2c3e50' }}>Daily Limit</h3>
-            <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#7f8c8d' }}>Per customer, per day</p>
+            <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: '#2c3e50' }}>{t('customerLimits.dailyLimit')}</h3>
+            <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#7f8c8d' }}>{t('customerLimits.perCustomerPerDay')}</p>
           </div>
           
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
@@ -116,7 +118,7 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             padding: '0.5rem',
             borderRadius: '8px'
           }}>
-            ✓ Recommended: 1-2
+            ✓ {t('customerLimits.recommended')}: 1-2
           </div>
         </div>
 
@@ -131,8 +133,8 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
         }}>
           <div style={{ textAlign: 'center', marginBottom: '1rem' }}>
             <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>📊</div>
-            <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: '#2c3e50' }}>Weekly Limit</h3>
-            <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#7f8c8d' }}>Per customer, per week</p>
+            <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, color: '#2c3e50' }}>{t('customerLimits.weeklyLimit')}</h3>
+            <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#7f8c8d' }}>{t('customerLimits.perCustomerPerWeek')}</p>
           </div>
           
           <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
@@ -195,7 +197,7 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             padding: '0.5rem',
             borderRadius: '8px'
           }}>
-            ✓ Recommended: 3-5
+            ✓ {t('customerLimits.recommended')}: 3-5
           </div>
         </div>
       </div>
@@ -212,9 +214,9 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ fontSize: '2rem' }}>✓</div>
           <div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 600, opacity: 0.9, marginBottom: '0.25rem' }}>PREVIEW</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, opacity: 0.9, marginBottom: '0.25rem' }}>{t('workingHours.preview')}</div>
             <div style={{ fontSize: '1.05rem', fontWeight: 600 }}>
-              Customers can book up to <strong style={{ fontSize: '1.2rem' }}>{dailyLimit}</strong> appointment{dailyLimit !== 1 ? 's' : ''} per day and <strong style={{ fontSize: '1.2rem' }}>{weeklyLimit}</strong> appointment{weeklyLimit !== 1 ? 's' : ''} per week
+              {t('customerLimits.previewText', { dailyLimit, dailyPlural: dailyLimit !== 1 ? 's' : '', weeklyLimit, weeklyPlural: weeklyLimit !== 1 ? 's' : '' })}
             </div>
           </div>
         </div>
@@ -237,7 +239,7 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           onClick={handleSave} 
@@ -255,7 +257,7 @@ function CustomerLimitsEditor({ maxApp, maxAppWeek, onSave, onCancel }) {
             transition: 'all 0.2s ease'
           }}
         >
-          {isSaving ? '⏳ Saving...' : '✓ Save Changes'}
+          {isSaving ? `⏳ ${t('workingHours.saving')}` : `✓ ${t('workingHours.saveChanges')}`}
         </button>
       </div>
     </div>

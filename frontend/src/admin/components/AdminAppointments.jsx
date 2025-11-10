@@ -2,10 +2,12 @@ import React, { useEffect, useMemo, useState } from 'react';
 import Modal from './Modal';
 import './NumberSettingEditor.css';
 import { authenticatedFetch } from '../utils/apiHelper';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 import AdminAppointmentsMobile from './AdminAppointmentsMobile';
 import { API } from '../../config/api';
 
 function AdminAppointments({ isOpen, onClose }) {
+  const { t } = useAdminTranslation();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [items, setItems] = useState([]);
@@ -51,12 +53,12 @@ function AdminAppointments({ isOpen, onClose }) {
         fetch(`${API}/appointment-types`).then(r => r.json()),
       ]);
       if (aRes.success) setItems(aRes.data || []);
-      else setError(aRes.error || 'Failed to fetch appointments');
+      else setError(aRes.error || t('appointments.loadError'));
       if (sRes.success) setSettings(sRes.data);
       if (bRes?.success) setBlockedList(bRes.data || []);
       if (tRes?.success) setAppointmentTypes(tRes.data?.types || []);
     } catch (e) {
-      setError('Failed to load');
+      setError(t('appointments.loadError'));
     } finally {
       setLoading(false);
     }
@@ -263,7 +265,7 @@ function AdminAppointments({ isOpen, onClose }) {
 
   return (
     <>
-    <Modal isOpen={isOpen} onClose={onClose} title="📅 All Appointments" maxWidth="76vw" maxHeight="95vh">
+    <Modal isOpen={isOpen} onClose={onClose} title={`📅 ${t('appointments.title')}`} maxWidth="76vw" maxHeight="95vh">
       <div style={{ 
         display: 'flex', 
         flexDirection: 'column', 
@@ -273,7 +275,7 @@ function AdminAppointments({ isOpen, onClose }) {
         {/* Fixed header section for loading/error messages */}
         {(loading || error) && (
           <div style={{ flexShrink: 0 }}>
-            {loading && <div className="info-box"><span className="info-icon">⏳</span><span className="info-text">Loading appointments…</span></div>}
+            {loading && <div className="info-box"><span className="info-icon">⏳</span><span className="info-text">{t('appointments.loading')}</span></div>}
             {error && <div className="error-message">{error}</div>}
           </div>
         )}
@@ -320,9 +322,9 @@ function AdminAppointments({ isOpen, onClose }) {
                 onClick={() => handleSort('date')}
                 title="Click to sort by date"
               >
-                Date {getSortIcon('date')}
+                {t('appointments.table.date')} {getSortIcon('date')}
               </div>
-              <div style={{ fontWeight: 600 }}>Time</div>
+              <div style={{ fontWeight: 600 }}>{t('appointments.table.time')}</div>
               <div 
                 style={{ 
                   fontWeight: 600, 
@@ -336,9 +338,9 @@ function AdminAppointments({ isOpen, onClose }) {
                 onClick={() => handleSort('status')}
                 title="Click to sort by status"
               >
-                Status {getSortIcon('status')}
+                {t('appointments.table.status')} {getSortIcon('status')}
               </div>
-              <div style={{ fontWeight: 600 }}>Type</div>
+              <div style={{ fontWeight: 600 }}>{t('appointments.table.type')}</div>
               <div 
                 style={{ 
                   fontWeight: 600, 
@@ -352,9 +354,9 @@ function AdminAppointments({ isOpen, onClose }) {
                 onClick={() => handleSort('client')}
                 title="Click to sort by client name"
               >
-                Client {getSortIcon('client')}
+                {t('appointments.table.name')} {getSortIcon('client')}
               </div>
-              <div style={{ fontWeight: 600 }}>Email</div>
+              <div style={{ fontWeight: 600 }}>{t('appointments.table.email')}</div>
               <div 
                 style={{ 
                   fontWeight: 600, 
@@ -368,9 +370,9 @@ function AdminAppointments({ isOpen, onClose }) {
                 onClick={() => handleSort('phone')}
                 title="Click to sort by phone"
               >
-                Phone {getSortIcon('phone')}
+                {t('appointments.table.phone')} {getSortIcon('phone')}
               </div>
-              <div style={{ fontWeight: 600, textAlign: 'center' }}>Select</div>
+              <div style={{ fontWeight: 600, textAlign: 'center' }}>{t('appointments.table.select')}</div>
             </div>
           </div>
 
@@ -444,7 +446,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 color: '#7f8c8d',
                 fontStyle: 'italic'
               }}>
-                No appointments in the selected window
+                {t('appointments.noAppointments')}
               </div>
             )}
           </div>
@@ -470,7 +472,7 @@ function AdminAppointments({ isOpen, onClose }) {
               transition: 'all 0.2s ease'
             }}
           >
-            ✓ Confirm Selected
+            ✓ {t('appointments.bulkActions.confirmSelected')}
           </button>
           <button 
             onClick={() => handleBulkAction('cancel')}
@@ -489,7 +491,7 @@ function AdminAppointments({ isOpen, onClose }) {
               transition: 'all 0.2s ease'
             }}
           >
-            ✕ Cancel Selected
+            ✕ {t('appointments.bulkActions.cancelSelected')}
           </button>
         </div>
         )}
@@ -526,7 +528,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 onChange={(e) => setHideBlocked(e.target.checked)}
                 style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
               />
-              🚫 Hide blocked users
+              🚫 {t('appointments.filters.hideBlocked')}
             </label>
             <label style={{ 
               display: 'inline-flex', 
@@ -548,7 +550,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 onChange={(e) => setHidePast(e.target.checked)}
                 style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
               />
-              📅 Hide past
+              📅 {t('appointments.filters.hidePast')}
             </label>
           </div>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -567,7 +569,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 transition: 'all 0.2s ease'
               }}
             >
-              ⏳ Pending Only
+              ⏳ {t('appointments.filters.showPendingOnly')}
             </button>
             <button
               onClick={() => setShowPendingOnly(false)}
@@ -584,7 +586,7 @@ function AdminAppointments({ isOpen, onClose }) {
                 transition: 'all 0.2s ease'
               }}
             >
-              📊 Show All
+              📊 {t('appointments.filters.showAll')}
             </button>
           </div>
         </div>
@@ -595,13 +597,13 @@ function AdminAppointments({ isOpen, onClose }) {
     <Modal
       isOpen={!!confirmBlock}
       onClose={() => setConfirmBlock(null)}
-      title="🚫 Block User"
+      title={`🚫 ${t('appointments.confirmBlock.title')}`}
       maxWidth="520px"
     >
       {confirmBlock && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div className="error-message" style={{ margin: 0 }}>
-            You are about to block this user and mark all their appointments as blocked. This frees the time slots.
+            {t('appointments.confirmBlock.message', { name: `${confirmBlock.name} ${confirmBlock.surname}`, email: confirmBlock.email })}
           </div>
           <div className="preview-box">
             <div className="preview-title">User</div>
@@ -617,8 +619,8 @@ function AdminAppointments({ isOpen, onClose }) {
             </span>
           </div>
           <div className="action-buttons">
-            <button className="hover-gradient-button" onClick={() => setConfirmBlock(null)}>Cancel</button>
-            <button className="danger-button" onClick={confirmBlockAll}>Block all</button>
+            <button className="hover-gradient-button" onClick={() => setConfirmBlock(null)}>{t('appointments.confirmBlock.cancelButton')}</button>
+            <button className="danger-button" onClick={confirmBlockAll}>{t('appointments.confirmBlock.confirmButton')}</button>
           </div>
         </div>
       )}

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './NumberSettingEditor.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 const PRESETS = [7, 14, 30, 90];
 
 function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [past, setPast] = useState(pastDays ?? 30);
   const [future, setFuture] = useState(futureDays ?? 30);
   const [error, setError] = useState('');
@@ -13,7 +15,7 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
 
   const validate = (p, f) => {
     if (!PRESETS.includes(p) || !PRESETS.includes(f)) {
-      setError('Please choose from 7, 14, 30, or 90 days');
+      setError(t('appointmentsFilter.errors.invalidChoice'));
       return false;
     }
     setError('');
@@ -47,9 +49,9 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
       }}>
         <div style={{ fontSize: '1.5rem' }}>📅</div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>CURRENT FILTERS</div>
+          <div style={{ fontSize: '0.75rem', color: '#666', fontWeight: 600 }}>{t('appointmentsFilter.currentFilters')}</div>
           <div style={{ fontSize: '1rem', fontWeight: 700, color: '#2c3e50' }}>
-            Past: {pastDays ?? 30} days · Future: {futureDays ?? 30} days
+            {t('appointmentsFilter.currentRange', { past: pastDays ?? 30, future: futureDays ?? 30 })}
           </div>
         </div>
       </div>
@@ -66,7 +68,7 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
         }}>
           <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
             <div style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>⏪</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d' }}>Past Appointments</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d' }}>{t('appointmentsFilter.past')}</div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
             {PRESETS.map(v => (
@@ -102,7 +104,7 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
         }}>
           <div style={{ textAlign: 'center', marginBottom: '0.75rem' }}>
             <div style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>⏩</div>
-            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d' }}>Future Appointments</div>
+            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#7f8c8d' }}>{t('appointmentsFilter.future')}</div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
             {PRESETS.map(v => (
@@ -161,9 +163,9 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <div style={{ fontSize: '1.5rem' }}>✓</div>
           <div>
-            <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9 }}>PREVIEW</div>
+            <div style={{ fontSize: '0.75rem', fontWeight: 600, opacity: 0.9 }}>{t('workingHours.preview')}</div>
             <div style={{ fontSize: '0.9rem', fontWeight: 600, marginTop: '0.25rem' }}>
-              Show appointments from past <strong>{past}</strong> days and next <strong>{future}</strong> days
+              {t('appointmentsFilter.preview', { past, future })}
             </div>
           </div>
         </div>
@@ -186,7 +188,7 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button 
           onClick={handleSave} 
@@ -204,7 +206,7 @@ function AppointmentsFilterEditor({ pastDays, futureDays, onSave, onCancel }) {
             transition: 'all 0.2s ease'
           }}
         >
-          {isSaving ? '⏳ Saving...' : '✓ Save Changes'}
+          {isSaving ? `⏳ ${t('workingHours.saving')}` : `✓ ${t('workingHours.saveChanges')}`}
         </button>
       </div>
     </div>

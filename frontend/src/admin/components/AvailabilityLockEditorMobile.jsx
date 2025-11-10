@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './AvailabilityLockEditorMobile.css';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function toLocalDateTimeString(iso) {
   if (!iso) return '';
@@ -9,6 +10,7 @@ function toLocalDateTimeString(iso) {
 }
 
 function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUntil, onSave, onCancel }) {
+  const { t } = useAdminTranslation();
   const [locked, setLocked] = useState(Boolean(availabilityLocked));
   const [untilLocal, setUntilLocal] = useState(toLocalDateTimeString(availabilityLockedUntil));
   const [error, setError] = useState('');
@@ -23,8 +25,8 @@ function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUn
     if (locked && untilLocal) {
       const chosen = new Date(untilLocal);
       const now = new Date();
-      if (isNaN(chosen.getTime())) { setError('Invalid date/time'); return false; }
-      if (chosen <= now) { setError('Must be in the future'); return false; }
+      if (isNaN(chosen.getTime())) { setError(t('availabilityLock.errors.invalidFormat')); return false; }
+      if (chosen <= now) { setError(t('availabilityLock.errors.mustBeFuture')); return false; }
     }
     setError('');
     return true;
@@ -49,8 +51,8 @@ function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUn
       <div className="mobile-lock-card">
         <div className="lock-icon">{locked ? '🔒' : '🔓'}</div>
         <div className="lock-header">
-          <h3>Booking Status</h3>
-          <p>Control customer bookings</p>
+          <h3>{t('availabilityLock.mobileHeader')}</h3>
+          <p>{t('availabilityLock.mobileSubheader')}</p>
         </div>
         
         <div className="lock-toggle-group">
@@ -60,7 +62,7 @@ function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUn
             disabled={isSaving}
           >
             <span className="option-emoji">🔒</span>
-            <span>Locked</span>
+            <span>{t('availabilityLock.locked')}</span>
           </button>
           <button 
             className={`lock-option ${!locked ? 'active' : ''}`}
@@ -68,7 +70,7 @@ function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUn
             disabled={isSaving}
           >
             <span className="option-emoji">🔓</span>
-            <span>Open</span>
+            <span>{t('availabilityLock.open')}</span>
           </button>
         </div>
       </div>
@@ -78,8 +80,8 @@ function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUn
           <div className="datetime-header">
             <div className="datetime-icon">⏰</div>
             <div>
-              <h4>Auto-Unlock (Optional)</h4>
-              <p>Set when to reopen bookings</p>
+              <h4>{t('availabilityLock.autoUnlockLabel')}</h4>
+              <p>{t('availabilityLock.autoUnlockHint')}</p>
             </div>
           </div>
           <input 
@@ -96,22 +98,18 @@ function AvailabilityLockEditorMobile({ availabilityLocked, availabilityLockedUn
       <div className="mobile-preview">
         <div className="preview-icon">{locked ? '⛔' : '✓'}</div>
         <p>
-          {locked 
-            ? 'Customers cannot book new appointments' 
-            : 'Customers can book appointments normally'}
+          {locked ? t('availabilityLock.previewLocked') : t('availabilityLock.previewOpen')}
         </p>
       </div>
 
       <div className="mobile-actions">
-        <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>
-          Cancel
-        </button>
+        <button className="mobile-btn cancel" onClick={onCancel} disabled={isSaving}>{t('common.cancel')}</button>
         <button 
           className="mobile-btn save" 
           onClick={handleSave} 
           disabled={isSaving || !!error}
         >
-          {isSaving ? 'Saving...' : 'Save Changes'}
+          {isSaving ? t('workingHours.saving') : t('workingHours.saveChanges')}
         </button>
       </div>
     </div>

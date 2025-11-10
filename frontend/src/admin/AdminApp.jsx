@@ -12,9 +12,12 @@ import BrandingFooter from '../components/BrandingFooter.jsx';
 import FirstTimeSetup from './components/FirstTimeSetup.jsx';
 import PremiumUpgradeModal from './components/PremiumUpgradeModal.jsx';
 import LicenseDetailsModal from './components/LicenseDetailsModal.jsx';
+import LanguageSelector from './components/LanguageSelector.jsx';
 import { API } from '../config/api';
+import { useAdminTranslation } from './utils/useAdminTranslation';
 
 function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
+  const { t } = useAdminTranslation();
   const navigate = useNavigate();
   const [showAppointments, setShowAppointments] = useState(false);
   const [showBlocked, setShowBlocked] = useState(false);
@@ -41,15 +44,15 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
     checkLicense();
   }, []);
   const tiles = [
-    { id: 'settings', title: 'Settings', description: 'Configure system settings, working hours, availability, and messages', icon: '⚙️', color: '#4A90E2', onClick: () => navigate('settings') },
-    { id: 'users', title: 'Users', description: 'View and manage registered users and their appointments', icon: '👥', color: '#50C878', onClick: () => setShowUsers(true) },
-    { id: 'blocked', title: 'Blocked', description: 'Manage blocked users and IP addresses', icon: '🚫', color: '#E74C3C', onClick: () => setShowBlocked(true) },
-    { id: 'appointments', title: 'Scheduled Appointments', description: 'View, confirm, and manage all appointments', icon: '📅', color: '#9B59B6', onClick: () => setShowAppointments(true) },
-    { id: 'admin', title: 'Admin', description: 'Manage admin users and access controls', icon: '🔐', color: '#F39C12', onClick: () => setShowAdmin(true) },
-    { id: 'documentation', title: 'Documentation', description: 'Browse system documentation and guides', icon: '📚', color: '#3498db', onClick: () => navigate('documentation') },
-    { id: 'scheduler', title: 'Open Scheduler', description: 'View the public appointment booking page', icon: '🌐', color: '#16A085', isExternal: true, url: '/#/easyscheduler' },
-    { id: 'license', title: 'License', description: isPremium ? 'View premium license details' : 'Upgrade to premium and unlock all features', icon: isPremium ? '✅' : '🔓', color: isPremium ? '#27ae60' : '#e67e22', onClick: () => isPremium ? setShowLicenseDetails(true) : setShowPremiumModal(true) },
-    { id: 'logout', title: 'Logout', description: `👤 ${currentAdmin.aName} ${currentAdmin.aSurname} • ✉️ ${currentAdmin.email}`, icon: '🚪', color: '#e74c3c', onClick: onLogout, mobileOnly: true },
+    { id: 'settings', title: t('tiles.settings.title'), description: t('tiles.settings.description'), icon: '⚙️', color: '#4A90E2', onClick: () => navigate('settings') },
+    { id: 'users', title: t('tiles.users.title'), description: t('tiles.users.description'), icon: '👥', color: '#50C878', onClick: () => setShowUsers(true) },
+    { id: 'blocked', title: t('tiles.blocked.title'), description: t('tiles.blocked.description'), icon: '🚫', color: '#E74C3C', onClick: () => setShowBlocked(true) },
+    { id: 'appointments', title: t('tiles.appointments.title'), description: t('tiles.appointments.description'), icon: '📅', color: '#9B59B6', onClick: () => setShowAppointments(true) },
+    { id: 'admin', title: t('tiles.admin.title'), description: t('tiles.admin.description'), icon: '🔐', color: '#F39C12', onClick: () => setShowAdmin(true) },
+    { id: 'documentation', title: t('tiles.documentation.title'), description: t('tiles.documentation.description'), icon: '📚', color: '#3498db', onClick: () => navigate('documentation') },
+    { id: 'scheduler', title: t('tiles.scheduler.title'), description: t('tiles.scheduler.description'), icon: '🌐', color: '#16A085', isExternal: true, url: '/#/easyscheduler' },
+    { id: 'license', title: t('tiles.license.title'), description: isPremium ? t('tiles.license.descriptionPremium') : t('tiles.license.descriptionFree'), icon: isPremium ? '✅' : '🔓', color: isPremium ? '#27ae60' : '#e67e22', onClick: () => isPremium ? setShowLicenseDetails(true) : setShowPremiumModal(true) },
+    { id: 'logout', title: t('dashboard.logout'), description: `👤 ${currentAdmin.aName} ${currentAdmin.aSurname} • ✉️ ${currentAdmin.email}`, icon: '🚪', color: '#e74c3c', onClick: onLogout, mobileOnly: true },
   ];
 
   const handleTileClick = (tile) => {
@@ -67,14 +70,15 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
       <header className="settings-header">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h1>📊 Scheduler Admin Dashboard {isDevelopmentMode && <span style={{ color: '#f39c12', fontSize: '0.8rem' }}>🚧 DEV MODE</span>}</h1>
-            <p className="settings-subtitle">Manage your appointment scheduling system</p>
+            <h1>📊 {t('dashboard.title')} {isDevelopmentMode && <span style={{ color: '#f39c12', fontSize: '0.8rem' }}>🚧 {t('dashboard.devMode')}</span>}</h1>
+            <p className="settings-subtitle">{t('dashboard.subtitle')}</p>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <LanguageSelector compact={true} />
             <div style={{ textAlign: 'right', fontSize: '0.9rem', color: '#fff', fontWeight: '500', textShadow: '0 1px 3px rgba(0,0,0,0.3)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'flex-end' }}>
                 <span>👤</span>
-                <span>Welcome, <strong>{currentAdmin.aName} {currentAdmin.aSurname}</strong></span>
+                <span>{t('dashboard.welcome')}, <strong>{currentAdmin.aName} {currentAdmin.aSurname}</strong></span>
               </div>
               <div style={{ fontSize: '0.85rem', opacity: 0.95, display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'flex-end' }}>
                 <span>✉️</span>
@@ -93,9 +97,9 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
                 fontSize: '0.9rem',
                 fontWeight: 500
               }}
-              title={isDevelopmentMode ? 'Logout disabled in development mode' : 'Logout'}
+              title={isDevelopmentMode ? t('dashboard.logoutDisabled') : t('dashboard.logout')}
             >
-              {isDevelopmentMode ? 'Dev Mode' : 'Logout'}
+              {isDevelopmentMode ? t('dashboard.devModeActive') : t('dashboard.logout')}
             </button>
           </div>
         </div>
@@ -113,7 +117,7 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
         </div>
       </main>
       <footer className="settings-footer">
-        <p>Scheduler Admin v1.0.0 | © 2025</p>
+        <p>{t('footer.version')} | {t('footer.copyright')}</p>
         <BrandingFooter isPremium={isPremium} />
       </footer>
       <AdminAppointments isOpen={showAppointments} onClose={() => setShowAppointments(false)} />
@@ -139,6 +143,7 @@ function Dashboard({ currentAdmin, onLogout, isDevelopmentMode }) {
 }
 
 function AdminApp() {
+  const { t } = useAdminTranslation();
   const navigate = useNavigate();
   const [currentAdmin, setCurrentAdmin] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -251,7 +256,7 @@ function AdminApp() {
             animation: 'spin 1s linear infinite',
             marginRight: '0.5rem'
           }} />
-          Loading...
+          {t('common.loading')}
         </div>
       </div>
     );

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import ConfirmDialog from './ConfirmDialog';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmitting }) {
+  const { t } = useAdminTranslation();
   const [formData, setFormData] = useState({
     title: '',
     subtitle: '',
@@ -36,7 +38,7 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
 
   const handleSubmit = () => {
     if (!formData.title || !formData.message_part1) {
-      alert('Title and Message Part 1 are required');
+      alert(t('newsletterModal.errors.required'));
       return;
     }
     onSave(formData);
@@ -58,18 +60,18 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose} title="📰 Create Newsletter" maxWidth="700px" closeOnOverlayClick={false}>
+      <Modal isOpen={isOpen} onClose={onClose} title={t('newsletterModal.modalTitle')} maxWidth="700px" closeOnOverlayClick={false}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <div>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-            Title <span style={{ color: 'red' }}>*</span>
+            {t('newsletterModal.title')} <span style={{ color: 'red' }}>*</span>
           </label>
           <input
             type="text"
             name="title"
             value={formData.title}
             onChange={handleChange}
-            placeholder="Newsletter title"
+            placeholder={t('newsletterModal.placeholders.title')}
             style={{
               width: '100%',
               padding: '0.75rem',
@@ -82,14 +84,14 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
 
         <div>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-            Subtitle
+            {t('newsletterModal.subtitle')}
           </label>
           <input
             type="text"
             name="subtitle"
             value={formData.subtitle}
             onChange={handleChange}
-            placeholder="Newsletter subtitle"
+            placeholder={t('newsletterModal.placeholders.subtitle')}
             style={{
               width: '100%',
               padding: '0.75rem',
@@ -102,13 +104,13 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
 
         <div>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-            Message Part 1 <span style={{ color: 'red' }}>*</span>
+            {t('newsletterModal.messagePart1')} <span style={{ color: 'red' }}>*</span>
           </label>
           <textarea
             name="message_part1"
             value={formData.message_part1}
             onChange={handleChange}
-            placeholder="First part of the message"
+            placeholder={t('newsletterModal.placeholders.messagePart1')}
             rows="5"
             style={{
               width: '100%',
@@ -123,13 +125,13 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
 
         <div>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
-            Message Part 2
+            {t('newsletterModal.messagePart2')}
           </label>
           <textarea
             name="message_part2"
             value={formData.message_part2}
             onChange={handleChange}
-            placeholder="Second part of the message"
+            placeholder={t('newsletterModal.placeholders.messagePart2')}
             rows="5"
             style={{
               width: '100%',
@@ -158,7 +160,7 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
               opacity: isSubmitting ? 0.6 : 1
             }}
           >
-            Cancel
+            {t('newsletterModal.buttons.cancel')}
           </button>
           <button
             onClick={handleSubmit}
@@ -175,7 +177,7 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
               opacity: isSubmitting ? 0.6 : 1
             }}
           >
-            Save Draft
+            {t('newsletterModal.buttons.saveDraft')}
           </button>
           <button
             onClick={handleSendNewsletter}

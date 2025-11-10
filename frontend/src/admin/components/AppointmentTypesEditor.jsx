@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
+import { useAdminTranslation } from '../utils/useAdminTranslation';
+
 const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSave, onCancel }) => {
+  const { t } = useAdminTranslation();
   const [types, setTypes] = useState(appointmentTypes.length > 0 ? appointmentTypes.map(t => ({ name: t.appName || t.name || '', tag: t.appTag || t.tag || '', price: t.appPrice || t.price || '' })) : [{ name: '', tag: '', price: '' }]);
   const [selectedCurrency, setSelectedCurrency] = useState(currency);
 
@@ -53,7 +56,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
       }}>
         <div style={{ fontSize: '1.5rem' }}>ℹ️</div>
         <div style={{ fontSize: '0.85rem', color: '#666', lineHeight: '1.5' }}>
-          Define appointment types with names, tags, and prices for your booking system.
+          {t('appointmentTypes.infoBanner')}
         </div>
       </div>
 
@@ -69,7 +72,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{ fontSize: '1.5rem' }}>💰</div>
           <label style={{ fontWeight: 600, color: '#2c3e50', fontSize: '0.95rem' }}>
-            Currency
+            {t('appointmentTypes.currency')}
           </label>
           <select
             value={selectedCurrency}
@@ -112,7 +115,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
             <div style={{ fontSize: '1.2rem' }}>📋</div>
             <input
               type="text"
-              placeholder="Name (e.g., Consultation)"
+              placeholder={t('appointmentTypes.namePlaceholder')}
               value={type.name}
               onChange={(e) => handleChange(index, 'name', e.target.value)}
               style={{
@@ -127,7 +130,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
             />
             <input
               type="text"
-              placeholder="Tag (e.g., consultation)"
+              placeholder={t('appointmentTypes.tagPlaceholder')}
               value={type.tag}
               onChange={(e) => handleChange(index, 'tag', e.target.value.toLowerCase().replace(/\s+/g, '-'))}
               style={{
@@ -142,7 +145,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
             />
             <input
               type="number"
-              placeholder="Price"
+              placeholder={t('appointmentTypes.pricePlaceholder')}
               value={type.price}
               onChange={(e) => handleChange(index, 'price', e.target.value)}
               step="0.01"
@@ -195,7 +198,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
           transition: 'all 0.2s ease'
         }}
       >
-        + Add Appointment Type
+        + {t('appointmentTypes.addType')}
       </button>
 
       {/* Action Buttons */}
@@ -214,7 +217,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
             transition: 'all 0.2s ease'
           }}
         >
-          Cancel
+          {t('common.cancel')}
         </button>
         <button
           onClick={handleSave}
@@ -231,7 +234,7 @@ const AppointmentTypesEditor = ({ appointmentTypes = [], currency = 'USD', onSav
             transition: 'all 0.2s ease'
           }}
         >
-          ✓ Save Changes
+          ✓ {t('workingHours.saveChanges')}
         </button>
       </div>
     </div>

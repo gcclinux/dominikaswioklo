@@ -1,9 +1,11 @@
 import Modal from '../Modal';
 import WorkingHoursEditorMobile from '../WorkingHoursEditorMobile';
+import { useAdminTranslation } from '../../utils/useAdminTranslation';
 
 function WorkingHoursModalMobile({ isOpen, onClose, settings, onSave }) {
+  const { t } = useAdminTranslation();
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="🕐 Working Hours" maxWidth="100%">
+    <Modal isOpen={isOpen} onClose={onClose} title={t('workingHours.modalTitle')} maxWidth="100%">
       {settings && (
         <WorkingHoursEditorMobile
           startHour={settings.startHour}

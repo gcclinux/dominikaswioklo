@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from './Modal';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 function ConfirmDialog({ 
   isOpen, 
@@ -7,11 +8,12 @@ function ConfirmDialog({
   onConfirm, 
   title, 
   message, 
-  confirmText = 'Yes, Confirm',
-  cancelText = 'No',
+  confirmText,
+  cancelText,
   confirmColor = '#16A085',
   isDanger = false
 }) {
+  const { t } = useAdminTranslation();
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="450px" closeOnOverlayClick={false}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -28,13 +30,13 @@ function ConfirmDialog({
               color: 'white',
               border: 'none',
               borderRadius: '6px',
-              cursor: 'pointer',
-              fontSize: '1rem',
-              fontWeight: '500'
-            }}
-          >
-            {cancelText}
-          </button>
+            cursor: 'pointer',
+            fontSize: '1rem',
+            fontWeight: '500'
+          }}
+        >
+          {cancelText || t('common.no')}
+        </button>
           <button
             onClick={() => {
               onConfirm();
@@ -45,17 +47,17 @@ function ConfirmDialog({
               color: 'white',
               border: 'none',
               borderRadius: '6px',
-              cursor: 'pointer',
-              fontSize: '1rem',
-              fontWeight: '500'
-            }}
-          >
-            {confirmText}
-          </button>
-        </div>
+            cursor: 'pointer',
+            fontSize: '1rem',
+            fontWeight: '500'
+          }}
+        >
+          {confirmText || t('confirmDialog.confirm')}
+        </button>
       </div>
-    </Modal>
-  );
+    </div>
+  </Modal>
+);
 }
 
 export default ConfirmDialog;

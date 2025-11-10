@@ -1,0 +1,619 @@
+{
+  "dashboard": {
+    "title": "Scheduler Admin Dashboard",
+    "subtitle": "Manage your appointment scheduling system",
+    "devMode": "DEV MODE",
+    "welcome": "Welcome",
+    "logout": "Logout",
+    "logoutDisabled": "Logout disabled in development mode",
+    "devModeActive": "Dev Mode"
+  },
+  "tiles": {
+    "settings": {
+      "title": "Settings",
+      "description": "Configure system settings, working hours, availability, and messages"
+    },
+    "users": {
+      "title": "Users",
+      "description": "View and manage registered users and their appointments"
+    },
+    "blocked": {
+      "title": "Blocked",
+      "description": "Manage blocked users and IP addresses"
+    },
+    "appointments": {
+      "title": "Scheduled Appointments",
+      "description": "View, confirm, and manage all appointments"
+    },
+    "admin": {
+      "title": "Admin",
+      "description": "Manage admin users and access controls"
+    },
+    "documentation": {
+      "title": "Documentation",
+      "description": "Browse system documentation and guides"
+    },
+    "scheduler": {
+      "title": "Open Scheduler",
+      "description": "View the public appointment booking page"
+    },
+    "license": {
+      "title": "License",
+      "descriptionPremium": "View premium license details",
+      "descriptionFree": "Upgrade to premium and unlock all features"
+    }
+  },
+  "login": {
+    "title": "Admin Login",
+    "subtitle": "Enter your credentials to access the admin dashboard",
+    "loginLabel": "Login:",
+    "passwordLabel": "Password:",
+    "loginButton": "Login",
+    "loggingIn": "Logging in...",
+    "errors": {
+      "bothFields": "Please enter both login and password",
+      "loginFailed": "Login failed",
+      "connectionError": "Connection error. Please try again."
+    },
+    "placeholder": {
+      "login": "Enter your admin login",
+      "password": "Enter your password"
+    }
+  },
+  "settings": {
+    "pageTitle": "System Settings",
+    "pageSubtitle": "Configure your appointment scheduler",
+    "backButton": "Back",
+    "footer": "All changes are saved automatically",
+    "loading": "Loading settings...",
+    "tiles": {
+      "customerLimits": {
+        "title": "Customer Booking Limits",
+        "description": "Set daily and weekly appointment limits per customer"
+      },
+      "workingHours": {
+        "title": "Working Days & Hours",
+        "description": "Configure business start and end hours"
+      },
+      "displayAvailability": {
+        "title": "Display Availability",
+        "description": "Number of weeks ahead to show availability"
+      },
+      "availabilityLock": {
+        "title": "Availability Lock",
+        "description": "Lock/unlock booking availability (availabilityLocked & availabilityLockedUntil)"
+      },
+      "appointmentsFilter": {
+        "title": "Appointments Filter",
+        "description": "Control how many days of past and future appointments to show in admin lists"
+      },
+      "appointmentTypes": {
+        "title": "Appointment Details",
+        "description": "Create and manage appointment types with names and prices"
+      },
+      "headerMessage": {
+        "title": "Header Message",
+        "description": "Customize the calendar header message displayed to users"
+      },
+      "siteTheme": {
+        "title": "Site Theme",
+        "description": "Choose between purple gradient or dark green theme"
+      },
+      "emailSettings": {
+        "title": "Email Configuration",
+        "description": "Configure SMTP settings for automated email notifications"
+      },
+      "newsletter": {
+        "title": "Newsletter",
+        "description": "Create and send newsletters to all users"
+      }
+    },
+    "configure": "Configure",
+    "toast": {
+      "settingsUpdated": "Settings updated successfully!",
+      "settingsFailed": "Failed to update settings",
+      "settingsError": "Error updating settings",
+      "emailUpdated": "Email settings updated successfully!",
+      "emailFailed": "Failed to update email settings",
+      "emailError": "Error updating email settings",
+      "appointmentTypesUpdated": "Appointment types updated successfully!",
+      "appointmentTypesFailed": "Failed to update appointment types",
+      "appointmentTypesError": "Error updating appointment types",
+      "newsletterSaved": "Newsletter saved as draft!",
+      "newsletterFailed": "Failed to save newsletter",
+      "newsletterError": "Error saving newsletter",
+      "premiumActivated": "Premium activated! Restart server to apply changes.",
+      "loadFailed": "Failed to load settings",
+      "loadError": "Error loading settings"
+    }
+  },
+  "firstTimeSetup": {
+    "title": "First-Time Setup",
+    "subtitle": "Create your first admin account to get started",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "login": "Login",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "createButton": "Create Admin Account",
+    "creating": "Creating...",
+    "loginAfterCreate": "Account created! Please log in with your credentials.",
+    "errors": {
+      "allFields": "Please fill in all fields",
+      "passwordMatch": "Passwords do not match",
+      "passwordLength": "Password must be at least 8 characters",
+      "creationFailed": "Failed to create admin account",
+      "connectionError": "Connection error. Please try again."
+    },
+    "placeholder": {
+      "firstName": "Enter first name",
+      "lastName": "Enter last name",
+      "email": "admin@example.com",
+      "login": "Choose a login username",
+      "password": "At least 8 characters",
+      "confirmPassword": "Re-enter your password"
+    }
+  },
+  "premium": {
+    "upgradeTitle": "Upgrade to Premium",
+    "features": {
+      "emailNotifications": "Email Notifications",
+      "customBranding": "Custom Branding",
+      "advancedReports": "Advanced Reports",
+      "prioritySupport": "Priority Support"
+    },
+    "purchaseButton": "Purchase License",
+    "activateButton": "Activate License",
+    "enterLicenseKey": "Enter License Key",
+    "close": "Close"
+  },
+  "licenseDetails": {
+    "title": "License Details",
+    "status": "Status",
+    "active": "Active",
+    "expired": "Expired",
+    "type": "Type",
+    "premium": "Premium",
+    "expiresOn": "Expires On",
+    "features": "Features",
+    "close": "Close"
+  },
+  "confirmDialog": {
+    "draftFound": "Draft Found",
+    "draftMessage": "A draft newsletter exists. Would you like to load it?",
+    "confirm": "Load Draft",
+    "cancel": "Skip"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "yes": "Yes",
+    "no": "No",
+    "email": "Email",
+    "name": "Name",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "actions": "Actions",
+    "remove": "Remove",
+    "block": "Block",
+    "unblock": "Unblock",
+    "update": "Update",
+    "search": "Search",
+    "filter": "Filter",
+    "select": "Select",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All"
+  },
+  "appointments": {
+    "title": "Scheduled Appointments",
+    "loading": "Loading appointments…",
+    "loadError": "Failed to load appointments",
+    "noAppointments": "No appointments found",
+    "filters": {
+      "showPendingOnly": "Show Pending Only",
+      "showAll": "Show All",
+      "hideBlocked": "Hide Blocked Users",
+      "hidePast": "Hide Past Appointments",
+      "sortBy": "Sort by",
+      "sortDate": "Date",
+      "sortName": "Name",
+      "sortEmail": "Email",
+      "sortStatus": "Status"
+    },
+    "bulkActions": {
+      "title": "Bulk Actions",
+      "confirmSelected": "Confirm Selected",
+      "cancelSelected": "Cancel Selected",
+      "selected": "{{count}} selected"
+    },
+    "table": {
+      "select": "Select",
+      "date": "Date",
+      "time": "Time",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "type": "Type",
+      "status": "Status",
+      "ip": "IP",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled"
+    },
+    "actions": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "blockUser": "Block User",
+      "confirming": "Confirming...",
+      "cancelling": "Cancelling...",
+      "blocking": "Blocking..."
+    },
+    "confirmBlock": {
+      "title": "Block User",
+      "message": "You are about to block {{name}} ({{email}}) and mark all their appointments as blocked. This frees the time slots.",
+      "confirmButton": "Block all",
+      "cancelButton": "Cancel"
+    },
+    "toast": {
+      "confirmed": "Appointment confirmed",
+      "cancelled": "Appointment cancelled",
+      "blocked": "User blocked",
+      "confirmFailed": "Failed to confirm appointment",
+      "cancelFailed": "Failed to cancel appointment",
+      "blockFailed": "Failed to block user"
+    }
+  },
+  "users": {
+    "title": "User List",
+    "loading": "Loading users…",
+    "loadError": "Failed to load users",
+    "noUsers": "No users found",
+    "selectUser": "Select a user first",
+    "table": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "registered": "Registered",
+      "appointments": "Appointments",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "block": "Block",
+      "viewAppointments": "View Appointments"
+    },
+    "edit": {
+      "title": "Edit User",
+      "firstName": "First Name",
+      "middleName": "Middle Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phone": "Phone",
+      "saveButton": "Save Changes",
+      "cancelButton": "Cancel"
+    },
+    "toast": {
+      "updated": "User updated successfully",
+      "deleted": "User deleted successfully",
+      "blocked": "User blocked successfully",
+      "updateFailed": "Failed to update user",
+      "deleteFailed": "Failed to delete user",
+      "blockFailed": "Failed to block user"
+    }
+  },
+  "blocked": {
+    "title": "Blocked Users & IPs",
+    "loading": "Loading blocked entries…",
+    "loadError": "Failed to load blocked entries",
+    "noBlocked": "No blocked entries",
+    "table": {
+      "email": "Email",
+      "ip": "IP Address",
+      "reason": "Reason",
+      "added": "Added",
+      "actions": "Actions"
+    },
+    "actions": {
+      "remove": "Remove"
+    },
+    "toast": {
+      "removed": "Blocked entry removed",
+      "removeFailed": "Failed to remove entry"
+    }
+  },
+  "adminAccess": {
+    "title": "Admin Access",
+    "loading": "Loading admin accounts…",
+    "noAdmins": "No admin accounts",
+    "youTag": "(YOU)",
+    "table": {
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "login": "Login",
+      "created": "Created",
+      "passwordChanged": "Password Changed",
+      "never": "Never"
+    },
+    "buttons": {
+      "addAdmin": "Add Admin",
+      "changeEmail": "Change Email",
+      "changePassword": "Change Password",
+      "deleteAdmin": "Delete Admin",
+      "cannotDeleteSelf": "You cannot delete your own account",
+      "deleteAdminTooltip": "Delete selected admin account"
+    },
+    "changePassword": {
+      "title": "Change Password for {{name}}",
+      "newPassword": "New Password:",
+      "confirmPassword": "Confirm Password:",
+      "newPasswordPlaceholder": "Enter new password",
+      "confirmPasswordPlaceholder": "Confirm new password",
+      "changeButton": "Change Password",
+      "changing": "Changing..."
+    },
+    "changeEmail": {
+      "title": "Change Email for {{name}}",
+      "emailLabel": "Email Address:",
+      "emailPlaceholder": "Enter email address (leave empty to remove)",
+      "emptyHint": "Leave empty to remove the email address",
+      "updateButton": "Update Email",
+      "updating": "Updating..."
+    },
+    "addAdmin": {
+      "title": "Add New Admin",
+      "nameLabel": "Name:",
+      "surnameLabel": "Surname:",
+      "emailLabel": "Email:",
+      "loginLabel": "Login:",
+      "passwordLabel": "Password:",
+      "namePlaceholder": "Enter first name",
+      "surnamePlaceholder": "Enter last name",
+      "emailPlaceholder": "Enter email address",
+      "loginPlaceholder": "Enter login username",
+      "passwordPlaceholder": "Enter password (min 6 characters)",
+      "addButton": "Add Admin",
+      "adding": "Adding..."
+    },
+    "errors": {
+      "loadFailed": "Failed to load admin accounts",
+      "selectFirst": "Select an admin first",
+      "deleteFailed": "Failed to delete admin",
+      "fillBothPasswords": "Please fill in both password fields",
+      "passwordsNoMatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "passwordChangeFailed": "Failed to change password",
+      "emailChangeFailed": "Failed to change email",
+      "allFieldsRequired": "All fields are required",
+      "addFailed": "Failed to add admin"
+    }
+  },
+  "workingHours": {
+    "modalTitle": "🕐 Working Hours",
+    "mobileHeader": "Business Hours",
+    "format24h": "24-hour format",
+    "weekendDays": "Saturday & Sunday",
+    "allowShorter": "Allow shorter bookings",
+    "currentSchedule": "CURRENT SCHEDULE",
+    "weekendsOn": "Weekends On",
+    "weekendsOff": "Weekends Off",
+    "start": "Start",
+    "end": "End",
+    "weekends": "Weekends",
+    "halfHourSlots": "30-Min Slots",
+    "noWeekends": "No Weekends",
+    "slots3060": "30/60 min",
+    "slots60": "60 min",
+    "preview": "PREVIEW",
+    "saving": "Saving...",
+    "saveChanges": "Save Changes",
+    "errors": {
+      "startBeforeEnd": "Start hour must be before end hour.",
+      "invalidRange": "Hours must be within 0-24 (start 0-23, end 1-24)."
+    }
+  },
+  "customerLimits": {
+    "modalTitleDesktop": "📊 Customer Booking Limits",
+    "modalTitleMobile": "📊 Booking Limits",
+    "currentLimits": "CURRENT LIMITS",
+    "perDay": "per day",
+    "perWeek": "per week",
+    "dailyLimit": "Daily Limit",
+    "weeklyLimit": "Weekly Limit",
+    "perCustomerPerDay": "Per customer, per day",
+    "perCustomerPerWeek": "Per customer, per week",
+    "recommended": "Recommended",
+    "previewText": "Customers can book up to {{dailyLimit}} appointment{{dailyPlural}} per day and {{weeklyLimit}} appointment{{weeklyPlural}} per week"
+  },
+  "availabilityLock": {
+    "currentStatus": "CURRENT STATUS",
+    "locked": "Bookings Locked",
+    "open": "Bookings Open",
+    "until": "Until {{date}}",
+    "lockQuestion": "Lock Availability?",
+    "autoUnlockLabel": "Auto-Unlock Date/Time (Optional)",
+    "autoUnlockHint": "Set when to reopen bookings",
+    "mobileHeader": "Booking Status",
+    "mobileSubheader": "Control customer bookings",
+    "previewLocked": "Customers cannot book new appointments",
+    "previewOpen": "Customers can book appointments normally",
+    "info": "When locked, customers won't be able to book new appointments. Set an optional date/time to automatically unlock later.",
+    "errors": {
+      "invalidFormat": "Invalid date/time format",
+      "mustBeFuture": "Lock-until must be in the future"
+    }
+  },
+  "appointmentsFilter": {
+    "modalTitleDesktop": "🧮 Appointments Filter",
+    "modalTitleMobile": "🧮 Appointment Filter",
+    "errors": { "invalidChoice": "Please choose from 7, 14, 30, or 90 days" },
+    "currentFilters": "CURRENT FILTERS",
+    "currentRange": "Past: {{past}} days · Future: {{future}} days",
+    "past": "Past Appointments",
+    "future": "Future Appointments",
+    "pastHint": "Show appointments from the past...",
+    "futureHint": "Show upcoming appointments for...",
+    "days": "days",
+    "preview": "Show appointments from past {{past}} days and next {{future}} days"
+  },
+  "numberSetting": {
+    "currentValue": "CURRENT VALUE",
+    "newValue": "New Value",
+    "errors": {
+      "min": "Value must be at least {{min}}",
+      "max": "Value cannot exceed {{max}}"
+    }
+  },
+  "appointmentTypes": {
+    "modalTitle": "📋 Appointment Details",
+    "infoBanner": "Define appointment types with names, tags, and prices for your booking system.",
+    "currency": "Currency",
+    "namePlaceholder": "Name (e.g., Consultation)",
+    "tagPlaceholder": "Tag (e.g., consultation)",
+    "pricePlaceholder": "Price",
+    "addType": "Add Appointment Type"
+  },
+  "emailSettings": {
+    "modalTitle": "📧 Email Configuration",
+    "infoBanner": "Configure SMTP settings to enable email notifications for appointments.",
+  "useSslTls": "Use SSL/TLS",
+    "smtpServer": "SMTP Server",
+    "emailSettings": "Email Settings",
+    "authentication": "Authentication",
+    "host": "Host",
+    "port": "Port",
+    "security": "Security",
+    "fromEmail": "From Email",
+    "emailFooter": "Email Footer",
+    "defaultFooter": "Scheduler System",
+    "footerHint": "Appears at the bottom of emails",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "passwordPlaceholder": "App password",
+    "passwordKeepPlaceholder": "Leave empty to keep current",
+    "gmailHint": "For Gmail, use App Password from",
+    "here": "here",
+    "saveSettings": "Save Settings"
+  },
+  "headerMessage": {
+    "modalTitle": "💬 Header Message",
+    "defaultHeader": "Update default header in settings",
+    "infoBanner": "This message appears at the top of the booking calendar. Keep it concise and welcoming.",
+    "currentMessage": "CURRENT MESSAGE",
+    "editMessage": "Edit Message",
+    "characters": "characters",
+    "errors": {
+      "tooLong": "Message cannot exceed {{maxLength}} characters"
+    }
+  },
+  "documentation": {
+    "backButton": "← Back to Dashboard",
+    "headerTitle": "📚 Documentation",
+    "subtitle": "Search, browse, and learn how to use EasyScheduler",
+    "searchPlaceholder": "Search topics, e.g. appointments, email, setup…",
+    "openCta": "Open →",
+    "onThisPage": "On this page",
+    "lastUpdated": "Last updated:",
+    "copyCode": "Copy",
+    "tiles": {
+      "mongo-setup": {
+        "title": "MongoDB Setup & Migration",
+        "description": "Use MongoDB instead of SQLite, test the connection, and migrate data."
+      },
+      "admin-layout": {
+        "title": "Admin Layout",
+        "description": "Guide to the admin dashboard tiles and what each does."
+      },
+      "admin-features": {
+        "title": "Admin Features",
+        "description": "Complete feature set available to administrators."
+      },
+      "setup": {
+        "title": "Setup",
+        "description": "Install, configure, and run EasyScheduler locally."
+      },
+      "customer-features": {
+        "title": "Customer Features",
+        "description": "What customers see and can do while booking."
+      },
+      "license": {
+        "title": "License",
+        "description": "EasyEdit Scheduler Community License (EESCL)."
+      },
+      "api-routes": {
+        "title": "API Routes",
+        "description": "REST endpoints, auth requirements, and formats."
+      },
+      "email-setup": {
+        "title": "Email Setup",
+        "description": "Configure SMTP and templates for admin and user notifications."
+      }
+    }
+  },
+  "newsletterModal": {
+    "modalTitle": "📰 Create Newsletter",
+    "title": "Title",
+    "subtitle": "Subtitle",
+    "messagePart1": "Message Part 1",
+    "messagePart2": "Message Part 2",
+    "placeholders": {
+      "title": "Newsletter title",
+      "subtitle": "Newsletter subtitle",
+      "messagePart1": "First part of the message",
+      "messagePart2": "Second part of the message"
+    },
+    "buttons": {
+      "saveDraft": "Save Draft",
+      "cancel": "Cancel"
+    },
+    "errors": {
+      "required": "Title and Message Part 1 are required"
+    }
+  },
+  "footer": {
+    "version": "Scheduler Admin v1.0.0",
+    "copyright": "© 2025"
+  },
+  "displayAvailability": {
+    "modalTitleDesktop": "📅 Display Availability",
+    "modalTitleMobile": "📅 Availability",
+    "weeksAheadLabel": "Weeks Ahead",
+    "recommendedRange": "Recommended Range",
+    "helpText": "Number of weeks ahead customers will see available slots on the booking calendar. Increasing shows more future slots but may be overwhelming.",
+    "previewSingleWeek": "Customers will see availability for the next week only.",
+    "previewMultiWeeks": "Customers will see availability for the next {{weeks}} weeks."
+  },
+  "premiumUpgrade": {
+    "modalTitle": "🔓 Upgrade to Premium"
+  },
+  "licenseInfo": {
+    "modalTitle": "🔓 Premium License Details",
+    "loading": "Loading license information...",
+    "premiumActive": "Premium Active",
+    "freeTier": "Free Tier",
+    "licensedTo": "Licensed to:",
+    "email": "Email:",
+    "license": "License:",
+    "upgradeHint": "Upgrade to premium to unlock all features",
+    "featuresTitlePremium": "Premium Features",
+    "featuresTitleFree": "Available in Premium",
+    "featureRemoveBranding": "Remove all branding",
+    "featureEmailNotifications": "Email notifications enabled",
+    "featurePrioritySupport": "Priority support",
+    "featureLifetimeUpdates": "Lifetime updates",
+    "purchaseBanner": "Purchase premium for $49 one-time payment"
+  }
+}
