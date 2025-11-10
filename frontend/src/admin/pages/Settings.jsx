@@ -45,6 +45,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
   const [pendingDraft, setPendingDraft] = useState(null);
   const [loadedDraft, setLoadedDraft] = useState(null);
   const [draftConfirmAction, setDraftConfirmAction] = useState(null);
+  const [isSubmittingNewsletter, setIsSubmittingNewsletter] = useState(false);
 
   useEffect(() => {
     fetchSettings();
@@ -300,6 +301,29 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
     }
   };
 
+  const handleSubmitNewsletter = async (data, draftId) => {
+    setIsSubmittingNewsletter(true);
+    try {
+      const response = await authenticatedFetch(`${API_BASE}/newsletters/send`, {
+        method: 'POST',
+        body: JSON.stringify({ ...data, draftId }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        showToast(`Newsletter sent successfully to ${result.data.sentCount} users!`, 'success');
+        setActiveModal(null);
+        setLoadedDraft(null);
+      } else {
+        showToast(result.error || 'Failed to send newsletter', 'error');
+      }
+    } catch (error) {
+      console.error('Error sending newsletter:', error);
+      showToast('Error sending newsletter', 'error');
+    } finally {
+      setIsSubmittingNewsletter(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="settings-container">
@@ -528,6 +552,8 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
         onConfirm={() => handleLoadDraft()}
         title="📰 Draft Found"
         message="A draft newsletter exists. Would you like to load it?"
+        confirmText="Yes, Load Draft"
+        cancelText="No"
       />
 
       <NewsletterModal
@@ -538,7 +564,9 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
           setPendingDraft(null);
         }}
         onSave={handleSaveNewsletter}
+        onSubmit={handleSubmitNewsletter}
         draftData={loadedDraft}
+        isSubmitting={isSubmittingNewsletter}
       />
     </div>
   );

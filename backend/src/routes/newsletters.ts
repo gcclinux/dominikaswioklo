@@ -2,6 +2,7 @@ import express from 'express';
 import { DatabaseQueries } from '../database';
 import { ApiResponse } from '../types';
 import { authenticateAdmin } from '../middleware/auth';
+import { EmailService } from '../services/emailService';
 
 const router = express.Router();
 
@@ -140,6 +141,82 @@ router.delete('/:id', authenticateAdmin, async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to delete newsletter',
+      message: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
+// POST /api/newsletters/send - Send newsletter to all users - PROTECTED
+router.post('/send', authenticateAdmin, async (req, res) => {
+  try {
+    const { title, subtitle, message_part1, message_part2, draftId } = req.body;
+    
+    if (!title || !message_part1) {
+      return res.status(400).json({
+        success: false,
+        error: 'Title and message_part1 are required'
+      });
+    }
+
+    const adminId = (req as any).admin?.aid;
+    let newsletterId = draftId;
+
+    // If no draft ID, create a new newsletter
+    if (!newsletterId) {
+      newsletterId = await DatabaseQueries.createNewsletter({
+        title,
+        subtitle,
+        message_part1,
+        message_part2,
+        status: 'sent',
+        sent_by: adminId
+      });
+    }
+
+    // Get all users
+    const users = await DatabaseQueries.getUsers();
+    
+    if (users.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'No users found to send newsletter to'
+      });
+    }
+
+    // Send newsletter to all users
+    let sentCount = 0;
+    const newsletterData = { title, subtitle, message_part1, message_part2 };
+
+    for (const user of users) {
+      try {
+        await EmailService.sendNewsletter(user.email, user, newsletterData);
+        sentCount++;
+      } catch (error) {
+        console.error(`Failed to send newsletter to ${user.email}:`, error);
+      }
+    }
+
+    // Update newsletter status to 'sent' and set sent_at timestamp
+    await DatabaseQueries.updateNewsletter(newsletterId.toString(), {
+      status: 'sent',
+      sent_at: new Date().toISOString()
+    });
+
+    const response: ApiResponse = {
+      success: true,
+      data: { 
+        newsletterId, 
+        sentCount,
+        totalUsers: users.length 
+      },
+      message: `Newsletter sent to ${sentCount} out of ${users.length} users`
+    };
+    res.json(response);
+  } catch (error) {
+    console.error('Error sending newsletter:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to send newsletter',
       message: error instanceof Error ? error.message : 'Unknown error'
     });
   }

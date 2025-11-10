@@ -3,7 +3,20 @@
  * Generates personalized newsletter emails for users
  */
 
-function generateNewsletterEmail(newsletter, user) {
+interface Newsletter {
+  title: string;
+  subtitle?: string;
+  message_part1: string;
+  message_part2?: string;
+}
+
+interface User {
+  name: string;
+  surname: string;
+  userToken: string;
+}
+
+export function generateNewsletterEmail(newsletter: Newsletter, user: User): string {
   const currentDate = new Date().toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -87,5 +100,3 @@ function generateNewsletterEmail(newsletter, user) {
 </html>
   `.trim();
 }
-
-module.exports = { generateNewsletterEmail };

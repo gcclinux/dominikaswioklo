@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import { DatabaseQueries } from '../database';
 import { adminLoginTemplate, adminPasswordChangedTemplate, adminNewScheduleTemplate, adminAppointmentCancelledTemplate } from '../templates/adminTemplates';
 import { userWelcomeTemplate, userScheduleCreatedTemplate, userScheduleConfirmedTemplate, userScheduleCancelledTemplate } from '../templates/userTemplates';
+import { generateNewsletterEmail } from '../templates/newsletterTemplate';
 
 const sendEmail = async (to: string, subject: string, html: string) => {
   try {
@@ -67,8 +68,8 @@ export const EmailService = {
   sendUserScheduleCancelled: async (email: string, userName: string, date: string, time: string) => {
     const settings = await DatabaseQueries.getEmailSettings();
     return sendEmail(email, 'Appointment Cancelled', userScheduleCancelledTemplate(userName, date, time, settings.emailFooter));
-  }
-  ,
+  },
+  
   // Send license email to user after purchase
   sendUserLicense: async (email: string, userName: string, licenseKey: string) => {
     try {
@@ -103,6 +104,17 @@ export const EmailService = {
       return sendEmail(email, 'Your EasyScheduler License', html);
     } catch (error) {
       console.error('Error sending license email:', error);
+    }
+  },
+
+  // Send newsletter to user
+  sendNewsletter: async (email: string, user: any, newsletter: any) => {
+    try {
+      const html = generateNewsletterEmail(newsletter, user);
+      return sendEmail(email, newsletter.title, html);
+    } catch (error) {
+      console.error('Error sending newsletter:', error);
+      throw error;
     }
   }
 };

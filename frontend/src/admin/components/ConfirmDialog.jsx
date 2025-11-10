@@ -1,7 +1,17 @@
 import React from 'react';
 import Modal from './Modal';
 
-function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
+function ConfirmDialog({ 
+  isOpen, 
+  onClose, 
+  onConfirm, 
+  title, 
+  message, 
+  confirmText = 'Yes, Confirm',
+  cancelText = 'No',
+  confirmColor = '#16A085',
+  isDanger = false
+}) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} maxWidth="450px" closeOnOverlayClick={false}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
@@ -23,7 +33,7 @@ function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
               fontWeight: '500'
             }}
           >
-            No
+            {cancelText}
           </button>
           <button
             onClick={() => {
@@ -31,7 +41,7 @@ function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
             }}
             style={{
               padding: '0.75rem 1.5rem',
-              background: '#16A085',
+              background: isDanger ? '#e74c3c' : confirmColor,
               color: 'white',
               border: 'none',
               borderRadius: '6px',
@@ -40,7 +50,7 @@ function ConfirmDialog({ isOpen, onClose, onConfirm, title, message }) {
               fontWeight: '500'
             }}
           >
-            Yes, Load Draft
+            {confirmText}
           </button>
         </div>
       </div>
