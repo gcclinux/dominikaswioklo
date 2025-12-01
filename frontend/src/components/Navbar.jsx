@@ -21,7 +21,7 @@ export default function Navbar() {
       }
     } catch (error) {
       console.error('Error fetching site title:', error);
-      setSiteTitle('Dominika Świokło');
+      setSiteTitle('EasyScheduler');
     }
   };
   

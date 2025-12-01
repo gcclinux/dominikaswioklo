@@ -11,8 +11,8 @@ export default function About() {
       <div className="container">
         <div className="about-content">
           <div className="about-intro">
-            <h2>Dominika Świokło, Mgr Fizjoterapii</h2>
-            <p>Absolwentka Uniwersytetu Medycznego w Łodzi i Warszawskiego Uniwersytetu Medycznego, z doświadczeniem od 2017 roku. Specjalizuję się w Integracji Sensorycznej – diagnozuję i wspiera dzieci w odkrywaniu świata zmysłów, pomagając im w pokonywaniu codziennych trudności.</p>
+            <h2>O EasyScheduler</h2>
+            <p>EasyScheduler to nowoczesne rozwiązanie do planowania wizyt, zaprojektowane, aby pomóc profesjonalistom efektywnie zarządzać rezerwacjami. Skonfiguruj tę sekcję w panelu administracyjnym, aby opisać swoją praktykę lub firmę.</p>
           </div>
 
           <div className="about-section">

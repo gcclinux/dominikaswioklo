@@ -74,19 +74,9 @@ nvm use 20
 
 ### 1. Clone the repository
 
-**Clone the easyscheduler branch:**
-
 ```bash
-git clone -b easyscheduler https://github.com/gcclinux/dominikaswioklo.git
-cd dominikaswioklo
-```
-
-**Or clone and switch to the branch:**
-
-```bash
-git clone https://github.com/gcclinux/dominikaswioklo.git
-cd dominikaswioklo
-git checkout easyscheduler
+git clone https://github.com/gcclinux/EasyScheduler.git
+cd EasyScheduler
 ```
 
 ### 2. Configure Environment Variables
@@ -216,7 +206,7 @@ After logging in, configure:
 
 The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch.
 
-Live site: [https://gcclinux.github.io/dominikaswioklo/](https://gcclinux.github.io/dominikaswioklo/)
+Live site: [https://gcclinux.github.io/EasyScheduler/](https://gcclinux.github.io/EasyScheduler/)
 
 ## Tech Stack
 

@@ -11,8 +11,8 @@ export default function About() {
       <div className="container">
         <div className="about-content">
           <div className="about-intro">
-            <h2>Dominika Świokło, MSc in Physiotherapy</h2>
-            <p>Graduate of the Medical University of Łódź and the Medical University of Warsaw, with professional experience since 2017. I specialize in Sensory Integration – diagnosing and supporting children in discovering the world of senses, helping them overcome everyday challenges.</p>
+            <h2>About EasyScheduler</h2>
+            <p>EasyScheduler is a modern appointment scheduling solution designed to help professionals manage their bookings efficiently. Configure this section in the admin panel to describe your practice or business.</p>
           </div>
 
           <div className="about-section">

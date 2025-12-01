@@ -14,7 +14,7 @@ const ThemeSelector = ({ currentTheme = 'purple', onSave, onCancel }) => {
     {
       id: 'green',
       name: 'Dark Green',
-      description: 'Professional dark green theme (Dominika default)',
+      description: 'Professional dark green theme',
       primary: 'linear-gradient(135deg, #2d5016 0%, #1a3d0a 100%)',
       preview: '#2d5016'
     },
