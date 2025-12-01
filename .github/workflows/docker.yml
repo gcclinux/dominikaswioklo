@@ -1,0 +1,32 @@
+name: Docker Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build combined image
+        run: |
+          docker build -t appointment-scheduler:latest .
+      # Optional: push to GitHub Container Registry
+      # - name: Log in to GHCR
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: ghcr.io
+      #     username: ${{ github.actor }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Push image
+      #   run: |
+      #     docker push ghcr.io/${{ github.repository_owner }}/appointment-scheduler:latest
