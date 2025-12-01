@@ -15,6 +15,8 @@ WORKDIR /app/backend
 COPY backend/package.json backend/package-lock.json ./
 RUN npm ci
 COPY backend/ ./
+# Copy license.example.ts to license.ts if license.ts doesn't exist (it's gitignored)
+RUN if [ ! -f src/config/license.ts ]; then cp src/config/license.example.ts src/config/license.ts; fi
 RUN npm run build
 
 # Stage 3: Production Runtime
