@@ -202,7 +202,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
           color: '#666',
           textAlign: 'center'
         }}>
-          Don't have a license? <a href="https://gumroad.com/your-product" target="_blank" rel="noopener noreferrer" style={{ color: '#667eea', textDecoration: 'none', fontWeight: 500 }}>Purchase Premium</a>
+          Don't have a license? <a href="mailto:wagemra@gmail.com?subject=EasyLicense%20Premium" style={{ color: '#667eea', textDecoration: 'none', fontWeight: 500 }}>Purchase Premium</a>
         </div>
       </div>
     </Modal>

@@ -204,7 +204,7 @@ function PremiumUpgradeModal({ isOpen, onClose, onSuccess }) {
           color: '#666',
           textAlign: 'center'
         }}>
-          {t('licenseInfo.upgradeHint')} <a href="https://gumroad.com/your-product" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 500 }}>{t('premium.purchaseButton')}</a>
+          {t('licenseInfo.upgradeHint')} <a href="mailto:wagemra@gmail.com?subject=EasyLicense%20Premium" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontWeight: 500 }}>{t('premium.purchaseButton')}</a>
         </div>
       </div>
     </Modal>
