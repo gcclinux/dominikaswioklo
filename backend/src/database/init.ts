@@ -4,13 +4,17 @@ import fs from 'fs';
 import dotenv from 'dotenv';
 import { ensureDefaultLicense } from '../config/licenseLoader';
 
-// Load environment variables from repo root
+// Load environment variables from repo root (in dev) or use env vars directly (in Docker)
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..');
 dotenv.config({ path: path.join(REPO_ROOT, '.env') });
 
-// Resolve DB_PATH relative to repository root so paths are consistent regardless of CWD
+// Resolve DB_PATH - use absolute path if provided, otherwise relative to repo root
+// In Docker: DB_PATH=/app/data/scheduler.db (absolute)
+// In dev: DB_PATH=./database/scheduler.db (relative to repo root)
 const dbPath = process.env.DB_PATH
-  ? path.resolve(REPO_ROOT, process.env.DB_PATH)
+  ? (path.isAbsolute(process.env.DB_PATH) 
+      ? process.env.DB_PATH 
+      : path.resolve(REPO_ROOT, process.env.DB_PATH))
   : path.join(REPO_ROOT, 'database', 'scheduler.db');
 
 // Ensure database directory exists
@@ -306,6 +310,24 @@ export const initializeDatabase = (): Promise<void> => {
             status TEXT DEFAULT 'active',
             createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
           )
+        `);
+
+        // Create APP_LICENSE table for storing the active application license
+        db.run(`
+          CREATE TABLE IF NOT EXISTS app_license (
+            id INTEGER PRIMARY KEY CHECK (id = 1),
+            isPremium INTEGER DEFAULT 0,
+            licenseKey TEXT,
+            licenseName TEXT,
+            licenseEmail TEXT,
+            activatedAt DATETIME,
+            updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+
+        // Insert default app license row if not exists
+        db.run(`
+          INSERT OR IGNORE INTO app_license (id, isPremium) VALUES (1, 0)
         `);
 
       // Create NEWSLETTERS table

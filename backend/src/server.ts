@@ -18,8 +18,10 @@ import gumroadRoutes from './routes/gumroad';
 import newslettersRoutes from './routes/newsletters';
 import userDataRoutes from './routes/userData';
 
-// Load environment variables from root
-dotenv.config({ path: path.join(__dirname, '../../.env') });
+// Load environment variables from root .env file (if exists)
+// In Docker, env vars are passed directly; in dev, load from .env file
+const envPath = path.join(__dirname, '../../.env');
+dotenv.config({ path: envPath });
 
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
@@ -101,7 +103,9 @@ app.get('/api/status', async (req, res) => {
 
 // Serve static files from React frontend in production
 if (NODE_ENV === 'production') {
-  const frontendPath = path.join(__dirname, '../../frontend/dist');
+  // In Docker: __dirname is /app/dist, frontend is at /app/frontend/dist
+  // In dev with ts-node: __dirname is /path/to/backend/src, frontend is at /path/to/frontend/dist
+  const frontendPath = process.env.FRONTEND_PATH || path.join(__dirname, '../../frontend/dist');
   
   // Serve static files
   app.use(express.static(frontendPath));

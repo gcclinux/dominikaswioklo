@@ -10,12 +10,6 @@ export interface LicenseConfig {
   };
 }
 
-// Premium license configuration
-const IS_PREMIUM = false;
-const LICENSE_KEY = '';
-const LICENSE_NAME = '';
-const LICENSE_EMAIL = '';
-
 // Secret key for license generation (keep this private!)
 const LICENSE_SECRET = '78090092f200960d38cf461d1025f56c8155d63ac5d4eed0c6839a5c5245d7e0';
 const PREMIUM_FEATURES_ENCRYPTION = process.env.PREMIUM_FEATURES_ENCRYPTION || 'easyscheduler-has-additional-key';
@@ -32,16 +26,8 @@ export const validateLicenseKey = (name: string, email: string, key: string): bo
   return key.toUpperCase() === expectedKey;
 };
 
-// Check if current license is valid
-const isLicenseValid = (): boolean => {
-  if (!IS_PREMIUM || !LICENSE_KEY || !LICENSE_NAME || !LICENSE_EMAIL) {
-    return false;
-  }
-  return validateLicenseKey(LICENSE_NAME, LICENSE_EMAIL, LICENSE_KEY);
-};
-
-export const getLicenseConfig = (): LicenseConfig => {
-  const isPremium = IS_PREMIUM && isLicenseValid();
+// Get license config based on premium status (called with DB value)
+export const getLicenseConfig = (isPremium: boolean): LicenseConfig => {
   return {
     isPremium,
     features: {
@@ -49,19 +35,5 @@ export const getLicenseConfig = (): LicenseConfig => {
       emailNotifications: isPremium,
       emailFooterBranding: !isPremium,
     },
-  };
-};
-
-export const isPremiumLicense = (): boolean => {
-  return IS_PREMIUM && isLicenseValid();
-};
-
-export const getLicenseInfo = () => {
-  return {
-    isPremium: IS_PREMIUM,
-    isValid: isLicenseValid(),
-    name: LICENSE_NAME,
-    email: LICENSE_EMAIL,
-    licenseKey: LICENSE_KEY
   };
 };

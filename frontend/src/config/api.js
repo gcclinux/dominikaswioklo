@@ -1,9 +1,10 @@
 // Centralized API base URL for the frontend
 // Uses Vite-exposed env var coming from <repo-root>/.env via vite.config.js mapping
-// Required: set VITE_API_BASE_URL in the root .env
+// In production (Docker), use empty string for relative URLs (same origin)
+// In development, use VITE_API_BASE_URL to proxy to backend
 const ORIGIN = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
 
-// No hard-coded ports. Expect ORIGIN to be provided via env.
+// API base - empty origin means relative URLs (works when frontend/backend same origin)
 export const API = `${ORIGIN}/api`;
 
 // Helper to build API URLs safely

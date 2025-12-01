@@ -1,16 +1,30 @@
 import express from 'express';
 import { DatabaseQueries } from '../database';
 import { ApiResponse } from '../types';
-import { getLicenseConfig } from '../config/license';
+import { getLicenseConfig, validateLicenseKey } from '../config/license';
 import { authenticateAdmin } from '../middleware/auth';
+import db from '../database/init';
 
 const router = express.Router();
+
+// Helper to get license config from database
+const getDbLicenseConfig = (): Promise<ReturnType<typeof getLicenseConfig>> => {
+  return new Promise((resolve) => {
+    db.get('SELECT * FROM app_license WHERE id = 1', (err, row: any) => {
+      if (err || !row) return resolve(getLicenseConfig(false));
+      const isPremium = row.isPremium === 1 && 
+        row.licenseKey && row.licenseName && row.licenseEmail &&
+        validateLicenseKey(row.licenseName, row.licenseEmail, row.licenseKey);
+      resolve(getLicenseConfig(isPremium));
+    });
+  });
+};
 
 // GET /api/settings - Get current settings - PUBLIC (needed for calendar display)
 router.get('/', async (req, res) => {
   try {
     const settings = await DatabaseQueries.getSettings();
-    const license = getLicenseConfig();
+    const license = await getDbLicenseConfig();
     
     const response: ApiResponse = {
       success: true,

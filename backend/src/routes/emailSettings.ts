@@ -1,8 +1,20 @@
 import express from 'express';
 import { DatabaseQueries } from '../database';
 import { ApiResponse } from '../types';
-import { isPremiumLicense } from '../config/license';
+import { validateLicenseKey } from '../config/license';
 import { authenticateAdmin } from '../middleware/auth';
+import db from '../database/init';
+
+// Helper to check if premium license is active
+const isPremiumLicense = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    db.get('SELECT * FROM app_license WHERE id = 1', (err, row: any) => {
+      if (err || !row || !row.isPremium) return resolve(false);
+      if (!row.licenseKey || !row.licenseName || !row.licenseEmail) return resolve(false);
+      resolve(validateLicenseKey(row.licenseName, row.licenseEmail, row.licenseKey));
+    });
+  });
+};
 
 const router = express.Router();
 
@@ -41,7 +53,8 @@ router.get('/', authenticateAdmin, async (req, res) => {
 
 // PUT /api/email-settings - Update email settings - PROTECTED
 router.put('/', authenticateAdmin, async (req, res) => {
-  if (!isPremiumLicense()) {
+  const hasPremium = await isPremiumLicense();
+  if (!hasPremium) {
     return res.status(403).json({
       success: false,
       error: 'Email configuration is a premium feature'
