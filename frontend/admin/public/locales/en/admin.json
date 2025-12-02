@@ -106,6 +106,10 @@
       "newsletter": {
         "title": "Newsletter",
         "description": "Create and send newsletters to all users"
+      },
+      "aboutDetails": {
+        "title": "About Page Content",
+        "description": "Customize the About page sections and content"
       }
     },
     "configure": "Configure",
@@ -598,6 +602,38 @@
   },
   "premiumUpgrade": {
     "modalTitle": "🔓 Upgrade to Premium"
+  },
+  "aboutDetails": {
+    "modalTitle": "ℹ️ About Page Content",
+    "languageTabs": {
+      "en": "English",
+      "pl": "Polish"
+    },
+    "sections": {
+      "header": "Page Header",
+      "intro": "Introduction",
+      "approach": "My Approach",
+      "expertise": "Expertise & Methods",
+      "personal": "Personal / Beyond the Clinic"
+    },
+    "fields": {
+      "title": "Title",
+      "body": "Content (HTML allowed)"
+    },
+    "placeholders": {
+      "title": "Enter section title...",
+      "body": "Enter content (HTML tags like <ul>, <li>, <p> are supported)..."
+    },
+    "saveButton": "Save All Sections",
+    "saving": "Saving...",
+    "toast": {
+      "saved": "About page content saved successfully!",
+      "failed": "Failed to save about page content",
+      "error": "Error saving about page content",
+      "loaded": "About page content loaded",
+      "loadFailed": "Failed to load about page content"
+    },
+    "helpText": "HTML is supported. Use tags like &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt; for formatting."
   },
   "licenseInfo": {
     "modalTitle": "🔓 Premium License Details",

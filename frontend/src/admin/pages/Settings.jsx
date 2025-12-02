@@ -28,6 +28,8 @@ import {
   HeaderMessageModalMobile,
   EmailConfigModalDesktop,
   EmailConfigModalMobile,
+  AboutDetailsModalDesktop,
+  AboutDetailsModalMobile,
 } from '../components/modals';
 
 const API_BASE = API;
@@ -165,6 +167,7 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
     { id: 'availabilityLock', title: t('settings.tiles.availabilityLock.title'), description: t('settings.tiles.availabilityLock.description'), icon: '🔒', color: '#EC7063' },
     { id: 'appointmentsFilter', title: t('settings.tiles.appointmentsFilter.title'), description: t('settings.tiles.appointmentsFilter.description'), icon: '🧮', color: '#2ECC71' },
     { id: 'appointmentTypes', title: t('settings.tiles.appointmentTypes.title'), description: t('settings.tiles.appointmentTypes.description'), icon: '📋', color: '#3498db' },
+    { id: 'aboutDetails', title: t('settings.tiles.aboutDetails.title'), description: t('settings.tiles.aboutDetails.description'), icon: 'ℹ️', color: '#9b59b6' },
     { id: 'headerMessage', title: t('settings.tiles.headerMessage.title'), description: t('settings.tiles.headerMessage.description'), icon: '💬', color: '#F39C12' },
     { id: 'siteTheme', title: t('settings.tiles.siteTheme.title'), description: t('settings.tiles.siteTheme.description'), icon: '🎨', color: '#9B59B6' },
     { id: 'emailSettings', title: t('settings.tiles.emailSettings.title'), description: t('settings.tiles.emailSettings.description'), icon: '📧', color: '#E67E22' },
@@ -509,6 +512,18 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       ) : (
         <AppointmentDetailsModalDesktop
           isOpen={activeModal === 'appointmentTypes'}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+
+      {isMobile ? (
+        <AboutDetailsModalMobile
+          isOpen={activeModal === 'aboutDetails'}
+          onClose={() => setActiveModal(null)}
+        />
+      ) : (
+        <AboutDetailsModalDesktop
+          isOpen={activeModal === 'aboutDetails'}
           onClose={() => setActiveModal(null)}
         />
       )}

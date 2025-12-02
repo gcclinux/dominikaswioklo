@@ -346,6 +346,20 @@ export const initializeDatabase = (): Promise<void> => {
         )
       `);
 
+      // Create ABOUT_SECTIONS table for dynamic About page content
+      db.run(`
+        CREATE TABLE IF NOT EXISTS about_sections (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          sectionKey TEXT NOT NULL,
+          language TEXT NOT NULL DEFAULT 'en',
+          title TEXT,
+          body TEXT,
+          createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(sectionKey, language)
+        )
+      `);
+
       // Ensure startHour/endHour columns exist (safe migration for existing DBs)
 
       db.all(`PRAGMA table_info('settings')`, (err, rows: any[]) => {

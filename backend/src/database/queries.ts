@@ -616,4 +616,57 @@ export class DatabaseQueries {
     });
   }
 
+  // ABOUT SECTIONS
+  static getAboutSections(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM about_sections ORDER BY sectionKey, language`, (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows as any[]);
+      });
+    });
+  }
+
+  static getAboutSectionsByLanguage(language: string): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM about_sections WHERE language = ? ORDER BY sectionKey`, [language], (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows as any[]);
+      });
+    });
+  }
+
+  static getAboutSection(sectionKey: string, language: string): Promise<any | null> {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM about_sections WHERE sectionKey = ? AND language = ?`, [sectionKey, language], (err, row) => {
+        if (err) reject(err);
+        else resolve(row || null);
+      });
+    });
+  }
+
+  static upsertAboutSection(section: { sectionKey: string; language: string; title: string; body: string }): Promise<number> {
+    return new Promise((resolve, reject) => {
+      db.run(`
+        INSERT INTO about_sections (sectionKey, language, title, body)
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(sectionKey, language) DO UPDATE SET
+          title = excluded.title,
+          body = excluded.body,
+          updatedAt = CURRENT_TIMESTAMP
+      `, [section.sectionKey, section.language, section.title, section.body], function(err) {
+        if (err) reject(err);
+        else resolve(this.lastID || this.changes);
+      });
+    });
+  }
+
+  static deleteAboutSection(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      db.run(`DELETE FROM about_sections WHERE id = ?`, [id], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
 }

@@ -17,6 +17,7 @@ import licenseRoutes from './routes/license';
 import gumroadRoutes from './routes/gumroad';
 import newslettersRoutes from './routes/newsletters';
 import userDataRoutes from './routes/userData';
+import aboutRoutes from './routes/about';
 
 // Load environment variables from root .env file (if exists)
 // In Docker, env vars are passed directly; in dev, load from .env file
@@ -69,6 +70,7 @@ app.use('/api/license', licenseRoutes);
 app.use('/api/gumroad', gumroadRoutes);
 app.use('/api/newsletters', newslettersRoutes);
 app.use('/api/user-data', userDataRoutes);
+app.use('/api/about', aboutRoutes);
 
 // API Status endpoint
 app.get('/api/status', async (req, res) => {

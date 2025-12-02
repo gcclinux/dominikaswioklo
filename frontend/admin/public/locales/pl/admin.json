@@ -106,6 +106,10 @@
       "newsletter": {
         "title": "Newsletter",
         "description": "Twórz i wysyłaj newslettery do wszystkich użytkowników"
+      },
+      "aboutDetails": {
+        "title": "Treść Strony O Nas",
+        "description": "Dostosuj sekcje i treść strony O Nas"
       }
     },
     "configure": "Konfiguruj",
@@ -598,6 +602,38 @@
   },
   "premiumUpgrade": {
     "modalTitle": "🔓 Ulepsz do Premium"
+  },
+  "aboutDetails": {
+    "modalTitle": "ℹ️ Treść Strony O Nas",
+    "languageTabs": {
+      "en": "Angielski",
+      "pl": "Polski"
+    },
+    "sections": {
+      "header": "Nagłówek Strony",
+      "intro": "Wprowadzenie",
+      "approach": "Moje Podejście",
+      "expertise": "Ekspertyza i Metody",
+      "personal": "Osobiste / Poza Kliniką"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "body": "Treść (HTML dozwolony)"
+    },
+    "placeholders": {
+      "title": "Wprowadź tytuł sekcji...",
+      "body": "Wprowadź treść (tagi HTML jak <ul>, <li>, <p> są obsługiwane)..."
+    },
+    "saveButton": "Zapisz Wszystkie Sekcje",
+    "saving": "Zapisywanie...",
+    "toast": {
+      "saved": "Treść strony O Nas zapisana pomyślnie!",
+      "failed": "Nie udało się zapisać treści strony O Nas",
+      "error": "Błąd podczas zapisywania treści strony O Nas",
+      "loaded": "Treść strony O Nas wczytana",
+      "loadFailed": "Nie udało się wczytać treści strony O Nas"
+    },
+    "helpText": "HTML jest obsługiwany. Użyj tagów takich jak &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt; do formatowania."
   },
   "licenseInfo": {
     "modalTitle": "🔓 Szczegóły licencji Premium",
