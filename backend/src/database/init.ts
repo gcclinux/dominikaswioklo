@@ -360,6 +360,19 @@ export const initializeDatabase = (): Promise<void> => {
         )
       `);
 
+      // Create HOME_SECTIONS table for dynamic Home page content
+      db.run(`
+        CREATE TABLE IF NOT EXISTS home_sections (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          sectionKey TEXT NOT NULL,
+          title TEXT,
+          body TEXT,
+          createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(sectionKey)
+        )
+      `);
+
       // Ensure startHour/endHour columns exist (safe migration for existing DBs)
 
       db.all(`PRAGMA table_info('settings')`, (err, rows: any[]) => {

@@ -669,4 +669,48 @@ export class DatabaseQueries {
     });
   }
 
+  // HOME SECTIONS
+  static getHomeSections(): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      db.all(`SELECT * FROM home_sections ORDER BY sectionKey`, (err, rows) => {
+        if (err) reject(err);
+        else resolve(rows as any[]);
+      });
+    });
+  }
+
+  static getHomeSection(sectionKey: string): Promise<any | null> {
+    return new Promise((resolve, reject) => {
+      db.get(`SELECT * FROM home_sections WHERE sectionKey = ?`, [sectionKey], (err, row) => {
+        if (err) reject(err);
+        else resolve(row || null);
+      });
+    });
+  }
+
+  static upsertHomeSection(section: { sectionKey: string; title: string; body: string }): Promise<number> {
+    return new Promise((resolve, reject) => {
+      db.run(`
+        INSERT INTO home_sections (sectionKey, title, body)
+        VALUES (?, ?, ?)
+        ON CONFLICT(sectionKey) DO UPDATE SET
+          title = excluded.title,
+          body = excluded.body,
+          updatedAt = CURRENT_TIMESTAMP
+      `, [section.sectionKey, section.title, section.body], function(err) {
+        if (err) reject(err);
+        else resolve(this.lastID || this.changes);
+      });
+    });
+  }
+
+  static deleteHomeSection(id: number): Promise<void> {
+    return new Promise((resolve, reject) => {
+      db.run(`DELETE FROM home_sections WHERE id = ?`, [id], (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
+  }
+
 }

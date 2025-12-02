@@ -7,6 +7,7 @@ export { default as AppointmentDetailsModalDesktop } from './AppointmentDetailsM
 export { default as HeaderMessageModalDesktop } from './HeaderMessageModalDesktop';
 export { default as EmailConfigModalDesktop } from './EmailConfigModalDesktop';
 export { default as AboutDetailsModalDesktop } from './AboutDetailsModalDesktop';
+export { default as HomeDetailsModalDesktop } from './HomeDetailsModalDesktop';
 
 // Mobile Modals
 export { default as CustomerLimitsModalMobile } from './CustomerLimitsModalMobile';
@@ -17,3 +18,4 @@ export { default as AppointmentDetailsModalMobile } from './AppointmentDetailsMo
 export { default as HeaderMessageModalMobile } from './HeaderMessageModalMobile';
 export { default as EmailConfigModalMobile } from './EmailConfigModalMobile';
 export { default as AboutDetailsModalMobile } from './AboutDetailsModalMobile';
+export { default as HomeDetailsModalMobile } from './HomeDetailsModalMobile';

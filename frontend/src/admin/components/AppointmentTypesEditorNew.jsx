@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../../config/api';
 import { authenticatedFetch } from '../utils/apiHelper';
+import { useAdminTranslation } from '../utils/useAdminTranslation';
 
 const styles = `
   @media (max-width: 768px) {
@@ -24,7 +25,7 @@ const styles = `
   }
 `;
 
-const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
+const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave, t }) => {
   const [formData, setFormData] = useState({
     appName: '',
     appPrice: '',
@@ -69,7 +70,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
   const handleSubmit = () => {
     if (!formData.appName.trim()) {
-      alert('Name is required');
+      alert(t('appointmentTypes.errors.nameRequired'));
       return;
     }
     onSave(formData);
@@ -98,20 +99,20 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
         overflow: 'auto'
       }} onClick={(e) => e.stopPropagation()}>
         <h2 style={{ marginTop: 0, marginBottom: '1.5rem', color: '#2c3e50' }}>
-          {appointment ? 'Edit Appointment Type' : 'New Appointment Type'}
+          {appointment ? t('appointmentTypes.editAppointment') : t('appointmentTypes.newAppointment')}
         </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-                Name *
+                {t('appointmentTypes.fields.name')} *
               </label>
               <input
                 type="text"
                 value={formData.appName}
                 onChange={(e) => setFormData({ ...formData, appName: e.target.value })}
-                placeholder="e.g., Individual Therapy Session"
+                placeholder={t('appointmentTypes.placeholders.name')}
                 style={{
                   width: '100%',
                   padding: '0.75rem',
@@ -124,7 +125,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-                Language *
+                {t('appointmentTypes.fields.language')} *
               </label>
               <select
                 value={formData.appLanguage}
@@ -150,7 +151,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-                Price
+                {t('appointmentTypes.fields.price')}
               </label>
               <input
                 type="number"
@@ -171,7 +172,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-                Currency
+                {t('appointmentTypes.currency')}
               </label>
               <select
                 value={formData.appCurrency}
@@ -195,7 +196,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
             <div>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-                Minutes
+                {t('appointmentTypes.fields.minutes')}
               </label>
               <input
                 type="text"
@@ -215,12 +216,12 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-              Description
+              {t('appointmentTypes.fields.description')}
             </label>
             <textarea
               value={formData.appDescription}
               onChange={(e) => setFormData({ ...formData, appDescription: e.target.value })}
-              placeholder="Brief description of this appointment type..."
+              placeholder={t('appointmentTypes.placeholders.description')}
               rows="3"
               style={{
                 width: '100%',
@@ -235,12 +236,12 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 
           <div>
             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#555' }}>
-              Features (one per line)
+              {t('appointmentTypes.fields.features')}
             </label>
             <textarea
               value={formData.appFeatures}
               onChange={(e) => setFormData({ ...formData, appFeatures: e.target.value })}
-              placeholder="Personalized treatment plan&#10;Confidential environment&#10;Evidence-based techniques"
+              placeholder={t('appointmentTypes.placeholders.features')}
               rows="4"
               style={{
                 width: '100%',
@@ -267,7 +268,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
               fontSize: '1rem'
             }}
           >
-            Cancel
+            {t('appointmentTypes.buttons.cancel')}
           </button>
           <button
             onClick={handleSubmit}
@@ -282,7 +283,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
               fontSize: '1rem'
             }}
           >
-            Save
+            {t('appointmentTypes.buttons.save')}
           </button>
         </div>
       </div>
@@ -291,6 +292,7 @@ const AppointmentDetailsModal = ({ isOpen, onClose, appointment, onSave }) => {
 };
 
 const AppointmentTypesEditorNew = ({ onCancel }) => {
+  const { t } = useAdminTranslation();
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
@@ -351,12 +353,12 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
       }
     } catch (error) {
       console.error('Error saving appointment:', error);
-      alert('Failed to save appointment type');
+      alert(t('appointmentTypes.errors.saveFailed'));
     }
   };
 
   const handleDelete = async (atid) => {
-    if (!confirm('Are you sure you want to delete this appointment type?')) return;
+    if (!confirm(t('appointmentTypes.confirmDelete'))) return;
 
     try {
       const response = await authenticatedFetch(`${API}/appointment-types/${atid}`, {
@@ -366,16 +368,16 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
       if (data.success) {
         await fetchAppointments();
       } else {
-        alert(data.error || 'Failed to delete appointment type');
+        alert(data.error || t('appointmentTypes.errors.deleteFailed'));
       }
     } catch (error) {
       console.error('Error deleting appointment:', error);
-      alert('Failed to delete appointment type');
+      alert(t('appointmentTypes.errors.deleteFailed'));
     }
   };
 
   if (loading) {
-    return <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+    return <div style={{ padding: '2rem', textAlign: 'center' }}>{t('appointmentTypes.loading')}</div>;
   }
 
   return (
@@ -384,7 +386,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
       <div style={{ padding: '1rem', maxWidth: '900px', margin: '0 auto' }}>
       {/* Appointment Types List */}
       <div style={{ marginBottom: '1rem' }}>
-        <h3 style={{ marginBottom: '1rem', color: '#2c3e50' }}>Appointment Types</h3>
+        <h3 style={{ marginBottom: '1rem', color: '#2c3e50' }}>{t('appointmentTypes.listTitle')}</h3>
         <div style={{ display: 'grid', gap: '1rem' }}>
           {appointments.map((appointment) => (
             <div key={appointment.atid} style={{
@@ -418,7 +420,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
                   </span>
                 </div>
                 <div style={{ fontSize: '0.9rem', color: '#666' }}>
-                  {appointment.appDuration} min • {appointment.appPrice ? `${appointment.appPrice} ${appointment.appCurrency}` : 'No price set'}
+                  {appointment.appDuration} min • {appointment.appPrice ? `${appointment.appPrice} ${appointment.appCurrency}` : t('appointmentTypes.noPriceSet')}
                 </div>
               </div>
 
@@ -435,7 +437,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
                     fontWeight: 600
                   }}
                 >
-                  Edit
+                  {t('appointmentTypes.buttons.edit')}
                 </button>
                 <button
                   onClick={() => handleDelete(appointment.atid)}
@@ -449,7 +451,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
                     fontWeight: 600
                   }}
                 >
-                  Delete
+                  {t('appointmentTypes.buttons.delete')}
                 </button>
               </div>
             </div>
@@ -473,7 +475,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
           marginBottom: '1rem'
         }}
       >
-        + Add Appointment Type
+        + {t('appointmentTypes.addType')}
       </button>
 
       {/* Close Button */}
@@ -491,7 +493,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
             cursor: 'pointer'
           }}
         >
-          Close
+          {t('appointmentTypes.buttons.close')}
         </button>
       </div>
 
@@ -500,6 +502,7 @@ const AppointmentTypesEditorNew = ({ onCancel }) => {
         onClose={() => setShowDetailsModal(false)}
         appointment={selectedAppointment}
         onSave={handleSave}
+        t={t}
       />
       </div>
     </>

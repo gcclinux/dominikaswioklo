@@ -88,11 +88,11 @@
         "description": "Control how many days of past and future appointments to show in admin lists"
       },
       "appointmentTypes": {
-        "title": "Appointment Details",
+        "title": "Appointment Page Content",
         "description": "Create and manage appointment types with names and prices"
       },
       "headerMessage": {
-        "title": "Header Message",
+        "title": "Home Page Header",
         "description": "Customize the calendar header message displayed to users"
       },
       "siteTheme": {
@@ -110,6 +110,10 @@
       "aboutDetails": {
         "title": "About Page Content",
         "description": "Customize the About page sections and content"
+      },
+      "homeDetails": {
+        "title": "Home Page Content",
+        "description": "Customize the Home page sections and content"
       }
     },
     "configure": "Configure",
@@ -482,13 +486,44 @@
     }
   },
   "appointmentTypes": {
-    "modalTitle": "📋 Appointment Details",
+    "modalTitle": "📋 Appointment Page Content",
     "infoBanner": "Define appointment types with names, tags, and prices for your booking system.",
+    "listTitle": "Appointment Types",
     "currency": "Currency",
     "namePlaceholder": "Name (e.g., Consultation)",
     "tagPlaceholder": "Tag (e.g., consultation)",
     "pricePlaceholder": "Price",
-    "addType": "Add Appointment Type"
+    "addType": "+ Add Appointment Type",
+    "newAppointment": "New Appointment Type",
+    "editAppointment": "Edit Appointment Type",
+    "fields": {
+      "name": "Name",
+      "language": "Language",
+      "price": "Price",
+      "minutes": "Minutes",
+      "description": "Description",
+      "features": "Features (one per line)"
+    },
+    "placeholders": {
+      "name": "e.g., Individual Therapy Session",
+      "description": "Brief description of this appointment type...",
+      "features": "Personalized treatment plan\nConfidential environment\nEvidence-based techniques"
+    },
+    "buttons": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "close": "Close",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "noPriceSet": "No price set",
+    "loading": "Loading...",
+    "errors": {
+      "nameRequired": "Name is required",
+      "saveFailed": "Failed to save appointment type",
+      "deleteFailed": "Failed to delete appointment type"
+    },
+    "confirmDelete": "Are you sure you want to delete this appointment type?"
   },
   "emailSettings": {
     "modalTitle": "📧 Email Configuration",
@@ -569,6 +604,7 @@
   },
   "newsletterModal": {
     "modalTitle": "📰 Create Newsletter",
+    "infoBanner": "HTML is supported. Use tags like <p>, <ul>, <li>, <strong>, <em> for formatting.",
     "title": "Title",
     "subtitle": "Subtitle",
     "messagePart1": "Message Part 1",
@@ -632,6 +668,35 @@
       "error": "Error saving about page content",
       "loaded": "About page content loaded",
       "loadFailed": "Failed to load about page content"
+    },
+    "helpText": "HTML is supported. Use tags like &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt; for formatting."
+  },
+  "homeDetails": {
+    "modalTitle": "🏠 Home Page Content",
+    "sections": {
+      "hero": "Hero Section",
+      "servicesHeading": "Services Heading",
+      "serviceIndividual": "Tile 1",
+      "serviceCouples": "Tile 2",
+      "serviceGroup": "Tile 3",
+      "whyChooseUs": "Why Choose Us"
+    },
+    "fields": {
+      "title": "Title",
+      "body": "Content (HTML allowed)"
+    },
+    "placeholders": {
+      "title": "Enter section title...",
+      "body": "Enter content (HTML tags like <p>, <ul>, <li> are supported)..."
+    },
+    "saveButton": "Save All Sections",
+    "saving": "Saving...",
+    "toast": {
+      "saved": "Home page content saved successfully!",
+      "failed": "Failed to save home page content",
+      "error": "Error saving home page content",
+      "loaded": "Home page content loaded",
+      "loadFailed": "Failed to load home page content"
     },
     "helpText": "HTML is supported. Use tags like &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt; for formatting."
   },

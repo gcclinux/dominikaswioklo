@@ -30,6 +30,8 @@ import {
   EmailConfigModalMobile,
   AboutDetailsModalDesktop,
   AboutDetailsModalMobile,
+  HomeDetailsModalDesktop,
+  HomeDetailsModalMobile,
 } from '../components/modals';
 
 const API_BASE = API;
@@ -161,14 +163,15 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
   const closeToast = () => setToast({ ...toast, visible: false });
 
   const settingsTiles = [
+    { id: 'homeDetails', title: t('settings.tiles.homeDetails.title'), description: t('settings.tiles.homeDetails.description'), icon: '🏠', color: '#1abc9c' },
+    { id: 'headerMessage', title: t('settings.tiles.headerMessage.title'), description: t('settings.tiles.headerMessage.description'), icon: '💬', color: '#F39C12' },
+    { id: 'aboutDetails', title: t('settings.tiles.aboutDetails.title'), description: t('settings.tiles.aboutDetails.description'), icon: 'ℹ️', color: '#9b59b6' },
+    { id: 'appointmentTypes', title: t('settings.tiles.appointmentTypes.title'), description: t('settings.tiles.appointmentTypes.description'), icon: '📋', color: '#3498db' },
     { id: 'customerLimits', title: t('settings.tiles.customerLimits.title'), description: t('settings.tiles.customerLimits.description'), icon: '📊', color: '#4A90E2' },
     { id: 'workingHours', title: t('settings.tiles.workingHours.title'), description: t('settings.tiles.workingHours.description'), icon: '🕐', color: '#48C9B0' },
     { id: 'displayAvailability', title: t('settings.tiles.displayAvailability.title'), description: t('settings.tiles.displayAvailability.description'), icon: '📅', color: '#AF7AC5' },
     { id: 'availabilityLock', title: t('settings.tiles.availabilityLock.title'), description: t('settings.tiles.availabilityLock.description'), icon: '🔒', color: '#EC7063' },
     { id: 'appointmentsFilter', title: t('settings.tiles.appointmentsFilter.title'), description: t('settings.tiles.appointmentsFilter.description'), icon: '🧮', color: '#2ECC71' },
-    { id: 'appointmentTypes', title: t('settings.tiles.appointmentTypes.title'), description: t('settings.tiles.appointmentTypes.description'), icon: '📋', color: '#3498db' },
-    { id: 'aboutDetails', title: t('settings.tiles.aboutDetails.title'), description: t('settings.tiles.aboutDetails.description'), icon: 'ℹ️', color: '#9b59b6' },
-    { id: 'headerMessage', title: t('settings.tiles.headerMessage.title'), description: t('settings.tiles.headerMessage.description'), icon: '💬', color: '#F39C12' },
     { id: 'siteTheme', title: t('settings.tiles.siteTheme.title'), description: t('settings.tiles.siteTheme.description'), icon: '🎨', color: '#9B59B6' },
     { id: 'emailSettings', title: t('settings.tiles.emailSettings.title'), description: t('settings.tiles.emailSettings.description'), icon: '📧', color: '#E67E22' },
     { id: 'newsletter', title: t('settings.tiles.newsletter.title'), description: t('settings.tiles.newsletter.description'), icon: '📰', color: '#16A085' },
@@ -524,6 +527,18 @@ function Settings({ onBack, currentAdmin, onLogout, isDevelopmentMode }) {
       ) : (
         <AboutDetailsModalDesktop
           isOpen={activeModal === 'aboutDetails'}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+
+      {isMobile ? (
+        <HomeDetailsModalMobile
+          isOpen={activeModal === 'homeDetails'}
+          onClose={() => setActiveModal(null)}
+        />
+      ) : (
+        <HomeDetailsModalDesktop
+          isOpen={activeModal === 'homeDetails'}
           onClose={() => setActiveModal(null)}
         />
       )}

@@ -88,11 +88,11 @@
         "description": "Kontroluj, ile dni przeszłych i przyszłych wizyt pokazać na listach administratora"
       },
       "appointmentTypes": {
-        "title": "Szczegóły Wizyt",
+        "title": "Treść Strony Wizyt",
         "description": "Twórz i zarządzaj typami wizyt z nazwami i cenami"
       },
       "headerMessage": {
-        "title": "Wiadomość Nagłówka",
+        "title": "Nagłówek Strony Głównej",
         "description": "Dostosuj wiadomość nagłówka kalendarza wyświetlaną użytkownikom"
       },
       "siteTheme": {
@@ -110,6 +110,10 @@
       "aboutDetails": {
         "title": "Treść Strony O Nas",
         "description": "Dostosuj sekcje i treść strony O Nas"
+      },
+      "homeDetails": {
+        "title": "Treść Strony Głównej",
+        "description": "Dostosuj sekcje i treść strony głównej"
       }
     },
     "configure": "Konfiguruj",
@@ -482,13 +486,44 @@
     }
   },
   "appointmentTypes": {
-    "modalTitle": "📋 Szczegóły wizyty",
+    "modalTitle": "📋 Treść Strony Wizyt",
     "infoBanner": "Zdefiniuj typy wizyt z nazwami, tagami i cenami dla swojego systemu rezerwacji.",
+    "listTitle": "Typy Wizyt",
     "currency": "Waluta",
     "namePlaceholder": "Nazwa (np. Konsultacja)",
     "tagPlaceholder": "Tag (np. konsultacja)",
     "pricePlaceholder": "Cena",
-    "addType": "Dodaj typ wizyty"
+    "addType": "+ Dodaj Typ Wizyty",
+    "newAppointment": "Nowy Typ Wizyty",
+    "editAppointment": "Edytuj Typ Wizyty",
+    "fields": {
+      "name": "Nazwa",
+      "language": "Język",
+      "price": "Cena",
+      "minutes": "Minuty",
+      "description": "Opis",
+      "features": "Funkcje (jedna na linię)"
+    },
+    "placeholders": {
+      "name": "np. Sesja Terapii Indywidualnej",
+      "description": "Krótki opis tego typu wizyty...",
+      "features": "Spersonalizowany plan leczenia\nPoufne środowisko\nTechniki oparte na dowodach"
+    },
+    "buttons": {
+      "save": "Zapisz",
+      "cancel": "Anuluj",
+      "close": "Zamknij",
+      "edit": "Edytuj",
+      "delete": "Usuń"
+    },
+    "noPriceSet": "Brak ceny",
+    "loading": "Ładowanie...",
+    "errors": {
+      "nameRequired": "Nazwa jest wymagana",
+      "saveFailed": "Nie udało się zapisać typu wizyty",
+      "deleteFailed": "Nie udało się usunąć typu wizyty"
+    },
+    "confirmDelete": "Czy na pewno chcesz usunąć ten typ wizyty?"
   },
   "emailSettings": {
   "useSslTls": "Użyj SSL/TLS",
@@ -567,7 +602,8 @@
     }
   },
   "newsletterModal": {
-    "modalTitle": "📰 Utwórz newsletter",
+    "modalTitle": "📰 Utwórz Newsletter",
+    "infoBanner": "HTML jest obsługiwany. Użyj tagów takich jak <p>, <ul>, <li>, <strong>, <em> do formatowania.",
     "title": "Tytuł",
     "subtitle": "Podtytuł",
     "messagePart1": "Część wiadomości 1",
@@ -632,6 +668,35 @@
       "error": "Błąd podczas zapisywania treści strony O Nas",
       "loaded": "Treść strony O Nas wczytana",
       "loadFailed": "Nie udało się wczytać treści strony O Nas"
+    },
+    "helpText": "HTML jest obsługiwany. Użyj tagów takich jak &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt; do formatowania."
+  },
+  "homeDetails": {
+    "modalTitle": "🏠 Treść Strony Głównej",
+    "sections": {
+      "hero": "Sekcja Hero",
+      "servicesHeading": "Nagłówek Usług",
+      "serviceIndividual": "Kafelek 1",
+      "serviceCouples": "Kafelek 2",
+      "serviceGroup": "Kafelek 3",
+      "whyChooseUs": "Dlaczego My"
+    },
+    "fields": {
+      "title": "Tytuł",
+      "body": "Treść (HTML dozwolony)"
+    },
+    "placeholders": {
+      "title": "Wprowadź tytuł sekcji...",
+      "body": "Wprowadź treść (tagi HTML jak <p>, <ul>, <li> są obsługiwane)..."
+    },
+    "saveButton": "Zapisz Wszystkie Sekcje",
+    "saving": "Zapisywanie...",
+    "toast": {
+      "saved": "Treść strony głównej zapisana pomyślnie!",
+      "failed": "Nie udało się zapisać treści strony głównej",
+      "error": "Błąd podczas zapisywania treści strony głównej",
+      "loaded": "Treść strony głównej wczytana",
+      "loadFailed": "Nie udało się wczytać treści strony głównej"
     },
     "helpText": "HTML jest obsługiwany. Użyj tagów takich jak &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;em&gt; do formatowania."
   },

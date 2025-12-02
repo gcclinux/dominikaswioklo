@@ -62,6 +62,18 @@ function NewsletterModal({ isOpen, onClose, onSave, onSubmit, draftData, isSubmi
     <>
       <Modal isOpen={isOpen} onClose={onClose} title={t('newsletterModal.modalTitle')} maxWidth="700px" closeOnOverlayClick={false}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        {/* Info Banner */}
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%)',
+          border: '1px solid rgba(102,126,234,0.3)',
+          borderRadius: '8px',
+          padding: '1rem',
+          marginBottom: '0.5rem'
+        }}>
+          <p style={{ margin: 0, color: '#5a67d8', fontSize: '0.9rem' }}>
+            💡 {t('newsletterModal.infoBanner')}
+          </p>
+        </div>
         <div>
           <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>
             {t('newsletterModal.title')} <span style={{ color: 'red' }}>*</span>
