@@ -67,7 +67,6 @@ Whether you're a therapist managing sensitive client relationships, a consultant
 ### 💎 Premium Features
 - **License-based premium tier** for advanced functionality
 - **Email notification system** (Premium)
-- **Enhanced customization options** (Premium)
 
 ---
 
