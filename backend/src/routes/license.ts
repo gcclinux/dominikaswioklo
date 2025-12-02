@@ -1,5 +1,5 @@
 import express from 'express';
-import { generateLicenseKey, validateLicenseKey } from '../config/license';
+import { generateLicenseKey, validateLicenseKey } from '../config/license.example';
 import { authenticateAdmin } from '../middleware/auth';
 import jwt from 'jsonwebtoken';
 import db from '../database/init';

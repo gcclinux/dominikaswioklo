@@ -1,7 +1,7 @@
 import express from 'express';
 import { DatabaseQueries } from '../database';
 import { ApiResponse } from '../types';
-import { validateLicenseKey } from '../config/license';
+import { validateLicenseKey } from '../config/license.example';
 import { authenticateAdmin } from '../middleware/auth';
 import db from '../database/init';
 

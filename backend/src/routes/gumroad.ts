@@ -1,6 +1,6 @@
 import express from 'express';
 import { DatabaseQueries } from '../database';
-import { generateLicenseKey } from '../config/license';
+import { generateLicenseKey } from '../config/license.example';
 import { EmailService } from '../services/emailService';
 import bodyParser from 'body-parser';
 

@@ -51,21 +51,21 @@ export default function Contact() {
               <i className="icon">📞</i>
               <div>
                 <strong>Telefon</strong>
-                <p><a href="tel:+48797194841">+48 797 194 841</a></p>
+                <p><a href="tel:+441234567890">+44 123 456 7890</a></p>
               </div>
             </div>
             <div className="contact-item">
               <i className="icon">📍</i>
               <div>
                 <strong>Adres</strong>
-                <p>Warszawa, ul. Odolańska 10</p>
+                <p>Holyrood Park, Edinburgh EH8 8AZ, UK</p>
               </div>
             </div>
             <div className="contact-item">
               <i className="icon">✉️</i>
               <div>
                 <strong>Email</strong>
-                <p><a href="mailto:dzienkiewicz2@gmail.com">dzienkiewicz2@gmail.com</a></p>
+                <p><a href="mailto:contact@example.co.uk">contact@example.co.uk</a></p>
               </div>
             </div>
           </div>
@@ -73,10 +73,10 @@ export default function Contact() {
           <div className="map-section">
             <h2>Jak Do Nas Trafić?</h2>
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2445.290941238473!2d21.01928187685396!3d52.201760159742214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x471eccdf9e71a545%3A0x2c364418ccd51224!2sGabinet%20Promyk%20-%20Psycholog%2C%20logopeda%2C%20fizjoterapeuta%20dzieci%C4%99cy!5e0!3m2!1spl!2spl!4v1758408434037!5m2!1spl!2spl" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30074.479145358557!2d-3.1638600321501853!3d55.926853731858486!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4887b87bb120ccb9%3A0xe723d1fdc5c0163!2sHolyrood%20Park!5e0!3m2!1sen!2suk!4v1764667881953!5m2!1sen!2suk" 
               className="map-iframe" 
               allowFullScreen 
-              title="Mapa dojazdu do gabinetu Promyk"
+              title="Mapa do Holyrood Park"
             ></iframe>
           </div>
 
