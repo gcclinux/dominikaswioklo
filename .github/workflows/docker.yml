@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -55,3 +55,33 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          body: |
+            ## 🛠️ Quick Start
+
+            ### Prerequisites
+            - Docker installed on your system
+
+            ### Installation
+
+            ```bash
+            # Pull the image
+            docker pull ghcr.io/gcclinux/easyscheduler:latest
+            # or
+            docker pull ghcr.io/gcclinux/easyscheduler:${{ github.ref_name }}
+
+            # Run the container
+            docker run --name "easyscheduler" -d -p 80:5000 -v scheduler-data:/app/data ghcr.io/gcclinux/easyscheduler:latest
+            ```
+
+            ### Access Points
+            - **Website**: http://localhost
+            - **Admin Panel**: http://localhost/#/admin
+            - **Scheduler**: http://localhost/#/easyscheduler
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
