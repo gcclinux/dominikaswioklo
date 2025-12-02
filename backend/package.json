@@ -1,6 +1,6 @@
 {
     "name": "appointment-scheduler-backend",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Appointment Scheduler API Server with SQLite3 and TypeScript",
     "main": "dist/server.js",
     "scripts": {

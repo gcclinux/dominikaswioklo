@@ -1,227 +1,168 @@
-# Therapy Site
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.1-blue.svg" alt="Version 1.0.1">
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg" alt="Node.js">
+  <img src="https://img.shields.io/badge/react-19-61dafb.svg" alt="React 19">
+</p>
 
-A modern, responsive therapy practice website with appointment scheduling built with React, Vite, and React Router.
+# 📅 EasyScheduler
 
-## Project Structure
+**The modern, elegant appointment booking system for professionals who value their time.**
+
+EasyScheduler is a beautifully crafted, full-featured scheduling platform designed for therapists, consultants, coaches, and service professionals. Built with modern web technologies, it offers a seamless experience for both you and your clients.
+
+---
+
+## ✨ Why EasyScheduler?
+
+Managing appointments shouldn't be complicated. EasyScheduler combines powerful functionality with an intuitive interface, giving you everything you need to run your practice efficiently—without the bloat of enterprise solutions or the limitations of basic booking tools.
+
+### 🎯 Built for Professionals
+
+Whether you're a therapist managing sensitive client relationships, a consultant juggling multiple meeting types, or a coach building your practice, EasyScheduler adapts to your workflow. Your clients see a polished, professional booking experience. You get complete control behind the scenes.
+
+---
+
+## 🚀 Key Features
+
+### 📆 Smart Scheduling
+- **Weekly calendar view** with intuitive time slot selection
+- **Real-time availability** updates—no double bookings
+- **Configurable business hours** including weekend availability
+- **Customer booking limits** to prevent over-scheduling (daily/weekly caps)
+- **Availability lock** to temporarily pause bookings when needed
+
+### 🌐 Multi-Language Support
+- **English and Polish** out of the box
+- Easy language switching for international clients
+- Separate content management for each language
+- Fully translated admin interface
+
+### 🎨 Customizable Experience
+- **Theme selection**: Choose between elegant Purple Gradient or professional Dark Green
+- **Dynamic content management** for Home, About, and Pricing pages
+- **Configurable appointment types** with custom pricing, duration, and descriptions
+- **Branded header messages** to personalize the booking experience
+
+### 💼 Powerful Admin Dashboard
+- **Tile-based interface** for quick access to all settings
+- **User management** with appointment history
+- **Blocked users/IPs** management for security
+- **Appointment filtering** with customizable date ranges
+- **Multi-admin support** with secure authentication
+
+### 📧 Communication Tools
+- **Email notifications** for bookings, confirmations, and cancellations
+- **Newsletter system** with HTML support for client outreach
+- **SMTP configuration** for reliable email delivery
+- **Customizable email footer** for branding
+
+### 🔒 Security & Privacy
+- **JWT-based authentication** for admin access
+- **Rate limiting** to prevent abuse
+- **GDPR-friendly** user data management
+- **Secure cancellation tokens** for appointment management
+- **IP blocking** capabilities
+
+### 💎 Premium Features
+- **License-based premium tier** for advanced functionality
+- **Email notification system** (Premium)
+- **Enhanced customization options** (Premium)
+
+---
+
+## 📸 Screenshots
+
+*Screenshots coming soon...*
+
+<!-- 
+Add your screenshots here:
+![Dashboard](screenshots/dashboard.png)
+![Scheduler](screenshots/scheduler.png)
+![Admin Settings](screenshots/settings.png)
+-->
+
+---
+
+## 🛠️ Quick Start
+
+### Prerequisites
+- Docker installed on your system
+
+### Installation
+
+```bash
+# Pull the image
+docker pull ghcr.io/gcclinux/easyscheduler:latest
+
+# Run the container
+docker run --name "easyscheduler" -d -p 80:5000 -v scheduler-data:/app/data ghcr.io/gcclinux/easyscheduler:latest
+```
+
+### Access Points
+- **Website**: http://localhost
+- **Admin Panel**: http://localhost/#/admin
+- **Scheduler**: http://localhost/#/easyscheduler
+
+> 📖 For development setup, source installation, and detailed admin documentation, see the [Admin Guide](ADMIN.md).
+
+---
+
+## 🏗️ Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| **Frontend** | React 19, Vite 7, React Router 7 |
+| **Backend** | Node.js, Express, TypeScript |
+| **Database** | SQLite (default), MongoDB (optional) |
+| **Styling** | CSS with CSS Variables for theming |
+| **i18n** | i18next for internationalization |
+| **Email** | Nodemailer with SMTP support |
+
+---
+
+## 📁 Project Structure
 
 ```
-├── frontend/                    # Main website (port 5173)
-│   ├── src/                    # Main site source code
-│   │   ├── admin/              # Admin panel (integrated)
-│   │   │   ├── components/     # Admin UI components
-│   │   │   ├── pages/          # Settings, Documentation
-│   │   │   └── utils/          # API helpers
-│   │   ├── components/         # Shared components (Navbar, Scheduler)
-│   │   ├── pages_en/           # English pages
-│   │   ├── pages_pl/           # Polish pages
-│   │   ├── context/            # React context (Language)
-│   │   └── config/             # API configuration
-│   ├── admin/                  # Legacy admin (deprecated)
-│   ├── public/                 # Static assets
-│   ├── index.html              # HTML entry point
-│   ├── package.json            # Frontend dependencies
-│   └── vite.config.js          # Vite configuration
-├── backend/                     # API server (port 5000)
+EasyScheduler/
+├── frontend/          # React frontend application
 │   ├── src/
-│   │   ├── database/           # Database queries and init
-│   │   ├── routes/             # API endpoints
-│   │   ├── middleware/         # Auth, rate limiting
-│   │   ├── services/           # Business logic
-│   │   ├── types/              # TypeScript types
-│   │   └── server.ts           # Express server
-│   ├── database/
-│   │   └── scheduler.db        # SQLite database (created on init)
-│   ├── package.json            # Backend dependencies
-│   └── tsconfig.json           # TypeScript configuration
-├── .env                         # Environment variables (create from .env.example)
-├── .env.example                # Example environment configuration
-├── package.json                # Root scripts
-└── README.md                   # This file
+│   │   ├── admin/     # Admin panel components
+│   │   ├── components/# Shared UI components
+│   │   ├── pages_en/  # English page content
+│   │   └── pages_pl/  # Polish page content
+│   └── public/        # Static assets & translations
+├── backend/           # Express API server
+│   ├── src/
+│   │   ├── routes/    # API endpoints
+│   │   ├── database/  # Database queries
+│   │   ├── services/  # Business logic
+│   │   └── templates/ # Email templates
+│   └── database/      # SQLite database file
+└── package.json       # Root scripts
 ```
 
-## Prerequisites
+---
 
-- **Node.js** (v18 or higher)
-- **npm** (comes with Node.js)
-- **Git** - [Download here](https://git-scm.com/)
+## 🤝 Contributing
 
-### Installing Node.js with NVM (Recommended)
+Contributions are welcome! Whether it's bug fixes, new features, or documentation improvements, feel free to open an issue or submit a pull request.
 
-**macOS/Linux:**
-```bash
-# Install NVM
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+---
 
-# Restart terminal or run:
-source ~/.bashrc  # or ~/.zshrc
+## 📄 License
 
-# Install Node.js
-nvm install 20
-nvm use 20
-```
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-**Windows:**
-- Download [nvm-windows](https://github.com/coreybutler/nvm-windows/releases)
-- Install and run:
-```bash
-nvm install 20
-nvm use 20
-```
+---
 
-**Alternative:** Download Node.js directly from [nodejs.org](https://nodejs.org/)
+## 🙏 Acknowledgments
 
-## Local Development Setup
+Built with ❤️ for professionals who believe that scheduling should be simple, elegant, and effective.
 
-### 1. Clone the repository
+---
 
-```bash
-git clone https://github.com/gcclinux/EasyScheduler.git
-cd EasyScheduler
-```
-
-### 2. Configure Environment Variables
-
-Copy the example environment file:
-
-```bash
-cp .env.example .env
-```
-
-Edit `.env` and configure the following:
-
-```bash
-# Server Configuration
-PORT=5000
-NODE_ENV=development
-
-# API Base URL
-VITE_API_BASE_URL=http://localhost:5000
-
-# Database
-DB_PATH=./backend/database/scheduler.db
-DB_TYPE=sqlite
-
-# Security (CHANGE IN PRODUCTION!)
-JWT_SECRET=change-this-to-a-strong-random-secret-in-production
-
-# Admin Dev Mode (bypass authentication)
-VITE_ADMIN_DEV_MODE=false
-
-# Premium Features
-PREMIUM_FEATURES_PURCHASE_URL=https://gumroad.com/easyscheduler
-PREMIUM_FEATURES_ENCRYPTION=easyscheduler-has-additional-key
-
-# MongoDB (only if DB_TYPE=mongodb)
-MONGODB_URI=mongodb://admin_user:user_password@host_id:27017
-MONGO_DB_NAME=easyscheduler
-```
-
-### 3. Install all dependencies
-```bash
-npm run install:all
-```
-
-This installs dependencies for root, frontend, and backend.
-
-### 4. Initialize database (first time only)
-```bash
-npm run db:init
-```
-
-This creates the SQLite database with all required tables.
-
-### 5. Start all development servers
-```bash
-npm run dev
-```
-
-This will start:
-- **Frontend**: `http://localhost:5173`
-- **Admin Panel**: `http://localhost:5173/#/admin`
-- **Scheduler**: `http://localhost:5173/#/easyscheduler`
-- **Backend API**: `http://localhost:5000`
-
-### 6. First Time Admin Setup
-
-Navigate to: `http://localhost:5173/#/admin`
-
-You'll be prompted to create the first admin account:
-- First Name
-- Last Name  
-- Email
-- Username
-- Password
-
-### 7. Configure Your Site
-
-After logging in, configure:
-
-**Settings → Header Message**
-- Set your site title/name (appears in navbar and browser tab)
-
-**Settings → Site Theme**
-- Choose between Purple Gradient or Dark Green theme
-
-**Settings → Appointment Details**
-- Create appointment types with:
-  - Name, Duration, Price, Currency
-  - Language (EN/PL)
-  - Description and Features
-- These automatically appear on the Prices page
-
-**Settings → Working Days & Hours**
-- Configure business hours and weekend availability
-
-**Settings → Customer Booking Limits**
-- Set daily and weekly appointment limits
-
-## Routing Structure
-
-### Main Site (with Navbar)
-- Home: `http://localhost:5173/#/`
-- Prices: `http://localhost:5173/#/prices`
-- About: `http://localhost:5173/#/about`
-- Contact: `http://localhost:5173/#/contact`
-- Appointment: `http://localhost:5173/#/appointment`
-
-### Admin Panel (no Navbar)
-- Dashboard: `http://localhost:5173/#/admin` → `frontend/src/admin/AdminApp.jsx`
-- Settings: `http://localhost:5173/#/admin/settings` → `frontend/src/admin/pages/Settings.jsx`
-- Documentation: `http://localhost:5173/#/admin/documentation` → `frontend/src/admin/pages/Documentation.jsx`
-
-### Scheduler (no Navbar)
-- Scheduler: `http://localhost:5173/#/easyscheduler` → `frontend/src/components/WeeklyScheduler.jsx`
-
-## Available Scripts
-
-- `npm run dev` - Start all servers (frontend + backend)
-- `npm run dev:frontend` - Start frontend only
-- `npm run dev:backend` - Start backend only
-- `npm run build` - Build frontend for production
-- `npm run db:init` - Initialize database
-- `npm run install:all` - Install dependencies for all projects
-- `npm run lint` - Run ESLint
-
-## Deployment
-
-The site automatically deploys to GitHub Pages when changes are pushed to the `main` branch.
-
-Live site: [https://gcclinux.github.io/EasyScheduler/](https://gcclinux.github.io/EasyScheduler/)
-
-## Tech Stack
-
-### Frontend
-- React 19
-- Vite 7
-- React Router 7
-
-### Backend
-- Node.js
-- Express
-- SQLite
-- TypeScript
-
-### Admin Panel
-- React 18
-- Vite 5
-- React Router 6
+<p align="center">
+  <strong>Ready to transform how you manage appointments?</strong><br>
+  <a href="ADMIN.md">Get Started with the Admin Guide →</a>
+</p>
