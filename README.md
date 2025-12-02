@@ -73,14 +73,42 @@ Whether you're a therapist managing sensitive client relationships, a consultant
 
 ## 📸 Screenshots
 
-*Screenshots coming soon...*
+<div align="center">
 
-<!-- 
-Add your screenshots here:
-![Dashboard](screenshots/dashboard.png)
-![Scheduler](screenshots/scheduler.png)
-![Admin Settings](screenshots/settings.png)
--->
+### 🏠 Home Page
+*Beautiful, responsive landing page with customizable content*
+
+![Home Page](images/home.png)
+
+---
+
+### 📅 Scheduler
+*Intuitive weekly calendar view for easy appointment booking*
+
+![Scheduler](images/scheduler.png)
+
+---
+
+### 🎛️ Admin Dashboard
+*Clean tile-based interface for managing your practice*
+
+![Admin Dashboard](images/mainAdmin.png)
+
+---
+
+### ⚙️ Settings
+*Comprehensive settings panel for full customization*
+
+![Settings](images/settings.png)
+
+---
+
+### 🔑 License Management
+*Easy premium license activation and management*
+
+![License](images/license.png)
+
+</div>
 
 ---
 
@@ -120,27 +148,6 @@ docker run --name "easyscheduler" -d -p 80:5000 -v scheduler-data:/app/data ghcr
 | **Email** | Nodemailer with SMTP support |
 
 ---
-
-## 📁 Project Structure
-
-```
-EasyScheduler/
-├── frontend/          # React frontend application
-│   ├── src/
-│   │   ├── admin/     # Admin panel components
-│   │   ├── components/# Shared UI components
-│   │   ├── pages_en/  # English page content
-│   │   └── pages_pl/  # Polish page content
-│   └── public/        # Static assets & translations
-├── backend/           # Express API server
-│   ├── src/
-│   │   ├── routes/    # API endpoints
-│   │   ├── database/  # Database queries
-│   │   ├── services/  # Business logic
-│   │   └── templates/ # Email templates
-│   └── database/      # SQLite database file
-└── package.json       # Root scripts
-```
 
 ---
 
